@@ -6,6 +6,7 @@
 #include <teclado.h>
 #include <idt.h>
 #include <video.h>
+#include <unistd.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -84,6 +85,15 @@ int main()
 
 	set_interrupts();
 
+	ncPrint("Initializing Scheduler...");
+	//initializeScheduler();
+	//startScheduler();
+	//ncPrint("Done.\n");
+
+	/* Initializes memory management */
+	ncPrint("Initializing Memory Management...");
+	initializePageStack();
+	ncPrint("Done.\n");;
 	clearscreen();
 	
 	((EntryPoint)codeModuleAddress)(); //ejecuta el code module

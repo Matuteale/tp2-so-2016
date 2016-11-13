@@ -1,13 +1,13 @@
 #ifndef PROCESS_SLOT_H
 #define PROCESS_SLOT_H
 
-#include "Process.h"
+#include "process.h"
 
-struct ProcessSlot {
+typedef struct ProcessSlot {
 	ProcessSlot * next;
 	Process * process;	
-};
+}ProcessSlot;
 
-ProcessSlot * ProcessSlot(Process * process);
+ProcessSlot * newProcessSlot(Process * process);
 
 #endif

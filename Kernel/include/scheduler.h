@@ -1,14 +1,14 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-#include "Process.h"
+#include "process.h"
 
 void * switchUserToKernel(void * esp);
 void * switchKernelToUser();
 void * getCurrentEntryPoint();
-struct Scheduler {
+typedef struct Scheduler {
 	ProcessSlot * currentProcess;
-};
+}Scheduler;
 
 Scheduler * newScheduler();
 

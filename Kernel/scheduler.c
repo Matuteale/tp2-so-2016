@@ -1,51 +1,53 @@
 #include <scheduler.h>
 
 Scheduler * newScheduler() {
-	current = null;
+	Scheduler * scheduler;
+	scheduler->currentProcess = null;
+	return scheduler;
 }
 
 static Scheduler * scheduler = newScheduler();
 
 void * switchUserToKernel(void * esp) {
-	Process * process = scheduler->current->process;
+	Process * process = scheduler->currentProcess->process;
 	process->userStack = esp;
 	return process->kernelStack;
 }
 
 void schedule() {
-	scheduler->current = current->next;
+	scheduler->currentProcess = currentProcess->next;
 }
 
 void * switchKernelToUser() {
 	scheduler->schedule();
-	return scheduler->current->process->userStack;
+	return scheduler->currentProcess->process->userStack;
 
-void * getCurrentEntryPoint() {
-	return scheduler->current->process->entryPoint;
+void * getCurrentProcessEntryPoint() {
+	return scheduler->currentProcess->process->entryPoint;
 }
 
 void * addProcess(Process * process) {
 	ProcessSlot * newProcess = new ProcessSlot(process);
 
-	if (scheduler->current == NULL) {
-		scheduler->current = newProcess;
-		scheduler->current->next = scheduler->current;
+	if (scheduler->currentProcess == NULL) {
+		scheduler->currentProcess = newProcess;
+		scheduler->currentProcess->next = scheduler->currentProcess;
 	} else {
-		ProcessSlot * next = scheduler->current->next;
-		scheduler->current->next = newProcess;
+		ProcessSlot * next = scheduler->currentProcess->next;
+		scheduler->currentProcess->next = newProcess;
 		newProcess->next = next;
 	}
 }
 
 void removeProcess(Process * process) {
-	ProcessSlot * prevSlot = scheduler->current;
-	ProcessSlot * slotToRemove = scheduler->current->next;
+	ProcessSlot * prevSlot = scheduler->currentProcess;
+	ProcessSlot * slotToRemove = scheduler->currentProcess->next;
 
-	if (current == NULL) {
+	if (currentProcess == NULL) {
 		return;
-	} else if (prevSlot == slotToRemove && process == current->process) {
-		free(scheduler->current);
-		scheduler->current = NULL;
+	} else if (prevSlot == slotToRemove && process == currentProcess->process) {
+		free(scheduler->currentProcess);
+		scheduler->currentProcess = NULL;
 		return;
 	}
 

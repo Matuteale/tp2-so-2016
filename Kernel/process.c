@@ -1,7 +1,9 @@
 #include <process.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <memManager.h>
 
-struct StackFrame {
+typedef struct StackFrame {
 	//Registers restore context
 	uint64_t gs;
 	uint64_t fs;
@@ -28,12 +30,17 @@ struct StackFrame {
 	uint64_t rsp;
 	uint64_t ss;
 	uint64_t base;
-};
+}StackFrame;
 
 	Process * newProcess(void * entryPoint) {
 		Process * process;
 		process->entryPoint = entryPoint;
 		process->userStack = fillStackFrame(entryPoint, process->userStack);
+		return process;
+	}
+
+	void * toStackAddress(void * page) {
+		return (uint8_t*)page + PAGE_SIZE - 0x10;
 	}
 
 	void * fillStackFrame(void * entryPoint, void * userStack) {
