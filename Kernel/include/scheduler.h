@@ -15,3 +15,5 @@ Scheduler * newScheduler();
 void schedule();
 void addProcess(Process * process);
 void removeProcess(Process * process);
+
+#endif

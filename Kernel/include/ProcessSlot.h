@@ -4,7 +4,7 @@
 #include "process.h"
 
 typedef struct ProcessSlot {
-	ProcessSlot * next;
+	struct ProcessSlot * next;
 	Process * process;	
 }ProcessSlot;
 
