@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <memManager.h>
+#define NO_MEMORY 0
 
 typedef struct StackFrame {
 	//Registers restore context
@@ -35,7 +36,8 @@ typedef struct StackFrame {
 	Process * newProcess(void * entryPoint) {
 		Process * process;
 		process->entryPoint = entryPoint;
-		process->userStack = fillStackFrame(entryPoint, process->userStack);
+		process->nOfPages = 0;
+		process->stack = fillStackFrame(entryPoint, process->stack);
 		return process;
 	}
 
@@ -43,8 +45,8 @@ typedef struct StackFrame {
 		return (uint8_t*)page + PAGE_SIZE - 0x10;
 	}
 
-	void * fillStackFrame(void * entryPoint, void * userStack) {
-		StackFrame * frame = (StackFrame*)userStack - 1;
+	void * fillStackFrame(void * entryPoint, void * stack) {
+		StackFrame * frame = (StackFrame*)stack - 1;
 		frame->gs =		0x001;
 		frame->fs =		0x002;
 		frame->r15 =	0x003;
@@ -70,4 +72,43 @@ typedef struct StackFrame {
 		frame->base =	0x000;
 
 	return frame;
+	}
+
+		static void * auxMemAlloc(Process * process, uint64_t size, uint64_t pageNum) {
+		if(process->nOfPages <= pageNum) {
+			pageManager(POP_PAGE, (process->memStack) + pageNum*PAGE_SIZE);
+			void * result = process->memStack;
+			process->memStackOffset[pageNum] = size;
+			process->nOfPages += 1;
+			return result;	
+		}
+		if((PAGE_SIZE - process->memStackOffset[0]) <= size){
+			void * result = process->memStack+ PAGE_SIZE*pageNum + process->memStackOffset[pageNum];
+			process->memStackOffset[pageNum] += size;
+			return result;
+		}
+		else {
+			return auxMemAlloc(process, size, pageNum+1);
+		}
+	}
+
+	static void * malloc(Process * process, uint64_t size) {
+		if(size > PAGE_SIZE) {
+			return NO_MEMORY;
+		}
+		if(process->nOfPages == 0) {
+			pageManager(POP_PAGE, process->memStack);
+			void * result = process->memStack;
+			process->memStackOffset[0] = size;
+			process->nOfPages += 1;
+			return result;
+		}
+		if((PAGE_SIZE - process->memStackOffset[0]) <= size){
+			void * result = process->memStack + process->memStackOffset[0];
+			process->memStackOffset[0] += size;
+			return result;
+		}
+		else {
+			return auxMemAlloc(process, size, 1);
+		}
 	}

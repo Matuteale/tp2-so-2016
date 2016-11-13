@@ -3,13 +3,6 @@
 #include <video.h>
 #include <memManager.h>
 
-#ifndef STACK_POSITION
-#define STACK_POSITION 0x10000000
-#endif
-
-#ifndef STACK_SIZE
-#define STACK_SIZE 262144  /* 1GiB divided into 4KiB pages*/
-#endif
 
 
 static void *pageStack[STACK_SIZE];
