@@ -4,18 +4,18 @@
 
 typedef struct idt_entry_struct
 {
-   unsigned short offset_low;           
-   unsigned short selector;               
-   unsigned char  always0;           
-   unsigned char  flags;             
+   unsigned short offset_low;
+   unsigned short selector;
+   unsigned char  always0;
+   unsigned char  flags;
    unsigned short offset_mid;
-   unsigned int offset_high;             
+   unsigned int offset_high;
    unsigned int always0_2;
 } idt_entry;
 
 int htoi(const char *str, int *result);
 
-void idt_set_entry(idt_entry *, unsigned char, unsigned long, 
+void idt_set_entry(idt_entry *, unsigned char, unsigned long,
 										unsigned short, unsigned char);
 void setup_idt();
 
@@ -42,6 +42,8 @@ void timer_tick(char *);
 void play_beep_idt(uint64_t freq, uint64_t time);
 
 void play_music_idt();
+
+void mem_alloc()
 
 extern int timertick;
 

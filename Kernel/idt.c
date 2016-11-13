@@ -18,14 +18,14 @@ void setup_idt()
    idt_set_entry(idt, 0x21, (unsigned long)&int_21_hand , 0x08, 0x8E);
    idt_set_entry(idt, 0x20, (unsigned long)&int_20_hand , 0x08, 0x8E);
    idt_set_entry(idt, 0x80, (unsigned long)&int_80_hand , 0x08, 0x8E);
-  
+
    mascaraPIC1(0xFE&0xFD);  //toma teclado y timertick
    mascaraPIC2(0xFF);
-   
+
 }
 
 /* setea una entrada de la IDT */
-void idt_set_entry(idt_entry * idt_entries, unsigned char index, 
+void idt_set_entry(idt_entry * idt_entries, unsigned char index,
 				unsigned long base, unsigned short sel, unsigned char flags)
 {
    idt_entries[index].offset_low = base & 0xFFFF;
@@ -39,7 +39,7 @@ void idt_set_entry(idt_entry * idt_entries, unsigned char index,
 
 /* maneja los interrupts del teclado, puede ser que tambien pare el sonido debido a una tecla */
 void keyboard_interrupt(unsigned short entrada)
-{	
+{
 	unsigned char valor;
 
 	if(suppress_screensaver() == SS_WAS_ON)
@@ -49,7 +49,7 @@ void keyboard_interrupt(unsigned short entrada)
 
 	if(valor == 'z' && suppress_sound() == S_WAS_ON)
 		return ;
-	
+
 	if(valor != IGNORE)
 		to_input_buffer(valor);
 
@@ -85,6 +85,11 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 {
 	play_beep(freq, time);
 }
+/* sys call 0xC */
+void mem_alloc()
+{
+  mem_alloc();
+}
 
 /* maneja los system calls */
 void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
@@ -101,6 +106,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xA: timer_tick((char *)str); break;
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
+    case 0xD: more_mem_alloc(); break;
 	}
 	return ;
 }

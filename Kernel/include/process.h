@@ -2,8 +2,7 @@
 #define PROCESS_H
 
 typedef struct Process {
-	void * userStack;
-	void * kernelStack;
+	void * stack;
 	void * entryPoint;
 } Process;
 

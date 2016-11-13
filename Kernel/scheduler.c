@@ -1,4 +1,4 @@
-/*#include <scheduler.h>
+#include <scheduler.h>
 #include <ProcessSlot.h>
 
 Scheduler * newScheduler() {
@@ -13,19 +13,12 @@ void initializeScheduler() {
 	scheduler = newScheduler();
 }
 
-void * switchUserToKernel(void * esp) {
+void * schedule(void * esp) {
 	Process * process = scheduler->currentProcess->process;
-	process->userStack = esp;
-	return process->kernelStack;
+	process->stack = esp;
+	scheduler->currentProcess = currentProcess->next; //Cambio de proceso
+	return scheduler->currentProcess->process->stack; //Devuelvo el stack del nuevo proceso
 }
-
-void schedule() {
-	scheduler->currentProcess = currentProcess->next;
-}
-
-void * switchKernelToUser() {
-	schedule();
-	return scheduler->currentProcess->process->userStack;
 
 void * getCurrentProcessEntryPoint() {
 	return scheduler->currentProcess->process->entryPoint;
@@ -62,4 +55,4 @@ void removeProcess(Process * process) {
 	}
 	prevSlot->next = slotToRemove->next;
 	free(slotToRemove);
-}*/
+}

@@ -35,7 +35,7 @@ typedef struct StackFrame {
 	Process * newProcess(void * entryPoint) {
 		Process * process;
 		process->entryPoint = entryPoint;
-		process->userStack = fillStackFrame(entryPoint, process->userStack);
+		process->stack = fillStackFrame(entryPoint, process->stack);
 		return process;
 	}
 
