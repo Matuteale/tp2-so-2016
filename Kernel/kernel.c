@@ -86,17 +86,18 @@ int main()
 	set_interrupts();
 
 	ncPrint("Initializing Scheduler...");
-	//initializeScheduler();
-	//startScheduler();
-	//ncPrint("Done.\n");
+	initializeScheduler();
+	ncPrint("Done.\n");
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
 	ncPrint("Done.\n");;
-	clearscreen();
 	
-	((EntryPoint)codeModuleAddress)(); //ejecuta el code module
+	//while(1);
+	clearscreen();
+	initializeProcessTable(codeModuleAddress);
+	//((EntryPoint)codeModuleAddress)(); //ejecuta el code module
 	
 	return 0;
 }

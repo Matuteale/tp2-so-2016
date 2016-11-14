@@ -1,7 +1,7 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-#include "process.h"
+#include <ProcessSlot.h>
 
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
@@ -13,5 +13,6 @@ Scheduler * newScheduler();
 void * schedule(void * esp);
 void addProcess(Process * process);
 void removeProcess(Process * process);
+void * mem_alloc();
 
 #endif

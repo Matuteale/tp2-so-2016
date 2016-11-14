@@ -4,6 +4,8 @@
 #include <memManager.h>
 #define NO_MEMORY 0
 
+typedef int (*EntryPoint)();
+
 typedef struct StackFrame {
 	//Registers restore context
 	uint64_t gs;
@@ -32,6 +34,25 @@ typedef struct StackFrame {
 	uint64_t ss;
 	uint64_t base;
 }StackFrame;
+
+	static ProcessTable * PTable;
+	
+	Process * initializeProcess(void * entryPoint) {
+		PTable->table[PTable->counter] = newProcess(entryPoint);
+		Process * aux = PTable->table[PTable->counter];
+		PTable->counter++;
+		return aux;
+	}
+
+
+	void initializeProcessTable(void * entryPoint) {
+		PTable->counter = 0;
+		addProcess(initializeProcess(entryPoint));
+				((EntryPoint)entryPoint)();
+
+	} 
+
+
 
 	Process * newProcess(void * entryPoint) {
 		Process * process;
@@ -90,6 +111,21 @@ typedef struct StackFrame {
 		else {
 			return auxMemAlloc(process, size, pageNum+1);
 		}
+	}
+
+	static pid_t getPID(Process * process) {
+		return process->PID;
+	}
+
+	static pid_t getParentPID(Process * process) {
+		return process->ParentPID;
+	}
+
+	void * OSalloc(Process * process) {
+		pageManager(POP_PAGE, process->memStack + PAGE_SIZE*process->nOfPages);
+		void * result = process->memStack + PAGE_SIZE*process->nOfPages;
+		process->nOfPages++;
+		return result;
 	}
 
 	static void * malloc(Process * process, uint64_t size) {

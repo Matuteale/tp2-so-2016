@@ -169,7 +169,3 @@ stop_sound_asm:
 	mov rsp,rbp
 	pop rbp
 	ret
-
-mem_alloc:
-
-  ret
