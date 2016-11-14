@@ -3,8 +3,6 @@
 
 #include "process.h"
 
-void * switchUserToKernel(void * esp);
-void * switchKernelToUser();
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
 	ProcessSlot * currentProcess;
@@ -12,7 +10,7 @@ typedef struct Scheduler {
 
 Scheduler * newScheduler();
 
-void schedule();
+void * schedule(void * esp);
 void addProcess(Process * process);
 void removeProcess(Process * process);
 
