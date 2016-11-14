@@ -36,3 +36,14 @@ callScheduler: ;Guardo el contexto del proceso y llamo al scheduler
 
   iretq
 
+section .bss
+
+ret_addr:
+  resq 1
+
+cs_addr:
+  resq 1
+
+ss_addr:
+  resq 1
+
