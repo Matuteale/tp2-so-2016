@@ -86,9 +86,9 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 	play_beep(freq, time);
 }
 /* sys call 0xC */
-void mem_alloc()
+void malloc(uint64_t size)
 {
-  mem_alloc();
+  mem_alloc(size);
 }
 
 /* maneja los system calls */
@@ -106,7 +106,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xA: timer_tick((char *)str); break;
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
-    case 0xD: more_mem_alloc(); break;
+    case 0xD: malloc(str); break;
 	}
 	return ;
 }
