@@ -63,6 +63,8 @@ void timer_interrupt()
 
 	screensavertimer();
 
+  callScheduler();
+
 	timertick = (timertick+1)%2;
 
 	return ;
