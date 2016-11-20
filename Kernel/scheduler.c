@@ -109,6 +109,8 @@ void * schedule(void * rsp) {
 
 	} while(current->state != READY);
 
+		currentProcess = current;
+
 	return current->stack;
 
 }
@@ -130,8 +132,7 @@ void printA() {
 void printB() {
 
 	while(1) {
-
-
+		ncPrint("B");
 	}
 
 }
@@ -142,8 +143,8 @@ void initializeScheduler() {
 	linkProcessStructures();
 	first_switch = 0;
 
-	//addProcess(&printA, "printA");
-	//addProcess(&printB, "printB");
+	addProcess(&printA, "printA");
+	addProcess(&printB, "printB");
 }
 
 void linkProcessStructures() {
@@ -186,7 +187,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	// copy name
 
-	new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
+	new_process->stack = fillStackFrame(entry_point, (char *) (&new_process->stack + STACK_SIZE));
 
 	new_process->state = READY;
 
