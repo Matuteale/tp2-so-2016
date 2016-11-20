@@ -55,6 +55,24 @@ static void * popPage() {
 	return NULL;
 }
 
+void * alloc() {
+
+	if (stackTop < STACK_SIZE) {
+
+		return pageStack[stackTop++];
+	}
+	return NULL;
+}
+
+void freeMem(void *page) {
+
+	if (stackTop > 0 && stackTop < STACK_SIZE) {
+	
+		pageStack[--stackTop] = page;
+	}
+
+
+}
 
 
 

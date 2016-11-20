@@ -83,22 +83,19 @@ int main()
 {	
 	setup_idt();
 
-	set_interrupts();
-
-	ncPrint("Initializing Scheduler...");
-	initializeScheduler();
-	ncPrint("Done.\n");
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
-	ncPrint("Done.\n");;
-	
-	//while(1);
+	ncPrint("Done.");
+	ncNewline();
 	clearscreen();
-	initializeProcessTable(codeModuleAddress);
-	//((EntryPoint)codeModuleAddress)(); //ejecuta el code module
+//	initializeScheduler();
+	addProcess(codeModuleAddress, "Shell");
+	set_interrupts();	
 	
+
+	//clearscreen();
 	return 0;
 }
 

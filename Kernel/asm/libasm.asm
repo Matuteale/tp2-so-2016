@@ -13,6 +13,7 @@ GLOBAL yield
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
+extern schedule
 
 %macro pushaq 0
     push rax
@@ -60,8 +61,9 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
 	pushaq            			; Se salvan los registros
 
-	call timer_interrupt
-
+	mov rdi, rsp
+	call schedule
+	mov rsp, rax
 	mov al, 20h					; Envio de EOI generico al PIC
 	out 20h,al
 

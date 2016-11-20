@@ -1,18 +1,28 @@
 #ifndef PROCESS_H
 #define PROCESS_H
-#define MAX_PROCESSES 4096/4
+#define MAX_PROCESSES 16
 #include <stdint.h>
 #include <memManager.h>
 #include <sys/types.h>
+
+typedef enum {
+
+	RUNNING = 0,
+	BLOCKED,
+	READY,
+	DEAD
+
+} ProcessState;
 
 typedef struct Process {
 	void * stack;
 	void * memStack [STACK_SIZE];
 	uint64_t nOfPages;
-	uint64_t memStackOffset[STACK_SIZE];
 	void * entryPoint;
 	pid_t PID;
 	pid_t ParentPID;
+	ProcessState state;
+	struct Process * next;
 } Process;
 
 typedef struct ProcessTable {

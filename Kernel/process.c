@@ -34,22 +34,12 @@ typedef struct StackFrame {
 	uint64_t ss;
 	uint64_t base;
 }StackFrame;
-
-	static ProcessTable * PTable;
 	
-	Process * initializeProcess(void * entryPoint) {
-		PTable->table[PTable->counter] = newProcess(entryPoint);
-		Process * aux = PTable->table[PTable->counter];
-		PTable->counter++;
-		return aux;
-	}
-
 
 	void initializeProcessTable(void * entryPoint) {
+		ProcessTable * PTable;
 		PTable->counter = 0;
-		addProcess(initializeProcess(entryPoint));
-				((EntryPoint)entryPoint)();
-
+		addProcess(entryPoint);
 	} 
 
 
@@ -58,6 +48,7 @@ typedef struct StackFrame {
 		Process * process;
 		process->entryPoint = entryPoint;
 		process->nOfPages = 0;
+		process->stack = alloc();
 		process->stack = fillStackFrame(entryPoint, process->stack);
 		return process;
 	}
@@ -95,23 +86,6 @@ typedef struct StackFrame {
 	return frame;
 	}
 
-		static void * auxMemAlloc(Process * process, uint64_t size, uint64_t pageNum) {
-		if(process->nOfPages <= pageNum) {
-			pageManager(POP_PAGE, (process->memStack) + pageNum*PAGE_SIZE);
-			void * result = process->memStack;
-			process->memStackOffset[pageNum] = size;
-			process->nOfPages += 1;
-			return result;	
-		}
-		if((PAGE_SIZE - process->memStackOffset[0]) <= size){
-			void * result = process->memStack+ PAGE_SIZE*pageNum + process->memStackOffset[pageNum];
-			process->memStackOffset[pageNum] += size;
-			return result;
-		}
-		else {
-			return auxMemAlloc(process, size, pageNum+1);
-		}
-	}
 
 	static pid_t getPID(Process * process) {
 		return process->PID;
@@ -122,29 +96,8 @@ typedef struct StackFrame {
 	}
 
 	void * OSalloc(Process * process) {
-		pageManager(POP_PAGE, process->memStack + PAGE_SIZE*process->nOfPages);
-		void * result = process->memStack + PAGE_SIZE*process->nOfPages;
+		void * result = process->memStack[process->nOfPages];
+		process->memStack[process->nOfPages] = alloc();
 		process->nOfPages++;
 		return result;
-	}
-
-	static void * malloc(Process * process, uint64_t size) {
-		if(size > PAGE_SIZE) {
-			return NO_MEMORY;
-		}
-		if(process->nOfPages == 0) {
-			pageManager(POP_PAGE, process->memStack);
-			void * result = process->memStack;
-			process->memStackOffset[0] = size;
-			process->nOfPages += 1;
-			return result;
-		}
-		if((PAGE_SIZE - process->memStackOffset[0]) <= size){
-			void * result = process->memStack + process->memStackOffset[0];
-			process->memStackOffset[0] += size;
-			return result;
-		}
-		else {
-			return auxMemAlloc(process, size, 1);
-		}
 	}
