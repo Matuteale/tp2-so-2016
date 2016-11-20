@@ -11,11 +11,11 @@ int freeProcesses = 16;
 
 Process process[16];
 
-Process * currentProcess;
+Process * currentProcess = NULL;
 
-Process * lastProcess;
+Process * lastProcess = NULL;
 
-Process * freeProcess;
+Process * freeProcess = NULL;
 
 int counter = 0;
 
@@ -87,7 +87,7 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 
 void * schedule(void * rsp) {
 	//ncPrint("Schedule.");
-
+	//ncPrintHex(rsp);
 
 	Process * current;
 
@@ -110,6 +110,19 @@ void * schedule(void * rsp) {
 	} while(current->state != READY);
 
 		currentProcess = current;
+	
+	 ncPrint("EntryPoint: ");
+	 ncPrintHex(currentProcess->entryPoint);
+	 ncNewline();
+	 ncPrint("stack: ");
+	 ncPrintHex(currentProcess->stack);
+	 ncNewline();
+	 ncPrint("next: ");
+	 ncPrintHex(currentProcess->next);
+	 ncNewline();
+	 ncPrint("PID: ");
+	 ncPrintDec(currentProcess->PID);
+
 
 	return current->stack;
 
@@ -132,7 +145,8 @@ void printA() {
 void printB() {
 
 	while(1) {
-		ncPrint("B");
+
+
 	}
 
 }
@@ -144,7 +158,7 @@ void initializeScheduler() {
 	first_switch = 0;
 
 	addProcess(&printA, "printA");
-	addProcess(&printB, "printB");
+	//addProcess(&printB, "printB");
 }
 
 void linkProcessStructures() {
@@ -169,7 +183,9 @@ pid_t addProcess(void * entry_point, char * name) {
 		initializeScheduler();
 	}
 
-	Process * new_process = newProcess(entry_point);
+	Process * new_process = &process[counter++];
+	new_process->stack = alloc();
+	new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
 
 	if(freeProcesses == 0) {
 
@@ -181,18 +197,19 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	//freeProcess = freeProcess->next_freeProcess;
 
-	new_process = &process[counter++];
+	
 
 	new_process->PID = getNewPid();
 
 	// copy name
 
-	new_process->stack = fillStackFrame(entry_point, (char *) (&new_process->stack + STACK_SIZE));
+	//new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
 
 	new_process->state = READY;
 
 	if(currentProcess == NULL) {
 
+		ncPrint("Entro bien");
 		currentProcess = new_process;
 
 		lastProcess = new_process;
@@ -211,17 +228,17 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	--freeProcesses;
 
-	//ncPrint("EntryPoint: ");
-	//ncPrintHex(new_process->entryPoint);
-	//ncNewline();
-	//ncPrint("stack: ");
-	//ncPrintHex(new_process->stack);
-	//ncNewline();
-	//ncPrint("next: ");
-	//ncPrintHex(new_process->next);
-	//ncNewline();
-	//ncPrint("PID: ");
-	//ncPrintDec(new_process->PID);
+	ncPrint("EntryPoint: ");
+	ncPrintHex(new_process->entryPoint);
+	ncNewline();
+	ncPrint("stack: ");
+	ncPrintHex(new_process->stack);
+	ncNewline();
+	ncPrint("next: ");
+	ncPrintHex(new_process->next);
+	ncNewline();
+	ncPrint("PID: ");
+	ncPrintDec(new_process->PID);
 
 	return new_process->PID;
 
@@ -234,7 +251,7 @@ int removeProcess(pid_t pid) {
 }
 
 void * mem_alloc() {
-	return OSalloc(currentProcess);
+	return alloc();
 }
 
 /*
