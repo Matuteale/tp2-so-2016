@@ -90,8 +90,8 @@ int main()
 	ncPrint("Done.");
 	ncNewline();
 	clearscreen();
-//	initializeScheduler();
-	addProcess(codeModuleAddress, "Shell");
+	//initializeScheduler();
+	//addProcess(codeModuleAddress, "Shell");
 	set_interrupts();	
 	
 

@@ -2,6 +2,8 @@
 #include <naiveConsole.h>
 #include <stddef.h>
 
+#define STACKKKK 4096
+
 
 int first_switch = 1;
 
@@ -16,6 +18,8 @@ Process * currentProcess = NULL;
 Process * lastProcess = NULL;
 
 Process * freeProcess = NULL;
+
+char stackkkk[STACKKKK];
 
 int counter = 0;
 
@@ -81,10 +85,6 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 	return stackFrame;
 }
 
-// functions
-
-
-
 void * schedule(void * rsp) {
 	//ncPrint("Schedule.");
 	//ncPrintHex(rsp);
@@ -98,7 +98,7 @@ void * schedule(void * rsp) {
 	} else {
 
 	
-	currentProcess->stack = rsp;
+	currentProcess->stackPointer = rsp;
 
 	}
 
@@ -109,7 +109,7 @@ void * schedule(void * rsp) {
 
 	} while(current->state != READY);
 
-		currentProcess = current;
+	currentProcess = current;
 	
 	 ncPrint("EntryPoint: ");
 	 ncPrintHex(currentProcess->entryPoint);
@@ -124,7 +124,7 @@ void * schedule(void * rsp) {
 	 ncPrintDec(currentProcess->PID);
 
 
-	return current->stack;
+	return current->stackPointer;
 
 }
 
@@ -154,11 +154,11 @@ void printB() {
 
 void initializeScheduler() {
 
-	linkProcessStructures();
 	first_switch = 0;
 
-	addProcess(&printA, "printA");
-	//addProcess(&printB, "printB");
+	//addProcess(0x400000, "Sehll");
+	addProcess(&printB, "printB");
+
 }
 
 void linkProcessStructures() {
@@ -184,8 +184,10 @@ pid_t addProcess(void * entry_point, char * name) {
 	}
 
 	Process * new_process = &process[counter++];
-	new_process->stack = alloc();
-	new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
+
+	//new_process->stack = stackkkk;
+
+	new_process->stack = fillStackFrame(entry_point, (char *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
 
@@ -204,8 +206,6 @@ pid_t addProcess(void * entry_point, char * name) {
 	// copy name
 
 	//new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
-
-	new_process->state = READY;
 
 	if(currentProcess == NULL) {
 
@@ -240,6 +240,8 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
 
+	new_process->state = READY;
+
 	return new_process->PID;
 
 }
@@ -256,18 +258,10 @@ void * mem_alloc() {
 
 /*
 Scheduler * scheduler;
-
 int first_switch = 1;
-
 int last_pid_given = 0;
-
 int freeProcesses = 16;
-
 ProcessTable * processes; 
-
-
-
-
 void * schedule(void * esp) {
 	if(first_switch == 1) {
 		first_switch = 0;
@@ -280,30 +274,24 @@ void * schedule(void * esp) {
 	scheduler->currentProcess = scheduler->currentProcess->next; //Cambio de proceso
 	return scheduler->currentProcess->process->stack; //Devuelvo el stack del nuevo proceso
 }
-
 Scheduler * newScheduler() {
 	Scheduler * scheduler;
 	pageManager(POP_PAGE, scheduler->currentProcess); //Allocate Mem for circular queue
 	return scheduler;
 }
-
 void dummy() {
 	while(1);
 }
-
 void * getCurrentProcessEntryPoint() {
 	return scheduler->currentProcess->process->entryPoint;
 }
-
 void initializeScheduler() {
 	scheduler = newScheduler();
 	addProcess(&dummy);
 }
-
 void addProcess(void * entryPoint) {
 	Process * process = newProcess(entryPoint);
 	ProcessSlot * newProcess = newProcessSlot(process);
-
 	if (!scheduler->currentProcess) {
 		scheduler->currentProcess = newProcess;
 		scheduler->currentProcess->next = scheduler->currentProcess;
@@ -313,11 +301,9 @@ void addProcess(void * entryPoint) {
 		newProcess->next = next;
 	}
 }
-
 void removeProcess(Process * process) {
 	ProcessSlot * prevSlot = scheduler->currentProcess;
 	ProcessSlot * slotToRemove = scheduler->currentProcess->next;
-
 	if (!scheduler->currentProcess) {
 		return;
 	} else if (prevSlot == slotToRemove && process == scheduler->currentProcess->process) {
@@ -332,38 +318,30 @@ void removeProcess(Process * process) {
 	prevSlot->next = slotToRemove->next;
 	//free(slotToRemove);
 }
-
 void * mem_alloc() {
 	return OSalloc(scheduler->currentProcess->process);
 }
-
 /*
 Scheduler * newScheduler() {
 	Scheduler * scheduler;
 	scheduler->currentProcess; //Allocate Mem for circular queue
 	return scheduler;
 }
-
 static Scheduler * scheduler;
-
 void initializeScheduler() {
 	scheduler = newScheduler();
 }
-
 void * schedule(void * esp) {
 	Process * process = scheduler->currentProcess->process;
 	process->stack = esp;
 	scheduler->currentProcess = currentProcess->next; //Cambio de proceso
 	return scheduler->currentProcess->process->stack; //Devuelvo el stack del nuevo proceso
 }
-
 void * getCurrentProcessEntryPoint() {
 	return scheduler->currentProcess->process->entryPoint;
 }
-
 void * addProcess(Process * process) {
 	ProcessSlot * newProcess = new ProcessSlot(process);
-
 	if (!scheduler->currentProcess) {
 		scheduler->currentProcess = newProcess;
 		scheduler->currentProcess->next = scheduler->currentProcess;
@@ -373,11 +351,9 @@ void * addProcess(Process * process) {
 		newProcess->next = next;
 	}
 }
-
 void removeProcess(Process * process) {
 	ProcessSlot * prevSlot = scheduler->currentProcess;
 	ProcessSlot * slotToRemove = scheduler->currentProcess->next;
-
 	if (!scheduler->currentProcess) {
 		return;
 	} else if (prevSlot == slotToRemove && process == currentProcess->process) {

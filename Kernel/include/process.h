@@ -16,7 +16,7 @@ typedef enum {
 
 typedef struct Process {
 	void * stack;
-	void * memStack [STACK_SIZE];
+	void * stackPointer;
 	uint64_t nOfPages;
 	void * entryPoint;
 	pid_t PID;

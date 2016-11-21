@@ -96,8 +96,5 @@ typedef struct StackFrame {
 	}
 
 	void * OSalloc(Process * process) {
-		void * result = process->memStack[process->nOfPages];
-		process->memStack[process->nOfPages] = alloc();
-		process->nOfPages++;
-		return result;
+		return alloc();
 	}
