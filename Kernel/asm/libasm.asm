@@ -68,6 +68,7 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
   mov     rdi, rsp
   call    userSchedToKernel
+  mov     rsp, rax
 
   call    kernelSchedToUser
   mov     rsp, rax
