@@ -3,7 +3,9 @@ global callScheduler
 global forceScheduler
 extern main
 extern initializeKernelBinary
-extern schedule
+extern userSchedToKernel
+extern kernelSchedToUser
+extern setNextProcess
 
 %macro pusha 0
     push    rax
