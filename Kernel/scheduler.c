@@ -122,7 +122,6 @@ void setNextProcess(){
 
 void * kernelSchedToUser(){
 	while(1){
-		ncPrintHex(currentProcess->stackPointer);
 		ncNewline();
 	}
 	return currentProcess->stackPointer;
