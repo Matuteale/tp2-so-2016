@@ -85,16 +85,13 @@ void * initializeKernelBinary()
 int main()
 {
 	setup_idt();
-	set_interrupts();
 	ncPrint("#######################################################################");
-	clear_interrupts();
-	while(1);
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
 	ncPrint("Done.");
-
+	set_interrupts();
 	pit_setup(100);
 	ncNewline();
 	clearscreen();
