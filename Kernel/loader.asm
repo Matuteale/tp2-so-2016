@@ -1,8 +1,7 @@
 global loader
-global callScheduler
+global scheduleNow
 extern main
 extern initializeKernelBinary
-extern schedule
 
 %macro pusha 0
     push    rax
@@ -52,6 +51,45 @@ loader:
 hang:
 	hlt							;halt machine should kernel return
 	jmp hang
+
+;SoundBlasterosOS
+scheduleNow:
+    ;Push de los registros que dps va a levantar el iretq
+
+    pop         QWORD[ret_addr]         ;Direccion de retorno
+
+    mov         QWORD[ss_addr], ss      ;Stack Segment
+    push        QWORD[ss_addr]
+
+    push        rsp
+
+    pushf                               ;Se pushean los flags
+    mov         QWORD[cs_addr], cs      ;Code Segment
+    push        QWORD[cs_addr]
+    push        QWORD[ret_addr]         ;Direccion de retorno
+
+    ;En este momento el stack contiene:
+    ;
+    ; > ret_addr
+    ;   cs
+    ;   rflags
+    ;   rsp
+    ;   ss
+
+    pusha
+
+    mov         rdi, rsp
+    call        userSchedToKernel
+    mov         rsp, rax
+
+    call        setNextProcess
+
+    call        kernelSchedToUser
+    mov         rsp, rax
+
+    popa
+
+    iretq
 
 
 section .bss

@@ -4,9 +4,6 @@
 
 #define STACKKKK 4096
 
-
-int first_switch = 1;
-
 int last_pid_given = 0;
 
 int freeProcesses = 16;
@@ -154,11 +151,11 @@ void printB() {
 
 void initializeScheduler() {
 
-	first_switch = 0;
+	addProcess(0, "Null");
 
-	addProcess(printB, "Null");
-	//addProcess(&printB, "printB");
+	addProcess(codeModuleAddress, "Shell");
 
+	scheduleNow();
 }
 
 void linkProcessStructures() {
@@ -179,10 +176,6 @@ pid_t addProcess(void * entry_point, char * name) {
 	//ncPrintHex(entry_point);
 	//ncNewline();
 
-	if(first_switch == 1) {
-		initializeScheduler();
-	}
-
 	Process * new_process = &process[counter++];
 
 	//new_process->stack = stackkkk;
@@ -190,16 +183,12 @@ pid_t addProcess(void * entry_point, char * name) {
 	new_process->stack = fillStackFrame(entry_point, (char *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
-
 		return -1;
-
 	}
 
 	//new_process = freeProcess;
 
 	//freeProcess = freeProcess->next_freeProcess;
-
-
 
 	new_process->PID = getNewPid();
 	new_process->entryPoint = entry_point;
@@ -210,8 +199,9 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	if(currentProcess == NULL) {
 
-		ncPrint("Entro bien");
+		ncPrint("Agrego el Null process");
 		ncNewline();
+
 		currentProcess = new_process;
 
 		lastProcess = new_process;
