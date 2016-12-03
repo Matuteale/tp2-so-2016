@@ -115,7 +115,7 @@ void list_processes()
   sys_displayWrite(current->PID, 1);
   while(current->next != current)
   {
-    sys_displayWrite(current->->next->PID, 1);
+    sys_displayWrite(current->next->PID, 1);
     current = current->next;
   }
 }
