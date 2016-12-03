@@ -88,6 +88,7 @@ int main()
 	set_interrupts();
 	ncPrint("#######################################################################");
 	clear_interrupts();
+	while(1);
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
