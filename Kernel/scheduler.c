@@ -123,9 +123,9 @@ void setNextProcess(){
 void * kernelSchedToUser(){
 	ncPrint("EntryPointkernelTouser: ");
 	ncPrintHex(currentProcess->entryPoint);
-	if(currentProcess == NULL){
-		return kernelStack;
-	}
+	// if(currentProcess == NULL){
+	// 	return kernelStack;
+	// }
 	return currentProcess->stack;
 }
 
