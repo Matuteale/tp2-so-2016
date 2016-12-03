@@ -20,6 +20,7 @@ extern schedule
 extern kernelStack
 extern userSchedToKernel
 extern kernelSchedToUser
+extern setNextProcess
 
 %macro pushaq 0
     push rax
@@ -74,6 +75,8 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
   mov     rdi, rsp
   call    userSchedToKernel
   mov     rsp, rax
+
+  call    setNextProcess
 
   call    kernelSchedToUser
   mov     rsp, rax
