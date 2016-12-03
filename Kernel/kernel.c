@@ -98,8 +98,7 @@ int main()
 	//((EntryPoint)codeModuleAddress)();
 	addProcess(codeModuleAddress, "Shell");
 
-	//set_interrupts();
-	clear_interrupts();
+	set_interrupts();
 
 	//clearscreen();
 	return 0;

@@ -279,6 +279,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncNewline();
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
+	ncNewline();
 
 	new_process->state = READY;
 
