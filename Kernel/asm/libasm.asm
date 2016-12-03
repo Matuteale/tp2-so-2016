@@ -69,7 +69,6 @@ yield:
 	ret
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
-  cli
 
 	pushaq            			; Se salvan los registros
 
