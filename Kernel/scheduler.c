@@ -96,14 +96,15 @@ void * userSchedToKernel(uint64_t * rsp){
 	return kernelStack;
 }
 
-void * kernelSchedToUser(){
+void setNextProcess(){
 	Process * current = currentProcess;
-	do {
-		current = current->next;
+	if(current != 0 && current->next != 0){
+		do {
+			current = current->next;
 
-	} while(current->state != READY);
+		} while(current->state != READY);
 
-	currentProcess = current;
+		currentProcess = current;
 
 	 ncPrint("EntryPoint: ");
 	 ncPrintHex(currentProcess->entryPoint);
@@ -116,6 +117,11 @@ void * kernelSchedToUser(){
 	 ncNewline();
 	 ncPrint("PID: ");
 	 ncPrintDec(currentProcess->PID);
+	}
+}
+
+void * kernelSchedToUser(){
+	setNextProcess();
 
 	 //timer_interrupt();
 	return current->stackPointer;

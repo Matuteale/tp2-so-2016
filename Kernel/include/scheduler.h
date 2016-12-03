@@ -18,5 +18,6 @@ int removeProcess(pid_t pid);
 void * mem_alloc();
 void * userSchedToKernel(uint64_t * rsp);
 void * kernelSchedToUser();
+void setNextProcess();
 
 #endif
