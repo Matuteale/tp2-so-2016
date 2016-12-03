@@ -99,6 +99,7 @@ int main()
 	addProcess(0, "Null");
 	addProcess(codeModuleAddress, "Shell");
 
+	//set_interrupts();
 	clear_interrupts();
 
 	//clearscreen();

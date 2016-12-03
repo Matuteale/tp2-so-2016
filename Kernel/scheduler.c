@@ -246,6 +246,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	if(currentProcess == NULL) {
 
 		ncPrint("Entro bien");
+		ncNewline();
 		currentProcess = new_process;
 
 		lastProcess = new_process;
