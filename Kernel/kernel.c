@@ -98,7 +98,7 @@ int main()
 	initializeScheduler();
 	set_interrupts();
 
-	//clearscreen();
+	clearscreen();
 	return 0;
 }
 
