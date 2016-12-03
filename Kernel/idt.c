@@ -111,7 +111,7 @@ void kill_process()
 /* sys call 0xD */
 void list_processes()
 {
-  Process * current = currentProcess;
+  Process * current = getCurrentProcess();
   while(currentProcess->next != current)
   {
     sys_displayWrite(currentProcess->PID, 1);
