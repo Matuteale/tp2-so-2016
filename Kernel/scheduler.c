@@ -25,6 +25,8 @@ int counter = 0;
 
 extern void * kernelStack;
 
+static void * const codeModuleAddress = (void*)0x400000;
+
 typedef struct StackFrame {
 	//Registers restore context
 	uint64_t gs;
@@ -192,8 +194,8 @@ void initializeScheduler() {
 
 	first_switch = 0;
 
-	//addProcess(0x400000, "Sehll");
-	addProcess(&printB, "printB");
+	addProcess(0, "Null");
+	//addProcess(&printB, "printB");
 
 }
 
@@ -238,6 +240,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 
 	new_process->PID = getNewPid();
+	new_process->entryPoint = entry_point;
 
 	// copy name
 
@@ -266,7 +269,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	--freeProcesses;
 
 	ncPrint("EntryPoint: ");
-	ncPrintHex(*(new_process->entryPoint));
+	ncPrintHex(new_process->entryPoint);
 	ncNewline();
 	ncPrint("stack: ");
 	ncPrintHex(new_process->stack);

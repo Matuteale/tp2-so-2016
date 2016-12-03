@@ -96,7 +96,6 @@ int main()
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
-	addProcess(0, "Null");
 	addProcess(codeModuleAddress, "Shell");
 
 	//set_interrupts();
