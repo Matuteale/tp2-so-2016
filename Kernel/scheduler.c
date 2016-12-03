@@ -124,7 +124,7 @@ void * kernelSchedToUser(){
 	setNextProcess();
 
 	 //timer_interrupt();
-	return current->stackPointer;
+	return currentProcess->stackPointer;
 }
 
 void * schedule(void * rsp) {
