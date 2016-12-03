@@ -68,10 +68,9 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
   mov     rdi, rsp
   call    userSchedToKernel
-  mov     rsp, rax
 
-  ;call    kernelSchedToUser
-  ;mov     rsp, rax
+  call    kernelSchedToUser
+  mov     rsp, rax
 
 	mov al, 20h					; Envio de EOI generico al PIC
 	out 20h,al
