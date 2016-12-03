@@ -10,7 +10,6 @@ int freeProcesses = 16;
 
 Process process[16];
 
-Process * currentProcess = NULL;
 
 Process * lastProcess = NULL;
 
