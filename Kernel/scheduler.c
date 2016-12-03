@@ -271,7 +271,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrintHex(new_process->stack);
 	ncNewline();
 	ncPrint("next: ");
-	ncPrintHex(new_process->next);
+	ncPrintDec(new_process->next->PID);
 	ncNewline();
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
