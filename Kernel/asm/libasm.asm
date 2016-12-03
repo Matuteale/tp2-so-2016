@@ -9,11 +9,26 @@ GLOBAL read_byte_from_port_0x71
 GLOBAL play_sound_asm
 GLOBAL stop_sound_asm
 GLOBAL yield
+GLOBAL outb
+GLOBAL inb
 
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
 extern schedule
+
+outb:         ;outb(value, port)
+  mov rdx, rsi
+  mov rax, rdi
+  out dx, al
+  ret
+
+inb:
+  mov rax, 0      ;inb(value)
+  mov rdx, rdi
+  in al, dx
+  mov rax, rdi
+  ret
 
 %macro pushaq 0
     push rax
