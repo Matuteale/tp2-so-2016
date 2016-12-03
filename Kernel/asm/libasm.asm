@@ -72,6 +72,8 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
 pushaq            			; Se salvan los registros
 
+  call timer_interrupt
+
   mov     rdi, rsp
   call    userSchedToKernel
   mov     rsp, rax

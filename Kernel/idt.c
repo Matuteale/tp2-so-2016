@@ -95,11 +95,32 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 {
 	play_beep(freq, time);
 }
+
+/* sys call 0x1 */
+void create_process()
+{
+
+}
+
+/* sys call 0x2 */
+void kill_process()
+{
+
+}
+
+/* sys call 0xD */
+void list_processes()
+{
+
+}
+
 /* maneja los system calls */
 void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 {
 	switch(syscall)
 	{
+    case 0x1: create_process(); break;
+    case 0x2: kill_process(); break;
 		case 0x3: sys_readKeyboard((char *)str); break;
 		case 0x4: sys_displayWrite((char *)str, len); break;
 		case 0x5: read_rtc_time((char *) str, len); break;
@@ -110,6 +131,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xA: timer_tick((char *)str); break;
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
+    case 0xD: list_processes();
 	}
 	return ;
 }
