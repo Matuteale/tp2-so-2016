@@ -17,19 +17,6 @@ extern timer_interrupt
 extern syscall_handler
 extern schedule
 
-outb:         ;outb(value, port)
-  mov rdx, rsi
-  mov rax, rdi
-  out dx, al
-  ret
-
-inb:
-  mov rax, 0      ;inb(value)
-  mov rdx, rdi
-  in al, dx
-  mov rax, rdi
-  ret
-
 %macro pushaq 0
     push rax
     push rbx
@@ -85,6 +72,19 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 	popaq
 
     iretq
+
+outb:         ;outb(value, port)
+  mov rdx, rsi
+  mov rax, rdi
+  out dx, al
+  ret
+
+inb:
+  mov rax, 0      ;inb(value)
+  mov rdx, rdi
+  in al, dx
+  mov rax, rdi
+  ret
 
 int_21_hand:					; Handler de INT 21 ( Teclado )
 
