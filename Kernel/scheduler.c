@@ -121,6 +121,9 @@ void setNextProcess(){
 }
 
 void * kernelSchedToUser(){
+	if(currentProcess == NULL){
+		return kernelStack;
+	}
 	return currentProcess->stack;
 }
 
