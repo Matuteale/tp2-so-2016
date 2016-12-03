@@ -244,6 +244,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncNewline();
 
 	new_process->state = READY;
+	forceScheduler();
 
 	return new_process->PID;
 
