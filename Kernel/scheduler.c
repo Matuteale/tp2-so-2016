@@ -266,7 +266,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	--freeProcesses;
 
 	ncPrint("EntryPoint: ");
-	ncPrintHex(new_process->entryPoint);
+	ncPrintHex(*(new_process->entryPoint));
 	ncNewline();
 	ncPrint("stack: ");
 	ncPrintHex(new_process->stack);
