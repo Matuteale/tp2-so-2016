@@ -85,7 +85,7 @@ void * initializeKernelBinary()
 int main()
 {
 	setup_idt();
-
+	set_interrupts();
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
@@ -97,8 +97,6 @@ int main()
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
 	addProcess(codeModuleAddress, "Shell");
-
-	set_interrupts();
 
 	//clearscreen();
 	return 0;
