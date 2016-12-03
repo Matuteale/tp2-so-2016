@@ -77,14 +77,14 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 	pushaq            			; Se salvan los registros
 
 	mov rdi, rsp
-	call schedule
+	;call schedule
 	mov rsp, rax
 	mov al, 20h					; Envio de EOI generico al PIC
 	out 20h,al
 
 	popaq
 
-   	iretq
+    iretq
 
 int_21_hand:					; Handler de INT 21 ( Teclado )
 
