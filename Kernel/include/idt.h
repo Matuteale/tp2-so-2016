@@ -43,8 +43,6 @@ void play_beep_idt(uint64_t freq, uint64_t time);
 
 void play_music_idt();
 
-void mem_alloc();
-
 void pit_setup(uint32_t msecs);
 
 extern int timertick;
