@@ -23,7 +23,7 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-void * kernelStack;
+extern void * kernelStack;
 
 typedef struct StackFrame {
 	//Registers restore context
@@ -122,7 +122,7 @@ void * kernelSchedToUser(){
 	 ncPrint("PID: ");
 	 ncPrintDec(currentProcess->PID);
 
-	 timer_interrupt();
+	 //timer_interrupt();
 	return current->stackPointer;
 }
 
@@ -159,7 +159,7 @@ void * schedule(void * rsp) {
 	 ncPrint("PID: ");
 	 ncPrintDec(currentProcess->PID);
 
-	 timer_interrupt();
+	 //timer_interrupt();
 	return current->stackPointer;
 
 }
