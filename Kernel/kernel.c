@@ -87,6 +87,7 @@ int main()
 	setup_idt();
 	set_interrupts();
 	ncPrint("#######################################################################");
+	clear_interrupts();
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
