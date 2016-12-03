@@ -121,9 +121,6 @@ void setNextProcess(){
 }
 
 void * kernelSchedToUser(){
-	while(1){
-		ncNewline();
-	}
 	return currentProcess->stackPointer;
 }
 
