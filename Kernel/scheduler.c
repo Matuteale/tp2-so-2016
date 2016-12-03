@@ -147,7 +147,6 @@ void printB() {
 
 	while(1) {
 
-
 	}
 
 }
@@ -157,7 +156,7 @@ void initializeScheduler() {
 
 	first_switch = 0;
 
-	addProcess(0, "Null");
+	addProcess(printb, "Null");
 	//addProcess(&printB, "printB");
 
 }
