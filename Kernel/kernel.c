@@ -86,6 +86,7 @@ int main()
 {
 	setup_idt();
 	set_interrupts();
+	ncPrint("#######################################################################");
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
@@ -96,7 +97,6 @@ int main()
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
-	ncPrint("#######################################################################");
 	addProcess(codeModuleAddress, "Shell");
 
 	//clearscreen();
