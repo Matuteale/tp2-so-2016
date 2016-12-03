@@ -121,10 +121,7 @@ void setNextProcess(){
 }
 
 void * kernelSchedToUser(){
-	if(currentProcess == NULL){
-		return kernelStack;
-	}
-	return currentProcess->stackPointer;
+	return currentProcess->stack;
 }
 
 void * schedule(void * rsp) {
