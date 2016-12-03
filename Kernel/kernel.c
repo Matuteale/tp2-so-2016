@@ -92,7 +92,7 @@ int main()
 	initializePageStack();
 	ncPrint("Done.");
 
-	pit_setup(100);
+	pit_setup(100000);
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
