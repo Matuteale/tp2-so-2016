@@ -16,7 +16,6 @@ GLOBAL clear_interrupts
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
-extern schedule
 extern kernelStack
 extern userSchedToKernel
 extern kernelSchedToUser
