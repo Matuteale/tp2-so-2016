@@ -97,7 +97,8 @@ void * userSchedToKernel(uint64_t * rsp){
 }
 
 void setNextProcess(){
-	if(currentProcess != NULL && currentProcess->next != NULL){
+	Process * current = currentProcess;
+	if(current != NULL && current->next != NULL){
 		do {
 			current = current->next;
 
