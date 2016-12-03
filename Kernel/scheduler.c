@@ -106,9 +106,9 @@ void setNextProcess(){
 
 		currentProcess = current;
 
-		// ncPrint("EntryPoint: ");
-		// ncPrintHex(currentProcess->entryPoint);
-		// ncNewline();
+		ncPrint("EntryPoint: ");
+		ncPrintHex(currentProcess->entryPoint);
+		ncNewline();
 		ncPrint("stack: ");
 		ncPrintHex(currentProcess->stack);
 		ncNewline();
@@ -121,48 +121,12 @@ void setNextProcess(){
 }
 
 void * kernelSchedToUser(){
+	ncPrint("EntryPointkernelTouser: ");
+	ncPrintHex(currentProcess->entryPoint);
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
 	return currentProcess->stack;
-}
-
-void * schedule(void * rsp) {
-	//ncPrint("Schedule.");
-	//ncPrintHex(rsp);
-	Process * current;
-
-	if(first_switch == 1) {
-
-		initializeScheduler();
-
-	} else {
-		currentProcess->stackPointer = rsp;
-
-	}
-	current = currentProcess;
-	do {
-		current = current->next;
-
-	} while(current->state != READY);
-
-	currentProcess = current;
-
-	 ncPrint("EntryPoint: ");
-	 ncPrintHex(currentProcess->entryPoint);
-	 ncNewline();
-	 ncPrint("stack: ");
-	 ncPrintHex(currentProcess->stack);
-	 ncNewline();
-	 ncPrint("next: ");
-	 ncPrintHex(currentProcess->next);
-	 ncNewline();
-	 ncPrint("PID: ");
-	 ncPrintDec(currentProcess->PID);
-
-	 //timer_interrupt();
-	return current->stackPointer;
-
 }
 
 pid_t getNewPid() {

@@ -11,7 +11,6 @@ typedef struct Scheduler {
 
 Scheduler * newScheduler();
 
-void * schedule(void * esp);
 pid_t addProcess(void * entryPoint, char * name);
 //void removeProcess(Process * process);
 int removeProcess(pid_t pid);
