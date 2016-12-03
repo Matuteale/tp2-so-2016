@@ -64,6 +64,7 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 	pushaq            			; Se salvan los registros
 
 	mov rdi, rsp
+  call timer_interrupt
 	;call schedule
 	mov rsp, rax
 	mov al, 20h					; Envio de EOI generico al PIC
