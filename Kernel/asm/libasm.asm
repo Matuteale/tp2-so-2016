@@ -16,6 +16,9 @@ extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
 extern schedule
+extern kernelStack
+extern userSchedToKernel
+extern kernelSchedToUser
 
 %macro pushaq 0
     push rax
@@ -63,9 +66,13 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
 	pushaq            			; Se salvan los registros
 
-	mov rdi, rsp
-  call schedule
-	mov rsp, rax
+  mov     rdi, rsp
+  call    userSchedToKernel
+  mov     rsp, rax
+
+  call    kernelSchedToUser
+  mov     rsp, rax
+
 	mov al, 20h					; Envio de EOI generico al PIC
 	out 20h,al
 
@@ -186,3 +193,23 @@ stop_sound_asm:
 	mov rsp,rbp
 	pop rbp
 	ret
+
+//SoundBlasterosOS
+userToKernel:
+  pop QWORD[retAddr]
+
+  mov QWORD[procStack], rsp
+  mov rsp, QWORD[kernelStack]
+
+  push QWORD[retAddr]
+  ret
+
+//SoundBlasterosOS
+kernelToUser:
+  pop QWORD[retAddr]
+
+  mov QWORD[kernelStack], rsp
+  mov rsp, QWORD[procStack]
+
+  push QWORD[retAddr]
+  ret

@@ -23,6 +23,7 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
+extern void * kernelStack;
 
 typedef struct StackFrame {
 	//Registers restore context
@@ -85,10 +86,7 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 	return stackFrame;
 }
 
-void * schedule(void * rsp) {
-	//ncPrint("Schedule.");
-	//ncPrintHex(rsp);
-
+void * userSchedToKernel(uint64_t * rsp){
 	Process * current;
 
 	if(first_switch == 1) {
@@ -96,13 +94,41 @@ void * schedule(void * rsp) {
 		initializeScheduler();
 
 	} else {
-
-
-	currentProcess->stackPointer = rsp;
+		currentProcess->stackPointer = rsp;
 
 	}
-
 	current = currentProcess;
+	return kernelStack;
+}
+
+void * kernelSchedToUser(){
+	Process * current;
+	do {
+		current = current->next;
+
+	} while(current->state != READY);
+
+	currentProcess = current;
+
+	 ncPrint("EntryPoint: ");
+	 ncPrintHex(currentProcess->entryPoint);
+	 ncNewline();
+	 ncPrint("stack: ");
+	 ncPrintHex(currentProcess->stack);
+	 ncNewline();
+	 ncPrint("next: ");
+	 ncPrintHex(currentProcess->next);
+	 ncNewline();
+	 ncPrint("PID: ");
+	 ncPrintDec(currentProcess->PID);
+
+	 timer_interrupt();
+	return current->stackPointer;
+}
+
+void * schedule(void * rsp) {
+	//ncPrint("Schedule.");
+	//ncPrintHex(rsp);
 
 	do {
 		current = current->next;
@@ -124,8 +150,6 @@ void * schedule(void * rsp) {
 	 ncPrintDec(currentProcess->PID);
 
 	 timer_interrupt();
-
-
 	return current->stackPointer;
 
 }
