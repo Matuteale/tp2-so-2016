@@ -8,6 +8,7 @@ GLOBAL set_ss_timer
 GLOBAL timer_tick
 GLOBAL play_music_sys
 GLOBAL play_beep_sys
+GLOBAL ps_sys
 
 %macro pushaq 0
     push rax
