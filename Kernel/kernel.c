@@ -95,6 +95,7 @@ int main()
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
 	initializeScheduler();
+	addProcess(0, "Null");
 	addProcess(codeModuleAddress, "Shell");
 
 

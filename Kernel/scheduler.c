@@ -23,7 +23,7 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-void * kernelStack;
+extern void * kernelStack;
 
 typedef struct StackFrame {
 	//Registers restore context
