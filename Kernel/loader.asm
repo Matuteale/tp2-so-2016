@@ -2,6 +2,9 @@ global loader
 global scheduleNow
 extern main
 extern initializeKernelBinary
+extern userSchedToKernel
+extern kernelSchedToUser
+extern setNextProcess
 
 %macro pusha 0
     push    rax
