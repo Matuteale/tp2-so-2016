@@ -148,9 +148,9 @@ void * schedule(void * rsp) {
 
 	currentProcess = current;
 
-	 ncPrint("EntryPoint: ");
-	 ncPrintHex(currentProcess->entryPoint);
-	 ncNewline();
+	 // ncPrint("EntryPoint: ");
+	 // ncPrintHex(currentProcess->entryPoint);
+	 // ncNewline();
 	 ncPrint("stack: ");
 	 ncPrintHex(currentProcess->stack);
 	 ncNewline();
