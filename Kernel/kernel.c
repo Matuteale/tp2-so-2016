@@ -93,6 +93,7 @@ int main()
 	pit_setup(100);
 	ncNewline();
 	clearscreen();
+	((EntryPoint)codeModuleAddress)();
 	//initializeScheduler();
 	//addProcess(codeModuleAddress, "Shell");
 
