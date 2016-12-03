@@ -24,4 +24,6 @@ void beep();
 
 void music();
 
+void ps();
+
 #endif

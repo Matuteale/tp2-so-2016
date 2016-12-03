@@ -1,6 +1,7 @@
 #ifndef IDT_H
 #define IDT_H
 #include <stdint.h>
+#include <scheduler.h>
 
 typedef struct idt_entry_struct
 {
@@ -44,6 +45,12 @@ void play_beep_idt(uint64_t freq, uint64_t time);
 void play_music_idt();
 
 void pit_setup(uint32_t msecs);
+
+void list_processes();
+
+void kill_process();
+
+void create_process();
 
 extern int timertick;
 

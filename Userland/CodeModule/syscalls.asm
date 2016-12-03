@@ -76,6 +76,20 @@ read:
 	pop rbp
 	ret
 
+ps_sys:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0xD ;Se hace la llamada para listar los processes
+  mov rdx, 0
+  mov rcx, 0
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
 read_system_time:
 
 	push rbp
