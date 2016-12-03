@@ -80,20 +80,22 @@ void * initializeKernelBinary()
 }
 
 int main()
-{	
+{
 	setup_idt();
+	set_interrupts();
 
 
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
 	ncPrint("Done.");
+
+	pit_setup(100);
 	ncNewline();
 	clearscreen();
 	//initializeScheduler();
 	//addProcess(codeModuleAddress, "Shell");
-	set_interrupts();	
-	
+
 
 	//clearscreen();
 	return 0;

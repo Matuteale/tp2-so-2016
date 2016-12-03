@@ -19,9 +19,19 @@ void setup_idt()
    idt_set_entry(idt, 0x20, (unsigned long)&int_20_hand , 0x08, 0x8E);
    idt_set_entry(idt, 0x80, (unsigned long)&int_80_hand , 0x08, 0x8E);
 
-   mascaraPIC1(0xFE&0xFD);  //toma teclado y timertick
+   mascaraPIC1(0xFC);  //toma teclado y timertick
    mascaraPIC2(0xFF);
 
+}
+
+/*unicOS sebikul*/
+void pit_setup(uint32_t msecs) {
+  uint32_t count = 1193182 * msecs;
+  count /= 1000;
+
+  outb(0x36, 0x43);
+  outb(count, 0x40);
+  outb(count >> 8, 0x40);
 }
 
 /* setea una entrada de la IDT */
@@ -64,7 +74,7 @@ void timer_interrupt()
 	screensavertimer();
 
     callScheduler();
- 
+
 	timertick = (timertick+1)%2;
 
 	return ;

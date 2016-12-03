@@ -45,6 +45,8 @@ void play_music_idt();
 
 void mem_alloc();
 
+void pit_setup(uint32_t msecs);
+
 extern int timertick;
 
 #endif
