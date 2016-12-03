@@ -16,7 +16,7 @@ pid_t addProcess(void * entryPoint, char * name);
 //void removeProcess(Process * process);
 int removeProcess(pid_t pid);
 void * mem_alloc();
-void * userSchedToKernel(void * rsp);
+void * userSchedToKernel(uint64_t * rsp);
 void * kernelSchedToUser();
 
 #endif
