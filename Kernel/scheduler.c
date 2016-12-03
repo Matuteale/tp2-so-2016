@@ -156,7 +156,7 @@ void initializeScheduler() {
 
 	first_switch = 0;
 
-	addProcess(printb, "Null");
+	addProcess(printB, "Null");
 	//addProcess(&printB, "printB");
 
 }
