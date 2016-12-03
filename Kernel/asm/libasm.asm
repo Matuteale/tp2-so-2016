@@ -11,6 +11,7 @@ GLOBAL stop_sound_asm
 GLOBAL yield
 GLOBAL outb
 GLOBAL inb
+GLOBAL clear_interrupts
 
 extern keyboard_interrupt
 extern timer_interrupt
@@ -130,6 +131,10 @@ int_80_hand:					; Handler de INT 80 ( llamada al systema )
 set_interrupts:
 	sti
 	ret
+
+clear_interrupts:
+  cli
+  ret
 
 mascaraPIC1:					; Escribe mascara del PIC 1
 	push rbp

@@ -92,14 +92,14 @@ int main()
 	initializePageStack();
 	ncPrint("Done.");
 
-	pit_setup(1000000000);
+	pit_setup(100);
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
 	addProcess(0, "Null");
 	addProcess(codeModuleAddress, "Shell");
 
-	set_interrupts();
+	clear_interrupts();
 
 	//clearscreen();
 	return 0;
