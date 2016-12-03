@@ -114,12 +114,8 @@ void list_processes()
   Process * current = currentProcess;
   while(currentProcess->next != current)
   {
-    int i = 0;
-    while(s[i] != 0)
-    {
-     i++;
-    }
-    sys_displayWrite(currentProcess->PID, i);
+    sys_displayWrite(currentProcess->PID, 1);
+    currentProcess = currentProcess->next;
   }
 }
 
