@@ -151,7 +151,7 @@ void printB() {
 
 void initializeScheduler() {
 
-	addProcess(0, "Null");
+	addProcess(printB, "Null");
 
 	addProcess(codeModuleAddress, "Shell");
 
@@ -208,7 +208,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->next = new_process;
 
-		new_process->state = DEAD;
+		new_process->state = READY;
 
 	} else {
 
