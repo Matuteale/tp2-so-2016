@@ -106,17 +106,17 @@ void setNextProcess(){
 
 		currentProcess = current;
 
-		ncPrint("EntryPoint: ");
-		ncPrintHex(currentProcess->entryPoint);
-		ncNewline();
-		ncPrint("stack: ");
-		ncPrintHex(currentProcess->stack);
-		ncNewline();
-		ncPrint("next: ");
-	 	ncPrintHex(currentProcess->next);
-		ncNewline();
-	 	ncPrint("PID: ");
-	 	ncPrintDec(currentProcess->PID);
+		// ncPrint("EntryPoint: ");
+		// ncPrintHex(currentProcess->entryPoint);
+		// ncNewline();
+		// ncPrint("stack: ");
+		// ncPrintHex(currentProcess->stack);
+		// ncNewline();
+		// ncPrint("next: ");
+	 // 	ncPrintHex(currentProcess->next);
+		// ncNewline();
+	 // 	ncPrint("PID: ");
+	 // 	ncPrintDec(currentProcess->PID);
 	}
 }
 
