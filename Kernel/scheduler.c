@@ -89,17 +89,10 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 }
 
 void * userSchedToKernel(uint64_t * rsp){
-	Process * current;
 
-	if(first_switch == 1) {
-
-		initializeScheduler();
-
-	} else {
-		currentProcess->stackPointer = rsp;
-
+	if (currentProcess != 0) { //NULL
+		current->stack = stackPointer;
 	}
-	current = currentProcess;
 	return kernelStack;
 }
 
