@@ -52,7 +52,7 @@ typedef struct StackFrame {
 	uint64_t ss;
 	uint64_t base;
 }StackFrame;
-	
+
 
 void * fillStackFrame(void * entryPoint, void * userStack) {
 
@@ -97,7 +97,7 @@ void * schedule(void * rsp) {
 
 	} else {
 
-	
+
 	currentProcess->stackPointer = rsp;
 
 	}
@@ -110,7 +110,7 @@ void * schedule(void * rsp) {
 	} while(current->state != READY);
 
 	currentProcess = current;
-	
+
 	 ncPrint("EntryPoint: ");
 	 ncPrintHex(currentProcess->entryPoint);
 	 ncNewline();
@@ -122,6 +122,8 @@ void * schedule(void * rsp) {
 	 ncNewline();
 	 ncPrint("PID: ");
 	 ncPrintDec(currentProcess->PID);
+
+	 timer_interrupt();
 
 
 	return current->stackPointer;
@@ -199,7 +201,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	//freeProcess = freeProcess->next_freeProcess;
 
-	
+
 
 	new_process->PID = getNewPid();
 
@@ -261,7 +263,7 @@ Scheduler * scheduler;
 int first_switch = 1;
 int last_pid_given = 0;
 int freeProcesses = 16;
-ProcessTable * processes; 
+ProcessTable * processes;
 void * schedule(void * esp) {
 	if(first_switch == 1) {
 		first_switch = 0;

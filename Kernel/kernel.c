@@ -85,17 +85,17 @@ int main()
 	set_interrupts();
 
 
-	// /* Initializes memory management */
-	// ncPrint("Initializing Memory Management...");
-	// initializePageStack();
-	// ncPrint("Done.");
+	/* Initializes memory management */
+	ncPrint("Initializing Memory Management...");
+	initializePageStack();
+	ncPrint("Done.");
 
-	// pit_setup(100);
-	// ncNewline();
+	pit_setup(100);
+	ncNewline();
 	clearscreen();
-	((EntryPoint)codeModuleAddress)();
-	//initializeScheduler();
-	//addProcess(codeModuleAddress, "Shell");
+	//((EntryPoint)codeModuleAddress)();
+	initializeScheduler();
+	addProcess(codeModuleAddress, "Shell");
 
 
 	//clearscreen();

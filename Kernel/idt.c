@@ -73,11 +73,9 @@ void timer_interrupt()
 
 	screensavertimer();
 
-  //callScheduler();
-
 	timertick = (timertick+1)%2;
 
-	return ;
+	return;
 }
 
 /* sys call 0xA */

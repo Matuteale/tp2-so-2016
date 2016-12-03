@@ -2,6 +2,7 @@
 #define SCHEDULER_H
 
 #include <process.h>
+#include <idt.h>
 
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
