@@ -122,6 +122,7 @@ void setNextProcess(){
 
 void * kernelSchedToUser(){
 	if(currentProcess == NULL){
+		ncPrint("Entrooooooooooooo ");
 		return kernelStack;
 	}
 	return currentProcess->stackPointer;
