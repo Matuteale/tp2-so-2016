@@ -208,6 +208,8 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->next = new_process;
 
+		new_process->state = DEAD;
+
 	} else {
 
 		new_process->next = lastProcess->next;
@@ -216,9 +218,13 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		lastProcess = new_process;
 
+		new_process->state = READY;
+
 	}
 
 	--freeProcesses;
+	ncPrint("Agrego el nuevo process");
+	ncNewline();
 
 	ncPrint("EntryPoint: ");
 	ncPrintHex(new_process->entryPoint);
@@ -232,8 +238,6 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
 	ncNewline();
-
-	new_process->state = READY;
 
 	return new_process->PID;
 
