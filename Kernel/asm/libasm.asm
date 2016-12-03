@@ -194,7 +194,7 @@ stop_sound_asm:
 	pop rbp
 	ret
 
-//SoundBlasterosOS
+;SoundBlasterosOS
 userToKernel:
   pop QWORD[retAddr]
 
@@ -204,7 +204,7 @@ userToKernel:
   push QWORD[retAddr]
   ret
 
-//SoundBlasterosOS
+;SoundBlasterosOS
 kernelToUser:
   pop QWORD[retAddr]
 
