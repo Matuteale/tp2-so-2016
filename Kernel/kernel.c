@@ -96,6 +96,7 @@ int main()
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
+	ncPrint("#######################################################################");
 	addProcess(codeModuleAddress, "Shell");
 
 	//clearscreen();
