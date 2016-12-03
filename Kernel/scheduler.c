@@ -91,7 +91,7 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 void * userSchedToKernel(uint64_t * rsp){
 
 	if (currentProcess != 0) { //NULL
-		current->stack = stackPointer;
+		currentProcess->stack = rsp;
 	}
 	return kernelStack;
 }
