@@ -3,7 +3,6 @@
 
 #include <process.h>
 #include <idt.h>
-#include <stddef.h>
 
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
@@ -12,7 +11,7 @@ typedef struct Scheduler {
 
 Scheduler * newScheduler();
 
-Process * currentProcess = NULL;
+Process * currentProcess = 0;
 
 pid_t addProcess(void * entryPoint, char * name);
 //void removeProcess(Process * process);
