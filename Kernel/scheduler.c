@@ -102,7 +102,7 @@ void * userSchedToKernel(uint64_t * rsp){
 }
 
 void * kernelSchedToUser(){
-	Process * current;
+	Process * current = currentProcess;
 	do {
 		current = current->next;
 
@@ -129,7 +129,17 @@ void * kernelSchedToUser(){
 void * schedule(void * rsp) {
 	//ncPrint("Schedule.");
 	//ncPrintHex(rsp);
+	Process * current;
 
+	if(first_switch == 1) {
+
+		initializeScheduler();
+
+	} else {
+		currentProcess->stackPointer = rsp;
+
+	}
+	current = currentProcess;
 	do {
 		current = current->next;
 
