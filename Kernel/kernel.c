@@ -91,12 +91,12 @@ int main()
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
 	ncPrint("Done.");
-	set_interrupts();
 	pit_setup(100);
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
 	addProcess(codeModuleAddress, "Shell");
+	set_interrupts();
 
 	//clearscreen();
 	return 0;
