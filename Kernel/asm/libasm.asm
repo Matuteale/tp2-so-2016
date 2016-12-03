@@ -16,6 +16,7 @@ GLOBAL clear_interrupts
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
+extern schedule
 extern kernelStack
 extern userSchedToKernel
 extern kernelSchedToUser
@@ -69,15 +70,15 @@ yield:
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
-	pushaq            			; Se salvan los registros
+pushaq            			; Se salvan los registros
 
   mov     rdi, rsp
   call    userSchedToKernel
   mov     rsp, rax
-
   call    setNextProcess
 
   call    kernelSchedToUser
+
   mov     rsp, rax
 
   mov rax, 0
@@ -85,7 +86,6 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 	out 20h,al
 
 	popaq
-
     iretq
 
 outb:         ;outb(value, port)
