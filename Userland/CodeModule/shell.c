@@ -63,8 +63,8 @@ void shell()
 void ps()
 {
 	int processPID[16];
-	printString("PID");
-	//ps_sys(processPID);
+	printString("PID\n");
+	ps_sys(processPID);
 }
 
 /* interpreta el comando ingresado */

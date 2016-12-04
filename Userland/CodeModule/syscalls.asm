@@ -84,7 +84,7 @@ ps_sys:
            ;Se usa la convecion de linux
   mov rax, 0xD ;Se hace la llamada para listar los processes
   mov rdx, 0
-  mov rcx, 0
+  mov rcx, rsi
   int 0x80
 
   mov rsp, rbp
