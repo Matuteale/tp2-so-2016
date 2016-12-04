@@ -226,8 +226,6 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->state = READY;
 
-		currentProcess->state = DEAD;
-
 	}
 
 	--freeProcesses;
