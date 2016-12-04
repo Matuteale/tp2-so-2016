@@ -212,22 +212,22 @@ stop_sound_asm:
 
 ;SoundBlasterosOS
 userToKernel:
-  pop QWORD[retAddr]
+  pop QWORD[ret_addr]
 
   mov QWORD[procStack], rsp
   mov rsp, QWORD[kernelStack]
 
-  push QWORD[retAddr]
+  push QWORD[ret_addr]
   ret
 
 ;SoundBlasterosOS
 kernelToUser:
-  pop QWORD[retAddr]
+  pop QWORD[ret_addr]
 
   mov QWORD[kernelStack], rsp
-  mov rsp, QWORD[procStack]
+  mov rsp, QWORD[proc_Stack]
 
-  push QWORD[retAddr]
+  push QWORD[ret_addr]
   ret
 
 section .bss
@@ -236,9 +236,5 @@ section .bss
   ret_addr:
     resq 1
 
-  cs_addr:
+  proc_Stack:
     resq 1
-
-  ss_addr:
-    resq 1
-
