@@ -212,6 +212,8 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	} else {
 
+		ncPrint("Agrego el nuevo process");
+
 		new_process->next = lastProcess->next;
 
 		lastProcess->next = new_process;
@@ -223,7 +225,6 @@ pid_t addProcess(void * entry_point, char * name) {
 	}
 
 	--freeProcesses;
-	ncPrint("Agrego el nuevo process");
 	ncNewline();
 
 	ncPrint("EntryPoint: ");
