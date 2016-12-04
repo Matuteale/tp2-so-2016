@@ -110,12 +110,14 @@ void kill_process()
 }
 
 /* sys call 0xD */
-void list_processes()
+void list_processes(int * vec)
 {
   Process * process = getCurrentProcess();
+  int i = 0;
   while(process != NULL){
     vec[i] = process->PID;
     process = process->next;
+    i++;
   }
 }
 
