@@ -23,65 +23,65 @@ State state[philosopherCount];
 // int philosopherId[philosopherCount];
 
 void * philosopher(void * id) {
-	while(1) {
-		//Think
-		//sleep(10);
-		sleep(randRange(5, 10));
+	// while(1) {
+	// 	//Think
+	// 	//sleep(10);
+	// 	sleep(randRange(5, 10));
 
-		takeForks(*(int*)id);
+	// 	takeForks(*(int*)id);
 
-		//Eat
-		//sleep(10);
-		sleep(randRange(5, 10));
+	// 	//Eat
+	// 	//sleep(10);
+	// 	sleep(randRange(5, 10));
 
-		putForks(*(int*)id);
-	}
+	// 	putForks(*(int*)id);
+	// }
 }
 
 void takeForks(int id) {
-	mutexLock(&mutex);				//Crit zone
+	// mutexLock(&mutex);				//Crit zone
 
-	//Set state
-	state[id] = Hungry;
-	setPhiloState(id, Hungry);
-	render();
+	// //Set state
+	// state[id] = Hungry;
+	// setPhiloState(id, Hungry);
+	// render();
 
-	test(id);								//Try to acquire forks
-	mutexUnlock(&mutex);			//Crit zone exit
-	mutexLock(&semaphores[id]);	//Locks if forks not acquired
+	// test(id);								//Try to acquire forks
+	// mutexUnlock(&mutex);			//Crit zone exit
+	// mutexLock(&semaphores[id]);	//Locks if forks not acquired
 }
 
 void putForks(int id) {
-	mutexLock(&mutex);				//Crit zone
+	// mutexLock(&mutex);				//Crit zone
 
-	//Set state
-	state[id] = Thinking;
-	//Think and release forks
-	setPhiloState(id, Thinking);
-	setForkState(left(id), -1);
-	setForkState(id, -1);
-	render();
+	// //Set state
+	// state[id] = Thinking;
+	// //Think and release forks
+	// setPhiloState(id, Thinking);
+	// setForkState(left(id), -1);
+	// setForkState(id, -1);
+	// render();
 
-	test(left(id));							//Try to acquire forks for left
-	test(right(id));						//Try to acquire forks for right
-	mutexUnlock(&mutex);			//Crit zone exit
+	// test(left(id));							//Try to acquire forks for left
+	// test(right(id));						//Try to acquire forks for right
+	// mutexUnlock(&mutex);			//Crit zone exit
 }
 
 void test(int id) {
-	if (state[id] == Hungry &&				//Philosopher is hungry
-		state[left(id)] != Eating &&		//Both philosophers at
-		state[right(id)] != Eating) {		//left and right are not eating
+	// if (state[id] == Hungry &&				//Philosopher is hungry
+	// 	state[left(id)] != Eating &&		//Both philosophers at
+	// 	state[right(id)] != Eating) {		//left and right are not eating
 
-		//Set state
-		state[id] = Eating;					//Philosopher can eat!
-		//Take forks and eat
-		setPhiloState(id, Eating);
-		setForkState(left(id), id);
-		setForkState(id, id);
-		render();
+	// 	//Set state
+	// 	state[id] = Eating;					//Philosopher can eat!
+	// 	//Take forks and eat
+	// 	setPhiloState(id, Eating);
+	// 	setForkState(left(id), id);
+	// 	setForkState(id, id);
+	// 	render();
 
-		mutexUnlock(&semaphores[id]);	//Forks acquired, unlock
-	}
+	// 	mutexUnlock(&semaphores[id]);	//Forks acquired, unlock
+	// }
 }
 
 int mainPhil(int argc, char ** argv) {
