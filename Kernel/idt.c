@@ -113,7 +113,9 @@ void list_processes()
 {
   Process * process = getProcessArray();
   for(int i = 0; i < 16; i++){
-    if(process[i] != NULL)
+    if(process[i] != NULL){
+
+    }
   }
 }
 
