@@ -65,12 +65,8 @@ void ps()
 	unsigned int processPID[16];
 	printString("PID\n");
 	ps_sys(0, processPID);
-	int i = 0;
-	char str[2];
 	while(processPID[i] != 0){
-		str[0] = processPID[i] + '0';
-		str[1] = 0;
-		printString(str);
+		printDec(processPID[i]);
 		printString("\n");
 		i++;
 	}
