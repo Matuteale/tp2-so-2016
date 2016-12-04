@@ -18,6 +18,6 @@ void * mem_alloc();
 void * userSchedToKernel(uint64_t * rsp);
 void * kernelSchedToUser();
 void setNextProcess();
-void * getProcessArray();
+Process * getProcessArray();
 
 #endif

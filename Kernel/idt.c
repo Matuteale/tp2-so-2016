@@ -112,15 +112,15 @@ void kill_process()
 /* sys call 0xD */
 void list_processes()
 {
-  void * process = getProcessArray();
+  Process * process = getProcessArray();
   ncPrint("PID");
   ncNewline();
-  for(int i = 0; i < 16; i++){
-    if(process[i] != NULL){
-      ncPrintDec(((Process *) process[i])->PID);
-      ncNewline();
-    }
-  }
+  // for(int i = 0; i < 16; i++){
+  //   if(process[i] != NULL){
+  //     ncPrintDec(process[i]->PID);
+  //     ncNewline();
+  //   }
+  // }
 }
 
 /* maneja los system calls */
