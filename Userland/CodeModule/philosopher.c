@@ -86,7 +86,6 @@ void test(int id) {
 
 int mainPhil(int argc, char ** argv) {
 	//Setup
-	while(1);
 
 	return 1;
 	// for (int i = 0; i < philosopherCount; i++) {
