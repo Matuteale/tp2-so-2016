@@ -117,15 +117,16 @@ void list_processes(uint64_t * vec)
   int i = 0;
   vec[i] = process->PID;
   i++;
-  while(process->next != NULL && process != current){
-    vec[i] = process->next->PID;
-    process = process->next;
-    i++;
-  }
-  while(i < 16){
-    vec[i] = 0;
-    i++;
-  }
+  vec[i] = 4;
+  // while(process->next != NULL && process != current){
+  //   vec[i] = process->next->PID;
+  //   process = process->next;
+  //   i++;
+  // }
+  // while(i < 16){
+  //   vec[i] = 0;
+  //   i++;
+  // }
 }
 
 /* maneja los system calls */
