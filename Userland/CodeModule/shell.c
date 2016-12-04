@@ -13,7 +13,7 @@ extern int set_ss_timer(int n);
 
 //comandos
 char * shell_commands[] = {"systime", "setsystime", "changecolor",
-						   "clear", "screensavertimer", "beep", "music", "ps", "help"} ;
+						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers"} ;
 
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,

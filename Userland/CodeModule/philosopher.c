@@ -103,8 +103,6 @@ int main(int argc, char ** argv) {
 	printf("running\n");
 	getchar();
 
-	pthread_attr_destroy(&attr);
-	pthread_exit(NULL);
 }
 
 int left(int i) {
