@@ -26,4 +26,6 @@ void music();
 
 void ps();
 
+void philosophers();
+
 #endif

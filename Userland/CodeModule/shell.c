@@ -18,7 +18,7 @@ char * shell_commands[] = {"systime", "setsystime", "changecolor",
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,
 						  change_text_color, clearscreen,
-						  screensavertimer, beep, music, ps, help} ;
+						  screensavertimer, beep, music, ps, help, philosophers} ;
 
 int command;
 char input_char;
@@ -98,6 +98,10 @@ void help()
 	return;
 }
 
+void philosophers()
+{
+
+}
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
 void screensavertimer()
