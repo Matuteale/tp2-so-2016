@@ -99,7 +99,7 @@ void setNextProcess(){
 		do {
 			current = current->next;
 
-		} while(current->state != RUNNING && current->state != READY);
+		} while(current->state != READY);
 
 		currentProcess->state = READY;
 		currentProcess = current;
