@@ -113,8 +113,12 @@ void kill_process()
 void list_processes(int * vec)
 {
   Process * process = getCurrentProcess();
+  Process * current = process;
   int i = 0;
-  while(process != NULL){
+  vec[i] = process->PID;
+  process = process->next;
+  i++;
+  while(process->PID != current->PID){
     vec[i] = process->PID;
     process = process->next;
     i++;
