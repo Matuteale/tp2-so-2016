@@ -229,3 +229,16 @@ kernelToUser:
 
   push QWORD[retAddr]
   ret
+
+section .bss
+
+
+  ret_addr:
+    resq 1
+
+  cs_addr:
+    resq 1
+
+  ss_addr:
+    resq 1
+
