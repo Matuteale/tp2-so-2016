@@ -114,11 +114,11 @@ void list_processes(int * vec)
 {
   Process * process = getCurrentProcess();
   int i = 0;
-  while(process != NULL){
-    vec[i] = process->PID;
-    process = process->next;
-    i++;
-  }
+  // while(process != NULL){
+  //   vec[i] = process->PID;
+  //   process = process->next;
+  //   i++;
+  // }
 }
 
 /* maneja los system calls */
