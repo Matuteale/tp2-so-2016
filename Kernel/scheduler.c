@@ -100,7 +100,7 @@ void setNextProcess(){
 			current = current->next;
 
 		} while(current->state != READY && current->state != RUNNING);
-		if(currentProcess->PID != 1){
+		if(currentProcess->state != DEAD){
 			currentProcess = READY;
 		}
 		current->state = RUNNING;
