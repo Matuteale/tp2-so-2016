@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "philosophers.h"
-#include "philosophersGUI.h"
+#include "philosopher.h"
+//#include "philosophersGUI.h"
 #include "shell.h"
 
 int left(int i);
