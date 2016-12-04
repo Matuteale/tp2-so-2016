@@ -15,7 +15,7 @@ typedef enum {
 } ProcessState;
 
 typedef struct Process {
-	char name[24];
+	char * name;
 	void * stack;
 	void * stackPointer;
 	uint64_t nOfPages;
