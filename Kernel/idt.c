@@ -112,7 +112,7 @@ void kill_process()
 /* sys call 0xD */
 void list_processes(uint64_t * vec)
 {
-  vec[0] = 2;
+  vec[0] = 15;
   // Process * process = getCurrentProcess();
   // Process * current = process;
   // int i = 0;

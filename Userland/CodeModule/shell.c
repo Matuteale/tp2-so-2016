@@ -71,6 +71,7 @@ void ps()
 		str[0] = processPID[i] + '0';
 		str[1] = 0;
 		printString(str);
+		printString("\n");
 		i++;
 	}
 }
