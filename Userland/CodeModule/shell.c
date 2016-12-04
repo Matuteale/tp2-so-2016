@@ -105,7 +105,6 @@ void help()
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
 	printString("----------------------------------------------------------\n");
-	while(1);
 
 	return;
 }
