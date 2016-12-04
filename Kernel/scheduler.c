@@ -211,6 +211,8 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->state = ACTIVE;
 
+		clearscreen();
+
 	}
 
 	--freeProcesses;
