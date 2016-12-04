@@ -65,13 +65,13 @@ void ps()
 	unsigned int processPID[16];
 	printString("PID\n");
 	ps_sys(0, processPID);
-	// int i = 0;
-	// while(processPID[i] != 0){
-	// 	char * str = processPID[i] + '0';
-	// 	printString(str);
-	// 	printString("hola\n");
-	// 	i++;
-	// }
+	int i = 0;
+	while(processPID[i] != 0){
+		char * str = processPID[i] + '0';
+		printString(str);
+		printString("hola\n");
+		i++;
+	}
 }
 
 /* interpreta el comando ingresado */
