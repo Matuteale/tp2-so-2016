@@ -99,11 +99,11 @@ void setNextProcess(){
 		do {
 			current = current->next;
 
-		} while(current->state != READY);
-		current->state = RUNNING;
+		} while(current->state != READY && current->state != RUNNING);
 		if(currentProcess->PID != 1){
 			currentProcess = READY;
 		}
+		current->state = RUNNING;
 		currentProcess = current;
 
 		// ncPrint("EntryPoint: ");
