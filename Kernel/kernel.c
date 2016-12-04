@@ -96,7 +96,6 @@ int main()
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
 	initializeScheduler();
-	set_interrupts();
 	clear_interrupts();
 
 	return 0;
