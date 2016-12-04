@@ -83,7 +83,7 @@ ps_sys:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0xD ;Se hace la llamada para listar los processes
-  mov rdx, rdi
+  mov rdx, rsi
   mov rcx, rsi
   int 0x80
 
@@ -97,7 +97,7 @@ read_system_time:
 	mov rbp, rsp
 	 				 ;Se usa la convecion de linux
 	mov rax, 0x5 ;Se hace la llamada para rtc_read
-	mov rdx ,rdi ;Se pasa por el registro rdx el tamaño del buffer
+	mov rdx, rdi ;Se pasa por el registro rdx el tamaño del buffer
 	mov rcx, rsi ;Se pasa por el registro rcx un puntero al buffer
 	int 0x80
 
