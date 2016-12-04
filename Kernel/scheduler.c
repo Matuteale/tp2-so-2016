@@ -12,9 +12,9 @@ Process process[16];
 
 Process * currentProcess = NULL;
 
-Process * lastProcess = NULL;
-
 Process * freeProcess = NULL;
+
+int inizialized = 0;
 
 char stackkkk[STACKKKK];
 
@@ -155,6 +155,8 @@ void initializeScheduler() {
 
 	addProcess(codeModuleAddress, "Shell");
 
+	inizialized = 1;
+
 	scheduleNow();
 }
 
@@ -208,8 +210,6 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess = new_process;
 
-		lastProcess = new_process;
-
 		new_process->next = new_process;
 
 		new_process->state = DEAD;
@@ -218,11 +218,9 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		ncPrint("Agrego el nuevo process");
 
-		new_process->next = lastProcess->next;
+		new_process->next = currentProcess->next;
 
-		lastProcess->next = new_process;
-
-		lastProcess = new_process;
+		currentProcess->next = new_process;
 
 		new_process->state = READY;
 
@@ -242,6 +240,9 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
 	ncNewline();
+	if(inizialized){
+		scheduleNow();
+	}
 
 	return new_process->PID;
 
@@ -253,7 +254,6 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-
 
 
 }
