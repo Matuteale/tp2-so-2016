@@ -243,6 +243,11 @@ pid_t addProcess(void * entry_point, char * name) {
 
 }
 
+Process * getCurrentProcess()
+{
+	return currentProcess;
+}
+
 int removeProcess(pid_t pid) {
 
 
