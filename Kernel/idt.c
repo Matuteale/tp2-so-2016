@@ -111,7 +111,10 @@ void kill_process()
 /* sys call 0xD */
 void list_processes()
 {
-  Process process[] = getProcessArray();
+  Process * process = getProcessArray();
+  for(int i = 0; i < 16; i++){
+    if(process[i] != NULL)
+  }
 }
 
 /* maneja los system calls */
