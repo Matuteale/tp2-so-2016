@@ -105,14 +105,12 @@ void help()
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
 	printString("----------------------------------------------------------\n");
-
-
 	return;
 }
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", help);
+	sys_addProcess("Philosophers", music);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
