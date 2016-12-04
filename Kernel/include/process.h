@@ -7,10 +7,11 @@
 
 typedef enum {
 
-	RUNNING = 0,
+	ACTIVE = 0,
 	BLOCKED,
-	READY,
-	DEAD
+	INACTIVE,
+	DEAD,
+
 
 } ProcessState;
 

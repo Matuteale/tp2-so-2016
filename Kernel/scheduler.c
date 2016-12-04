@@ -99,24 +99,8 @@ void setNextProcess(){
 		do {
 			current = current->next;
 
-		} while(current->state != READY && current->state != RUNNING);
-		if(currentProcess->state != DEAD){
-			currentProcess = READY;
-		}
-		current->state = RUNNING;
+		} while(current->state != ACTIVE);
 		currentProcess = current;
-
-		// ncPrint("EntryPoint: ");
-		// ncPrintHex(currentProcess->entryPoint);
-		// ncNewline();
-		// ncPrint("stack: ");
-		// ncPrintHex(currentProcess->stack);
-		// ncNewline();
-		// ncPrint("next: ");
-	 // 	ncPrintHex(currentProcess->next);
-		// ncNewline();
-	 // 	ncPrint("PID: ");
-	 // 	ncPrintDec(currentProcess->PID);
 	}
 }
 
@@ -213,7 +197,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->next = new_process;
 
-		new_process->state = DEAD;
+		new_process->state = INACTIVE;
 
 	} else {
 
@@ -223,7 +207,9 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess->next = new_process;
 
-		new_process->state = READY;
+		currentProcess->state = INACTIVE;
+
+		new_process->state = ACTIVE;
 
 	}
 
