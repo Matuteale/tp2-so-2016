@@ -100,6 +100,8 @@ void setNextProcess(){
 			current = current->next;
 
 		} while(current->state != READY);
+		current->state = RUNNING;
+		currentProcess = READY;
 		currentProcess = current;
 
 		// ncPrint("EntryPoint: ");
