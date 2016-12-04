@@ -38,7 +38,7 @@ void * philosopher(void * id) {
 }
 
 void takeForks(int id) {
-	pthread_mutex_lock(&mutex);				//Crit zone
+	mutexLock(&mutex);				//Crit zone
 
 	//Set state
 	state[id] = Hungry;
@@ -46,12 +46,12 @@ void takeForks(int id) {
 	render();
 
 	test(id);								//Try to acquire forks
-	pthread_mutex_unlock(&mutex);			//Crit zone exit
-	pthread_mutex_lock(&semaphores[id]);	//Locks if forks not acquired
+	mutexUnlock(&mutex);			//Crit zone exit
+	mutexLock(&semaphores[id]);	//Locks if forks not acquired
 }
 
 void putForks(int id) {
-	pthread_mutex_lock(&mutex);				//Crit zone
+	mutexLock(&mutex);				//Crit zone
 
 	//Set state
 	state[id] = Thinking;
@@ -63,7 +63,7 @@ void putForks(int id) {
 
 	test(left(id));							//Try to acquire forks for left
 	test(right(id));						//Try to acquire forks for right
-	pthread_mutex_unlock(&mutex);			//Crit zone exit
+	mutexUnlock(&mutex);			//Crit zone exit
 }
 
 void test(int id) {
@@ -79,17 +79,15 @@ void test(int id) {
 		setForkState(id, id);
 		render();
 
-		pthread_mutex_unlock(&semaphores[id]);	//Forks acquired, unlock
+		mutexUnlock(&semaphores[id]);	//Forks acquired, unlock
 	}
 }
 
 int main(int argc, char ** argv) {
 	//Setup
-	pthread_mutex_init(&mutex, NULL);
 
 	for (int i = 0; i < philosopherCount; i++) {
-		pthread_mutex_init(&semaphores[i], NULL);
-		pthread_mutex_lock(&semaphores[i]);		//Philosophers start not having
+		mutexLock(&semaphores[i]);		//Philosophers start not having
 	}											//ownership of the forks
 
 	pthread_attr_t attr;

@@ -1,13 +1,10 @@
 #include <stdint.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int mutexInit(phtread_attr_t * mutexLock) {
-	return pthread_attr_init(mutexLock);
-}
 
-int mutexDestroy(pthread_attr_t * mutexLock) {
-	return pthread_attr_destroy(mutexLock);
-}
 
 int mutexLock(uint8_t * mutexLock) {
 	while(enterCritRegion(mutexLock)) {
