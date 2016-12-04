@@ -222,7 +222,8 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess->next = new_process;
 
-		new_process->state = READY;
+		if(new_process->name != "Shell")
+			new_process->state = READY;
 
 	}
 
