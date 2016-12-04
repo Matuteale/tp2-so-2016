@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "philosophers.h"
 #include "philosophersGUI.h"
+#include "shell.h"
 
 int left(int i);
 int right(int i);
