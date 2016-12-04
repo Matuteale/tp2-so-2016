@@ -110,7 +110,7 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", ps);
+	sys_addProcess("Philosophers", help);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
