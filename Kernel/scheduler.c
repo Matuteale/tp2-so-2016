@@ -222,11 +222,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess->next = new_process;
 
-		if(new_process->PID == 2){
-			new_process->state = READY;
-		}else{
-			new_process->state = DEAD;
-		}
+		new_process->state = READY;
 
 	}
 
