@@ -64,7 +64,7 @@ void ps()
 {
 	unsigned int processPID[16];
 	printString("PID\n");
-	ps_sys(0, processPID);
+	ps_sys(processPID);
 	int i = 0;
 	while(processPID[i] != 0){
 		printDec(processPID[i]);
