@@ -233,8 +233,8 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrint("stack: ");
 	ncPrintHex(new_process->stack);
 	ncNewline();
-	ncPrint("next: ");
-	ncPrintDec(new_process->next->PID);
+	// ncPrint("next: ");
+	// ncPrintDec(new_process->next->PID);
 	ncNewline();
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
