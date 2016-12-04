@@ -63,7 +63,7 @@ void shell()
 void ps()
 {
 	unsigned int processPID[16];
-	printString("PID\n");
+	printString("PIDs\n");
 	ps_sys(processPID);
 	int i = 0;
 	while(processPID[i] != 0){
