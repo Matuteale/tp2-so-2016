@@ -185,7 +185,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	//new_process->stack = stackkkk;
 
-	new_process->stack = fillStackFrame(entry_point, (char *) new_process->stack + STACKKKK);
+	new_process->stack = fillStackFrame(entry_point, (void *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
 		return -1;
