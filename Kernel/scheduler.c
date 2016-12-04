@@ -101,7 +101,9 @@ void setNextProcess(){
 
 		} while(current->state != READY);
 		current->state = RUNNING;
-		currentProcess = READY;
+		if(currentProcess->PID != 1){
+			currentProcess = READY;
+		}
 		currentProcess = current;
 
 		// ncPrint("EntryPoint: ");
