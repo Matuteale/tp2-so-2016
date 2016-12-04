@@ -112,7 +112,8 @@ void help()
 
 void philosophers()
 {
-	char name[12] = "Philosophers";
+	char * name[1];
+	name[0] = 's',
 	sys_addProcess(name, help);
 }
 
