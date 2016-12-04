@@ -112,15 +112,11 @@ void kill_process()
 /* sys call 0xD */
 void list_processes()
 {
-  Process * process = getProcessArray();
-  ncPrint("PID");
-  ncNewline();
-  // for(int i = 0; i < 16; i++){
-  //   if(process[i] != NULL){
-  //     ncPrintDec(process[i]->PID);
-  //     ncNewline();
-  //   }
-  // }
+  Process * process = getCurrentProcess();
+  while(process != NULL){
+    vec[i] = process->PID;
+    process = process->next;
+  }
 }
 
 /* maneja los system calls */
@@ -140,7 +136,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xA: timer_tick((char *)str); break;
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
-   		case 0xD: list_processes();break;
+   	case 0xD: list_processes((int *) vec);break;
     	//case 0xE: mutexLockU(str);break;
 	}
 	return ;

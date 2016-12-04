@@ -62,7 +62,9 @@ void shell()
 /*Lista de procesos*/
 void ps()
 {
-	ps_sys();
+	int processPID[16];
+	printString("PID");
+	ps_sys(processPID);
 }
 
 /* interpreta el comando ingresado */
