@@ -62,7 +62,7 @@ void shell()
 /*Lista de procesos*/
 void ps()
 {
-	int processPID[16];
+	int processPID[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	printString("PID\n");
 	ps_sys(processPID);
 	int i = 0;
