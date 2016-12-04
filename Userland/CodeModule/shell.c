@@ -71,6 +71,7 @@ void ps()
 		printString("\nkkk");
 		i++;
 	}
+	printString("\nkkk")
 }
 
 /* interpreta el comando ingresado */
