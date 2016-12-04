@@ -66,8 +66,8 @@ void ps()
 	printString("PID\n");
 	ps_sys(processPID);
 	int i = 0;
-	while(vec[i] != 0){
-		printString(vec[i] + '0');
+	while(processPID[i] != 0){
+		printString(processPID[i] + '0');
 		printString("\n");
 		i++;
 	}
