@@ -100,10 +100,7 @@ void setNextProcess(){
 			current = current->next;
 
 		} while(current->state != READY);
-
-		currentProcess->state = READY;
 		currentProcess = current;
-		currentProcess->state = RUNNING;
 
 		// ncPrint("EntryPoint: ");
 		// ncPrintHex(currentProcess->entryPoint);
