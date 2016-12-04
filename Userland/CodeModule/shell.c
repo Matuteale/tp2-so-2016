@@ -64,7 +64,7 @@ void ps()
 {
 	int processPID[16];
 	printString("PID");
-	ps_sys(processPID);
+	//ps_sys(processPID);
 }
 
 /* interpreta el comando ingresado */
