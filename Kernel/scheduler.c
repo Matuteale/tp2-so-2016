@@ -243,7 +243,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 }
 
-Process * getProcessArray()
+void * getProcessArray()
 {
 	return process;
 }

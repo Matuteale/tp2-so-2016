@@ -5,6 +5,7 @@
 #include <screensaver.h>
 #include <RTCkernelspace.h>
 #include <sound.h>
+#include <naiveConsole.h>
 
 
 int timertick = 0;
@@ -111,10 +112,13 @@ void kill_process()
 /* sys call 0xD */
 void list_processes()
 {
-  Process process[] = getProcessArray();
+  void * process = getProcessArray();
+  ncPrint("PID");
+  ncNewline();
   for(int i = 0; i < 16; i++){
     if(process[i] != NULL){
-
+      ncPrintDec(process->PID);
+      ncNewline();
     }
   }
 }
