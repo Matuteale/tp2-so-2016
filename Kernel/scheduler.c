@@ -211,8 +211,6 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		new_process->state = ACTIVE;
 
-		clearscreen();
-
 	}
 
 	--freeProcesses;
@@ -229,6 +227,8 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrint("PID: ");
 	ncPrintDec(new_process->PID);
 	ncNewline();
+
+	clearscreen();
 
 	return new_process->PID;
 
