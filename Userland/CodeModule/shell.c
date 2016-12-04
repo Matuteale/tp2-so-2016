@@ -95,7 +95,6 @@ int parse_command(char * s1, char * s2)
 /* funcion de ayuda */
 void help()
 {
-	while(1){
 	printString("--------------------< shell commands >--------------------\n");
 	printString("systime - mostrar la hora y fecha del sistema \n");
 	printString("setsystime - modificar la hora y fecha del sistema\n");
@@ -106,7 +105,6 @@ void help()
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
 	printString("----------------------------------------------------------\n");
-}
 
 
 	return;
