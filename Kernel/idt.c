@@ -112,21 +112,21 @@ void kill_process()
 /* sys call 0xD */
 void list_processes(uint64_t * vec)
 {
-  Process * process = getCurrentProcess();
-  Process * current = process;
-  int i = 0;
-  vec[i] = process->PID;
-  process = process->next;
-  i++;
-  while(process->PID != current->PID){
-    vec[i] = process->PID;
-    process = process->next;
-    i++;
-  }
-  while(i < 16){
-    vec[i] = 0;
-    i++;
-  }
+  // Process * process = getCurrentProcess();
+  // Process * current = process;
+  // int i = 0;
+  // vec[i] = process->PID;
+  // process = process->next;
+  // i++;
+  // while(process->PID != current->PID){
+  //   vec[i] = process->PID;
+  //   process = process->next;
+  //   i++;
+  // }
+  // while(i < 16){
+  //   vec[i] = 0;
+  //   i++;
+  // }
 }
 
 /* maneja los system calls */
