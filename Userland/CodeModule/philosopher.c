@@ -87,8 +87,7 @@ void test(int id) {
 int mainPhil(int argc, char ** argv) {
 	//Setup
 	printString("--------------------< Soy filosofo >--------------------\n");
-	long int i = 0;
-	while(i<9999999999999);
+	while(1);
 
 	return 1;
 	// for (int i = 0; i < philosopherCount; i++) {

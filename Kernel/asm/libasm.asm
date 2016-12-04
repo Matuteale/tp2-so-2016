@@ -214,7 +214,7 @@ stop_sound_asm:
 userToKernel:
   pop QWORD[ret_addr]
 
-  mov QWORD[proc_Stack], rsp
+  mov QWORD[proc_stack], rsp
   mov rsp, QWORD[kernelStack]
 
   push QWORD[ret_addr]
@@ -225,7 +225,7 @@ kernelToUser:
   pop QWORD[ret_addr]
 
   mov QWORD[kernelStack], rsp
-  mov rsp, QWORD[proc_Stack]
+  mov rsp, QWORD[proc_stack]
 
   push QWORD[ret_addr]
   ret
@@ -236,5 +236,5 @@ section .bss
   ret_addr:
     resq 1
 
-  proc_Stack:
+  proc_stack:
     resq 1

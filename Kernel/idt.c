@@ -102,8 +102,8 @@ void create_process(void * entryPoint, char * name)
 {
   //userToKernel();
   addProcess(entryPoint, name);
-  //kernelToUser();
-  //scheduleNow();
+  kernelToUser();
+  scheduleNow();
 }
 
 /* sys call 0x2 */
@@ -137,6 +137,7 @@ void list_processes(int * vec, char ** names)
 /* maneja los system calls */
 void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 {
+  userToKernel();
 	switch(syscall)
 	{
     case 0x1: create_process((void *) str, (char *) len); break;
