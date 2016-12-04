@@ -58,27 +58,27 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 
 	StackFrame * stackFrame = (StackFrame *) userStack - 1;
 
-	stackFrame->gs = 0x001;
-	stackFrame->fs = 0x002;
-	stackFrame->r15 = 0x003;
-	stackFrame->r14 = 0x004;
-	stackFrame->r13 = 0x005;
-	stackFrame->r12 = 0x006;
-	stackFrame->r11 = 0x007;
-	stackFrame->r10 = 0x008;
-	stackFrame->r9 = 0x009;
-	stackFrame->r8 = 0x00A;
-	stackFrame->rsi = 0x00B;
-	stackFrame->rdi = 0x00C;
-	stackFrame->rbp = 0x00D;
-	stackFrame->rdx = 0x00E;
-	stackFrame->rcx = 0x00F;
+	stackFrame->gs = 0x01;
+	stackFrame->fs = 0x02;
+	stackFrame->r15 = 0x03;
+	stackFrame->r14 = 0x04;
+	stackFrame->r13 = 0x05;
+	stackFrame->r12 = 0x06;
+	stackFrame->r11 = 0x07;
+	stackFrame->r10 = 0x08;
+	stackFrame->r9 = 0x09;
+	stackFrame->r8 = 0x0A;
+	stackFrame->rsi = 0x0B;
+	stackFrame->rdi = 0x0C;
+	stackFrame->rbp = 0x0D;
+	stackFrame->rdx = 0x0E;
+	stackFrame->rcx = 0x0F;
 	stackFrame->rbx = 0x010;
 	stackFrame->rax = 0x011;
 	stackFrame->rip = (uint64_t) entryPoint;
 	stackFrame->cs = 0x008;
 	stackFrame->eflags = 0x202;
-	stackFrame->rsp = (uint64_t)&(stackFrame->base);
+	stackFrame->rsp = (uint64_t) userStack;
 	stackFrame->ss = 0x000;
 	stackFrame->base = 0x000;
 
