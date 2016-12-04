@@ -67,8 +67,9 @@ void ps()
 	ps_sys(processPID);
 	int i = 0;
 	while(processPID[i] != 0){
-		printString(processPID[i] + '0');
-		printString("\n");
+		char * str = processPID[i] + '0';
+		printString(str);
+		printString("hola\n");
 		i++;
 	}
 }
