@@ -241,7 +241,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrintDec(new_process->PID);
 	ncNewline();
 	if(inizialized){
-		//scheduleNow();
+		scheduleNow();
 	}
 
 	return new_process->PID;
