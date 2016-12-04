@@ -68,7 +68,7 @@ void ps()
 	int i = 0;
 	while(processPID[i] != 0){
 		printDec(processPID[i]);
-		printString("\n");
+		printString("\nkkk");
 		i++;
 	}
 }
