@@ -100,7 +100,9 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 /* sys call 0x1 */
 void create_process(void * entryPoint, char * name)
 {
+  userToKernel();
   addProcess(entryPoint, name);
+  kernelToUser();
 }
 
 /* sys call 0x2 */

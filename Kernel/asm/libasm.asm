@@ -12,6 +12,8 @@ GLOBAL yield
 GLOBAL outb
 GLOBAL inb
 GLOBAL clear_interrupts
+GLOBAL userToKernel
+GLOBAL kernelToUser
 
 extern keyboard_interrupt
 extern timer_interrupt
@@ -210,20 +212,20 @@ stop_sound_asm:
 
 ;SoundBlasterosOS
 userToKernel:
-  ;pop QWORD[retAddr]
+  pop QWORD[retAddr]
 
-  ;mov QWORD[procStack], rsp
-  ;mov rsp, QWORD[kernelStack]
+  mov QWORD[procStack], rsp
+  mov rsp, QWORD[kernelStack]
 
-  ;push QWORD[retAddr]
+  push QWORD[retAddr]
   ret
 
 ;SoundBlasterosOS
 kernelToUser:
-  ;pop QWORD[retAddr]
+  pop QWORD[retAddr]
 
-  ;mov QWORD[kernelStack], rsp
-  ;mov rsp, QWORD[procStack]
+  mov QWORD[kernelStack], rsp
+  mov rsp, QWORD[procStack]
 
-  ;push QWORD[retAddr]
+  push QWORD[retAddr]
   ret
