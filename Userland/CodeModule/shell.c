@@ -28,6 +28,7 @@ char command_buffer[BUFFERLENGTH] = {0};
 void shell()
 {
 	int i;
+	printString(PROMPT);
 
 	while(1)
 	{

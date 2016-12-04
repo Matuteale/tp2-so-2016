@@ -103,7 +103,7 @@ void create_process(void * entryPoint, char * name)
   userToKernel();
   addProcess(entryPoint, name);
   kernelToUser();
-  //scheduleNow();
+  scheduleNow();
 }
 
 /* sys call 0x2 */
