@@ -118,6 +118,8 @@ void list_processes(uint64_t * vec)
   vec[i] = process->PID;
   i++;
   vec[i] = 4;
+  i++;
+  vec[i] = 0;
   // while(process->next != NULL && process != current){
   //   vec[i] = process->next->PID;
   //   process = process->next;
