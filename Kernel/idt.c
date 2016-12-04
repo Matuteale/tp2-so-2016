@@ -98,9 +98,9 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 }
 
 /* sys call 0x1 */
-void create_process()
+void create_process(void * entryPoint, char * name)
 {
-
+  addProcess(entryPoint, name);
 }
 
 /* sys call 0x2 */
@@ -136,7 +136,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 {
 	switch(syscall)
 	{
-    case 0x1: create_process(); break;
+    case 0x1: create_process((void *) str, (char *)len); break;
     case 0x2: kill_process(); break;
 		case 0x3: sys_readKeyboard((char *)str); break;
 		case 0x4: sys_displayWrite((char *)str, len); break;

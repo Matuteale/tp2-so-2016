@@ -24,7 +24,7 @@ int philosopherId[philosopherCount];
 void * philosopher(void * id) {
 	while(1) {
 		//Think
-		//sleep(10);	
+		//sleep(10);
 		sleep(randRange(5, 10));
 
 		takeForks(*(int*)id);
@@ -83,7 +83,7 @@ void test(int id) {
 	}
 }
 
-int main(int argc, char ** argv) {
+int mainPhil(int argc, char ** argv) {
 	//Setup
 
 	for (int i = 0; i < philosopherCount; i++) {
@@ -93,7 +93,7 @@ int main(int argc, char ** argv) {
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
-	
+
 	for (int i = 0; i < philosopherCount; i++) {
 		philosopherId[i] = i;
 		state[i] = Thinking;

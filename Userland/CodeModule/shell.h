@@ -28,4 +28,6 @@ void ps();
 
 void philosophers();
 
+int mainPhil(int argc, char ** argv);
+
 #endif
