@@ -117,8 +117,9 @@ void list_processes(int * vec)
   int i = 0;
   vec[i] = process->PID;
   i++;
+  process = process->next;
   while(process != current){
-    vec[i] = process->next->PID;
+    vec[i] = process->PID;
     process = process->next;
     i++;
   }
