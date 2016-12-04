@@ -193,7 +193,9 @@ pid_t addProcess(void * entry_point, char * name) {
 	new_process->PID = getNewPid();
 	new_process->entryPoint = entry_point;
 	memset(new_process->name, 0, 24);
-  memcpy(new_process->name, name, strlen(name)+1);
+	int i = 0;
+	while(name[i++] != 0);
+  memcpy(new_process->name, name, i+1);
 
 	// copy name
 
