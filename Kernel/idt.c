@@ -110,16 +110,16 @@ void kill_process()
 }
 
 /* sys call 0xD */
-void list_processes(uint64_t * vec)
+void list_processes(int * vec)
 {
   Process * process = getCurrentProcess();
   Process * current = process;
   int i = 0;
-  vec[i] = process->PID;
+  vec[0] = process->PID;
   i++;
-  vec[i] = 4;
+  vec[1] = 4;
   i++;
-  vec[i] = 0;
+  vec[2] = 0;
   // while(process->next != NULL && process != current){
   //   vec[i] = process->next->PID;
   //   process = process->next;
@@ -148,7 +148,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xA: timer_tick((char *)str); break;
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
-   	case 0xD: list_processes((uint64_t *) str);break;
+   	case 0xD: list_processes((int *) str);break;
     	//case 0xE: mutexLockU(str);break;
 	}
 	return ;

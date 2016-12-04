@@ -47,7 +47,7 @@ void play_music_idt();
 
 void pit_setup(uint32_t msecs);
 
-void list_processes(uint64_t * vec);
+void list_processes(int * vec);
 
 void kill_process();
 
