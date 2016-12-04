@@ -15,7 +15,7 @@ void test(int i);
 int randRange(int min, int max);
 
 static const int philosopherCount = 2;
-State state[philosopherCount];
+//State state[philosopherCount];
 
 // pthread_mutex_t mutex;
 // pthread_mutex_t semaphores[philosopherCount];
