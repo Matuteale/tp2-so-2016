@@ -12,7 +12,7 @@ void * philosopher(void * id);
 void takeForks(int id);
 void putForks(int id);
 void test(int i);
-int randRange(int min, int max);
+//int randRange(int min, int max);
 
 static const int philosopherCount = 2;
 //State state[philosopherCount];
@@ -115,6 +115,6 @@ int right(int i) {
 	return (i + 1) % philosopherCount;
 }
 
-int randRange(int min, int max) {
-	return rand() % (max - min) + min;
-}
+// int randRange(int min, int max) {
+// 	return rand() % (max - min) + min;
+// }
