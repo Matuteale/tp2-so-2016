@@ -123,6 +123,10 @@ void list_processes(int * vec)
     process = process->next;
     i++;
   }
+  while(i < 16){
+    vec[i] = 0;
+    i++;
+  }
 }
 
 /* maneja los system calls */

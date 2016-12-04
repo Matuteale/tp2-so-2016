@@ -65,6 +65,12 @@ void ps()
 	unsigned int processPID[16];
 	printString("PID\n");
 	ps_sys(processPID);
+	int i = 0;
+	while(vec[i] != 0){
+		printString(vec[i] + '0');
+		printString("\n");
+		i++;
+	}
 }
 
 /* interpreta el comando ingresado */
