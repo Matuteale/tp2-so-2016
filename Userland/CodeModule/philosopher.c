@@ -17,10 +17,10 @@ int randRange(int min, int max);
 static const int philosopherCount = 2;
 State state[philosopherCount];
 
-pthread_mutex_t mutex;
-pthread_mutex_t semaphores[philosopherCount];
-pthread_t philosopherThread[philosopherCount];
-int philosopherId[philosopherCount];
+// pthread_mutex_t mutex;
+// pthread_mutex_t semaphores[philosopherCount];
+// pthread_t philosopherThread[philosopherCount];
+// int philosopherId[philosopherCount];
 
 void * philosopher(void * id) {
 	while(1) {
@@ -87,22 +87,23 @@ void test(int id) {
 int mainPhil(int argc, char ** argv) {
 	//Setup
 
-	for (int i = 0; i < philosopherCount; i++) {
-		mutexLock(&semaphores[i]);		//Philosophers start not having
-	}											//ownership of the forks
+	while(1);
+	// for (int i = 0; i < philosopherCount; i++) {
+	// 	mutexLock(&semaphores[i]);		//Philosophers start not having
+	// }											//ownership of the forks
 
-	pthread_attr_t attr;
-	pthread_attr_init(&attr);
-	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+	// pthread_attr_t attr;
+	// pthread_attr_init(&attr);
+	// pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-	for (int i = 0; i < philosopherCount; i++) {
-		philosopherId[i] = i;
-		state[i] = Thinking;
-		pthread_create(&philosopherThread[i], &attr, philosopher, &philosopherId[i]);
-	}
+	// for (int i = 0; i < philosopherCount; i++) {
+	// 	philosopherId[i] = i;
+	// 	state[i] = Thinking;
+	// 	pthread_create(&philosopherThread[i], &attr, philosopher, &philosopherId[i]);
+	// }
 
-	printf("running\n");
-	getchar();
+	// printf("running\n");
+	// getchar();
 
 }
 
