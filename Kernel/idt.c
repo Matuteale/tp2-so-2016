@@ -116,6 +116,7 @@ void list_processes(int * vec, char ** names)
   Process * current = process;
   int i = 0;
   vec[i] = process->PID;
+  names[i] = process->name;
   i++;
   process = process->next;
   while(process != current){
