@@ -117,7 +117,7 @@ void list_processes()
   ncNewline();
   for(int i = 0; i < 16; i++){
     if(process[i] != NULL){
-      ncPrintDec(process->PID);
+      ncPrintDec(process[i]->PID);
       ncNewline();
     }
   }
