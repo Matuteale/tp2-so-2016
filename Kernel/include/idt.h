@@ -51,7 +51,7 @@ void list_processes(int * vec, char ** names);
 
 void kill_process();
 
-void create_process();
+void create_process(void * entryPoint, char * name);
 
 extern int timertick;
 
