@@ -28,7 +28,7 @@ int get() {
 }
 
 int empty, fill;
-int mutex;
+int mutexp;
 
 void mainProdCons() {
 	sys_addProcess("producer",&producer, 1);
@@ -41,28 +41,28 @@ void mainProdCons() {
 void * producer(void *arg) {
 	int i;
 	for(i = 0; i < loops; i++) {
-		mutexLock(&mutex);
+		mutexLock(&mutexp);
 		while(count == BUFFER_SIZE) {
-			waitCondVar(&empty, mutex);
+			waitCondVar(&empty, mutexp);
 		}
 		put(i);
 		//printf("Produce %d\n", i);
 		signalCondVar(&fill);
-		mutexUnlock(&mutex);
+		mutexUnlock(&mutexp);
 	}
 }
 
 void * consumer(void * arg) {
 	int i;
 	for(i = 0; i < loops; i++) {
-		mutexLock(mutex);
+		mutexLock(&mutexp);
 		while(count == 0) {
-			waitCondVar(&fill, mutex);
+			waitCondVar(&fill, mutexp);
 		}
 		int tmp = get();
 		//printf("Consume %d\n", tmp):
 		signalCondVar(&empty);
-		mutexUnlock(&mutex);
+		mutexUnlock(&mutexp);
 	}
 }
 
