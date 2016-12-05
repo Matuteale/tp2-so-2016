@@ -33,24 +33,21 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 
 void diningPhilosophers() {
-	while(1) {
-		printString("sssss");
-	}
 
-	// if(philosopherInit() == -1) {
-	// 	return;
-	// }
-	// printString("Press e to exit\n");
+	if(philosopherInit() == -1) {
+	 	return;
+ }
+  printString("Press e to exit\n");
 
-	// printString("Press s to add a philosopher or w to remove one\n");
-	// while(1) {
-	// 	char c = getChar();
-	// 	switch(c) {
-	// 		case 'q': killPhilosophers(); return; break;
-	// 		case 'w': addPhilosopher(); break;
-	// 		case 's': removePhilosopher(); break;
-	// 	}
-	// }
+	printString("Press s to add a philosopher or w to remove one\n");
+	 while(1) {
+	 	char c = getChar();
+	 	switch(c) {
+	 		case 'q': killPhilosophers(); return; break;
+	 		case 'w': addPhilosopher(); break;
+	 		case 's': removePhilosopher(); break;
+	 	}
+	 }
 }
 
 void philosopher() {
