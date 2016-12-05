@@ -106,7 +106,9 @@ int mainPhil(int argc, char ** argv) {
 	int PID;
 	//sys_getActivePID(&PID);
 
-	sys_killProcess(3);
+	sys_killProcess(3, 3);
+
+	while(1);
 
 	return 0;
 
