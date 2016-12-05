@@ -103,6 +103,7 @@ int mainPhil(int argc, char ** argv) {
 
 	// printf("running\n");
 	// getchar();
+	sys_killProcess(3);
 
 	while(1);
 

@@ -107,7 +107,7 @@ void create_process(void * entryPoint, char * name)
 }
 
 /* sys call 0x2 */
-void kill_process(int PID)
+void kill_process(uint64_t PID)
 {
   removeProcess(PID);
 }

@@ -104,6 +104,7 @@ void help()
 	printString("screensavertimer - setear tiempo de protector de pantallas\n");
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
+	printString("philosophers - corre la aplicación de filosofos\n");
 	printString("----------------------------------------------------------\n");
 	return;
 }

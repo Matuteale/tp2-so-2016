@@ -72,7 +72,7 @@ yield:
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
-pushaq            			; Se salvan los registros
+  pushaq            			; Se salvan los registros
 
   call timer_interrupt
 
