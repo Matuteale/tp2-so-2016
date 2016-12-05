@@ -76,12 +76,11 @@ void ps()
 		printString("\n");
 		i++;
 	}
-	while(1);
 	return;
 }
 
 void run_ps(){
-	sys_addProcess("PS", ps, 1);
+	sys_addProcess("PS", ps, 0);
 }
 
 /* interpreta el comando ingresado */
