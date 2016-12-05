@@ -248,7 +248,31 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-
+	if(pid == 1) return; //NULL process
+	Process * process = currentProcess;
+	Process * processAux = NULL;
+	while(process->PID != pid){
+		processAux = process;
+		process = process->next;
+	}
+	if(processAux == NULL){
+		processAux = process;
+		while(process->PID != processAux->next->PID){
+			processAux = processAux->next;
+		}
+	}
+	processAux->next = process->next;
+	if(pid == currentProcess->PID){
+		currentProcess->state = INACTIVE;
+		if(currentProcess->next->PID == 1){
+			currentProcess->next->next->state = ACTIVE;
+		}else{
+			currentProcess->next->state = ACTIVE;
+		}
+		currentProcess = currentProcess->next;
+		scheduleNow();
+	}
+	//clearscreen();
 }
 
 pid_t getCurrentPID() {
@@ -258,117 +282,3 @@ pid_t getCurrentPID() {
 void * mem_alloc() {
 	return alloc();
 }
-
-/*
-Scheduler * scheduler;
-int first_switch = 1;
-int last_pid_given = 0;
-int freeProcesses = 16;
-ProcessTable * processes;
-void * schedule(void * esp) {
-	if(first_switch == 1) {
-		first_switch = 0;
-		initializeScheduler();
-	}
-	Process * process;
-	//while(1);
-	process = scheduler->currentProcess->process;
-	process->stack = esp;
-	scheduler->currentProcess = scheduler->currentProcess->next; //Cambio de proceso
-	return scheduler->currentProcess->process->stack; //Devuelvo el stack del nuevo proceso
-}
-Scheduler * newScheduler() {
-	Scheduler * scheduler;
-	pageManager(POP_PAGE, scheduler->currentProcess); //Allocate Mem for circular queue
-	return scheduler;
-}
-void dummy() {
-	while(1);
-}
-void * getCurrentProcessEntryPoint() {
-	return scheduler->currentProcess->process->entryPoint;
-}
-void initializeScheduler() {
-	scheduler = newScheduler();
-	addProcess(&dummy);
-}
-void addProcess(void * entryPoint) {
-	Process * process = newProcess(entryPoint);
-	ProcessSlot * newProcess = newProcessSlot(process);
-	if (!scheduler->currentProcess) {
-		scheduler->currentProcess = newProcess;
-		scheduler->currentProcess->next = scheduler->currentProcess;
-	} else {
-		ProcessSlot * next = scheduler->currentProcess->next;
-		scheduler->currentProcess->next = newProcess;
-		newProcess->next = next;
-	}
-}
-void removeProcess(Process * process) {
-	ProcessSlot * prevSlot = scheduler->currentProcess;
-	ProcessSlot * slotToRemove = scheduler->currentProcess->next;
-	if (!scheduler->currentProcess) {
-		return;
-	} else if (prevSlot == slotToRemove && process == scheduler->currentProcess->process) {
-		//free(scheduler->currentProcess);
-		return;
-	}
-	//If entered here there is more than 1 process in the scheduler
-	while(slotToRemove->process != process) {
-		prevSlot = slotToRemove;
-		slotToRemove = slotToRemove->next;
-	}
-	prevSlot->next = slotToRemove->next;
-	//free(slotToRemove);
-}
-void * mem_alloc() {
-	return OSalloc(scheduler->currentProcess->process);
-}
-/*
-Scheduler * newScheduler() {
-	Scheduler * scheduler;
-	scheduler->currentProcess; //Allocate Mem for circular queue
-	return scheduler;
-}
-static Scheduler * scheduler;
-void initializeScheduler() {
-	scheduler = newScheduler();
-}
-void * schedule(void * esp) {
-	Process * process = scheduler->currentProcess->process;
-	process->stack = esp;
-	scheduler->currentProcess = currentProcess->next; //Cambio de proceso
-	return scheduler->currentProcess->process->stack; //Devuelvo el stack del nuevo proceso
-}
-void * getCurrentProcessEntryPoint() {
-	return scheduler->currentProcess->process->entryPoint;
-}
-void * addProcess(Process * process) {
-	ProcessSlot * newProcess = new ProcessSlot(process);
-	if (!scheduler->currentProcess) {
-		scheduler->currentProcess = newProcess;
-		scheduler->currentProcess->next = scheduler->currentProcess;
-	} else {
-		ProcessSlot * next = scheduler->currentProcess<->next;
-		scheduler->currentProcess->next = newProcess;
-		newProcess->next = next;
-	}
-}
-void removeProcess(Process * process) {
-	ProcessSlot * prevSlot = scheduler->currentProcess;
-	ProcessSlot * slotToRemove = scheduler->currentProcess->next;
-	if (!scheduler->currentProcess) {
-		return;
-	} else if (prevSlot == slotToRemove && process == currentProcess->process) {
-		free(scheduler->currentProcess);
-		scheduler->currentProcess = NULL;
-		return;
-	}
-	//If entered here there is more than 1 process in the scheduler
-	while(slotToRemove->process != process) {
-		prevSlot = slotToRemove;
-		slotToRemove = slotToRemove->next;
-	}
-	prevSlot->next = slotToRemove->next;
-	free(slotToRemove);
-}*/

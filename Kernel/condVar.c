@@ -30,15 +30,6 @@ void signalCondVarK(cond_t * condVar) {
     if(pid != -1) changeProcessState(pid,0);	//ready
 }
 
-void broadcastCondVarK(cond_t * condVar){
-    //int notPreviouslyLocked=lockScheduler();
-    int i;
-    int prevMax = condVar->size;
-    for (i = 0; i < prevMax;i++){
-        signalCondVarK(condVar);
-    }
-    //if(notPreviouslyLocked) unlockScheduler();
-}
 
 
 

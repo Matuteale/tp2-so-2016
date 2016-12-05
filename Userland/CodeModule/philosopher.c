@@ -6,6 +6,7 @@
 #define MAX_PHILOSPHERS 8
 #define INITIALNUMBER 2
 
+
 int left(int i);
 int right(int i);
 void philosopher();
@@ -20,6 +21,7 @@ int removePhilosopher();
 
 int mutex;
 int condition_key =  CONDKEY;
+
 int canEat[MAX_PHILOSPHERS];
 State philosopherState[MAX_PHILOSPHERS];
 int forks[MAX_PHILOSPHERS];
@@ -82,12 +84,10 @@ void putForks(int id) {
 	forks[id] = -1;
 	try(left(id));
 	try(right(id));
-
 	mutexUnlock(&mutex);
 }
 
 void try(int id) {
-
 	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
 		philosopherState[id] = EATING;
 		forks[left(id)] = id;
@@ -135,10 +135,10 @@ int removePhilosopher() {
 	while (1) {
 		mutexLock(&mutex);
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
-
 			philosopherPID[philosopherCount - 1] = 0;
 
 			forks[philosopherCount - 1] = -1;
+
 
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 
@@ -224,7 +224,7 @@ void killPhilosophers() {
 
 	while(philosopherPID[i] > 0) {
 
-		sys_killProcess(philosopherPID[i]);
+		sys_killProcess(philosopherPID[i++]);
 	}
 
 }
