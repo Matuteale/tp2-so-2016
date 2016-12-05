@@ -11,6 +11,7 @@ GLOBAL play_beep_sys
 GLOBAL ps_sys
 GLOBAL sys_addProcess
 GLOBAL sys_killProcess
+GLOBAL sys_getActivePID
 
 %macro pushaq 0
     push rax
