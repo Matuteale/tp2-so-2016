@@ -121,9 +121,10 @@ int_80_hand:					; Handler de INT 80 ( llamada al systema )
 
    	pushaq            			; Se salvan los registros
 
-	mov rdi, rcx				; Se pasa en rdi el puntero asl buffer
-	mov rsi, rdx				; Se pasa en rsi el tamaño del buffer
-	mov rdx, rax				; Se pasa en rdx a que syscall se esta llamando
+  mov rdi, rbx        ; Sepasa en rdi el tercer argumento
+	mov rsi, rcx				; Se pasa en rsi el segundo argumento
+	mov rdx, rdx				; Se pasa en rdi el primer argumento
+	mov rcx, rax				; Se pasa en rcx a que syscall se esta llamando
 	call syscall_handler
 
 	popaq

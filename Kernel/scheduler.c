@@ -166,7 +166,7 @@ void linkProcessStructures() {
 }
 
 
-pid_t addProcess(void * entry_point, char * name) {
+pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	//ncPrint("EntryPoint: ");
 	//ncPrintHex(entry_point);
 	//ncNewline();
@@ -215,9 +215,13 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess->next = new_process;
 
-		currentProcess->state = INACTIVE;
+		if(!isBackground){
+			currentProcess->state = INACTIVE;
 
-		new_process->state = ACTIVE;
+			new_process->state = ACTIVE;
+		}else{
+			new_process->state = INACTIVE;
+		}
 
 	}
 

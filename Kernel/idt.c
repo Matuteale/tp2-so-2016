@@ -99,10 +99,10 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 }
 
 /* sys call 0x1 */
-void create_process(void * entryPoint, char * name)
+void create_process(void * entryPoint, char * name, int isBackground)
 {
   userToKernel();
-  addProcess(entryPoint, name);
+  addProcess(entryPoint, name, isBackground);
   kernelToUser();
   scheduleNow();
 }
@@ -157,29 +157,29 @@ void getActivePID(int * PID)
 // }
 
 /* maneja los system calls */
-void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
+void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
 	switch(syscall)
 	{
-    case 0x1: create_process((void *) str, (char *) len); break;
-    case 0x2: kill_process((int) len); break;
-		case 0x3: sys_readKeyboard((char *)str); break;
-		case 0x4: sys_displayWrite((char *)str, len); break;
-		case 0x5: read_rtc_time((char *) str, len); break;
-		case 0x6: set_rtc_time((char *) str, len); break;
-		case 0x7: sys_changeColor(len); break;
+    case 0x1: create_process((void *) arg_2, (char *) arg_1, arg_3); break;
+    case 0x2: kill_process((int) arg_1); break;
+		case 0x3: sys_readKeyboard((char *)arg_2); break;
+		case 0x4: sys_displayWrite((char *)arg_2, arg_1); break;
+		case 0x5: read_rtc_time((char *) arg_2, arg_1); break;
+		case 0x6: set_rtc_time((char *) arg_2, arg_1); break;
+		case 0x7: sys_changeColor(arg_1); break;
 		case 0x8: clearscreen(); break;
-		case 0x9: set_ss_timeout(len); break;
-		case 0xA: timer_tick((char *)str); break;
+		case 0x9: set_ss_timeout(arg_1); break;
+		case 0xA: timer_tick((char *)arg_2); break;
 		case 0xB: play_music_idt(); break;
-		case 0xC: play_beep_idt(str, len); break;
-   	case 0xD: list_processes((int *) str, (char **) len);break;
-    case 0xE: getActivePID((int *) len);break;
+		case 0xC: play_beep_idt(arg_2, arg_1); break;
+   	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
+    case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: ncPrint("ASS"); mutexLockK(str);break;
-    case 0x10: mutexUnlockK(str);break;
-    case 0x11: initCondVarK((cond_t*) len);
-    case 0x12: waitCondVarK((cond_t*) len, (int *)str);
-    case 0x13: signalCondVarK((cond_t*) len);
+    case 0x10: mutexUnlockK(arg_2);break;
+    case 0x11: initCondVarK((cond_t*) arg_1);
+    case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);
+    case 0x13: signalCondVarK((cond_t*) arg_1);
 	}
 	return ;
 }

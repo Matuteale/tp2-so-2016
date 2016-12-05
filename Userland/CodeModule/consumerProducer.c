@@ -34,8 +34,8 @@ cond_t empty, fill;
 int mutex;
 
 void mainProdCons() {
-	sys_addProcess("producer",&producer);
-	sys_addProcess("consumer",&consumer);
+	sys_addProcess("producer",&producer, 1);
+	sys_addProcess("consumer",&consumer, 1);
 	while(1){
 		control();
 	}
