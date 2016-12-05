@@ -209,7 +209,7 @@ int philosopherInit() {
 		}
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
-		pid = sys_addProcess("philo", philosopher, 1);
+		pid = sys_addProcess("philo", philosopher, 0);
 		philosopherPID[i] = pid;
 		if(pid == -1) {
 			killPhilosophers();
