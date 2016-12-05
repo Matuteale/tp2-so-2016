@@ -228,19 +228,19 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	}
 
 	--freeProcesses;
-	ncNewline();
-	ncPrint("EntryPoint: ");
-	ncPrintHex(new_process->entryPoint);
-	ncNewline();
-	ncPrint("stack: ");
-	ncPrintHex(new_process->stack);
-	ncNewline();
-	ncPrint("next: ");
-	ncPrintDec(new_process->next->PID);
-	ncNewline();
-	ncPrint("PID: ");
-	ncPrintDec(new_process->PID);
-	ncNewline();
+	// ncNewline();
+	// ncPrint("EntryPoint: ");
+	// ncPrintHex(new_process->entryPoint);
+	// ncNewline();
+	// ncPrint("stack: ");
+	// ncPrintHex(new_process->stack);
+	// ncNewline();
+	// ncPrint("next: ");
+	// ncPrintDec(new_process->next->PID);
+	// ncNewline();
+	// ncPrint("PID: ");
+	// ncPrintDec(new_process->PID);
+	// ncNewline();
 
 	//clearscreen();
 
