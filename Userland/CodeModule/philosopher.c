@@ -166,7 +166,7 @@ int addPhilosopher() {
 		mutexLock(&mutex);
 		if (philosopherState[0] != EATING) {
 			canEat[philosopherCount] = initCondVar(canEat[philosopherCount]);
-			pid = sys_addProcess(&philosopher);
+			//pid = sys_addProcess(&philosopher);
 			philosopherPID[philosopherCount] = pid;
 			if(pid == -1) {
 				return -1;
@@ -208,7 +208,7 @@ int philosopherInit() {
 		}
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
-		pid = sys_addProcess("philo", philosopher, 0);
+		pid = sys_addProcess("philo", philosopher, 1);
 		philosopherPID[i] = pid;
 		if(pid == -1) {
 			killPhilosophers();
