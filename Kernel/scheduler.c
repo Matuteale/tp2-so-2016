@@ -254,9 +254,8 @@ int removeProcess(pid_t pid) {
 	if(process->PID == currentProcess->PID){
 		currentProcess->state = INACTIVE;
 		process->next->state = ACTIVE;
-		scheduleNow();
+		currentProcess = process->next;
 	}
-	scheduleNow();
 
 }
 
