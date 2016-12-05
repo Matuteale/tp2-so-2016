@@ -220,7 +220,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		currentProcess->next = new_process;
 
 		if(!isBackground){
-			if(nullProcess != NULL){
+			if(nilProcess->PID == currentProcess->PID){
 				currentProcess->state = DEAD;
 			}else{
 				currentProcess->state = READY;
