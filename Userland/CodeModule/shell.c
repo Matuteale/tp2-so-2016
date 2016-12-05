@@ -79,6 +79,10 @@ void ps()
 	return;
 }
 
+void run_ps(){
+	sys_addProcess("PS", ps, 0);
+}
+
 /* interpreta el comando ingresado */
 int parse_command(char * s1, char * s2)
 {
