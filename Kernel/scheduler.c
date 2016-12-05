@@ -259,6 +259,7 @@ int removeProcess(pid_t pid) {
 			process->next->state = ACTIVE;
 		}
 		currentProcess = process->next;
+		scheduleNow();
 	}
 	clearscreen();
 
