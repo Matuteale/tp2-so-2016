@@ -104,9 +104,9 @@ int mainPhil(int argc, char ** argv) {
 	// printf("running\n");
 	// getchar();
 	int PID;
-	sys_getActivePID(&PID);
+	//sys_getActivePID(&PID);
 
-	sys_killProcess(PID);
+	sys_killProcess(3);
 
 	return 0;
 
