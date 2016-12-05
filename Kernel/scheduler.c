@@ -101,9 +101,10 @@ void setNextProcess(){
 
 		} while(current->state != ACTIVE);
 		currentProcess = current;
-		ncPrint(currentProcess->name);
-		if(currentProcess->PID == 3)
+		if(currentProcess->PID == 3){
+			ncPrint(currentProcess->name);
 			while(1);
+		}
 	}
 }
 
