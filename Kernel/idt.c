@@ -175,7 +175,7 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
 		case 0xC: play_beep_idt(arg_2, arg_1); break;
    	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
     case 0xE: getActivePID((int *) arg_1);break;
-    case 0xF: ncPrint("ASS"); mutexLockK(str);break;
+    case 0xF: ncPrint("ASS"); mutexLockK(arg_2);break;
     case 0x10: mutexUnlockK(arg_2);break;
     case 0x11: initCondVarK((cond_t*) arg_1);
     case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);
