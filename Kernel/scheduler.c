@@ -144,7 +144,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 
 void initializeScheduler() {
 
-	addProcess(nullProcess, "Null");
+	addProcess(0, "Null");
 
 	addProcess(codeModuleAddress, "Shell");
 
@@ -237,7 +237,6 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncNewline();
 
 	clearscreen();
-	scheduleNow();
 
 	return new_process->PID;
 
