@@ -102,6 +102,7 @@ void setNextProcess(){
 		} while(current->state != ACTIVE);
 		currentProcess = current;
 		ncPrint(currentProcess->name);
+		while(1);
 	}
 }
 
