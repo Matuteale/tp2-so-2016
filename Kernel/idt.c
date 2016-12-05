@@ -102,7 +102,7 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 void create_process(void * entryPoint, char * name, int isBackground)
 {
   userToKernel();
-  addProcess(entryPoint, name, 0);
+  addProcess(entryPoint, name, isBackground);
   kernelToUser();
   if(!isBackground){
     scheduleNow();

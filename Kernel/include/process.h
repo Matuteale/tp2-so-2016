@@ -7,9 +7,9 @@
 
 typedef enum {
 
-	ACTIVE = 0,
+	RUNNING = 0,
 	BLOCKED,
-	INACTIVE,
+	READY,
 	DEAD,
 
 

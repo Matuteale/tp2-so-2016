@@ -14,6 +14,8 @@ Process * currentProcess = NULL;
 
 Process * freeProcess = NULL;
 
+Process * nullProcess = NULL;
+
 int inizialized = 0;
 
 char stackkkk[STACKKKK];
@@ -99,7 +101,7 @@ void setNextProcess(){
 		do {
 			current = current->next;
 
-		} while(current->state != ACTIVE);
+		} while(current->state != RUNNING && current->state != READY);
 		currentProcess = current;
 	}
 }
@@ -201,11 +203,13 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		ncPrint("Agrego el Null process");
 		ncNewline();
 
+		nullProcess = new_process;
+
 		currentProcess = new_process;
 
 		new_process->next = new_process;
 
-		new_process->state = INACTIVE;
+		new_process->state = DEAD;
 
 	} else {
 
@@ -216,11 +220,14 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		currentProcess->next = new_process;
 
 		if(!isBackground){
-			currentProcess->state = INACTIVE;
-
-			new_process->state = ACTIVE;
+			if(nullProcess != NULL){
+				currentProcess->state = DEAD;
+			}else{
+				currentProcess->state = READY;
+			}
+			new_process->state = RUNNING;
 		}else{
-			new_process->state = INACTIVE;
+			new_process->state = READY;
 		}
 
 	}
