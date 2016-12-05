@@ -260,6 +260,7 @@ int removeProcess(pid_t pid) {
 		}else{
 			currentProcess->next->state = ACTIVE;
 		}
+		currentProcess = currentProcess->next;
 		scheduleNow();
 	}
 	//clearscreen();
