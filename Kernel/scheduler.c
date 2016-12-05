@@ -144,9 +144,9 @@ void changeProcessState(pid_t pid, ProcessState state) {
 
 void initializeScheduler() {
 
-	addProcess(nullProcess, "Null");
+	addProcess(nullProcess, "Null", 1);
 
-	addProcess(codeModuleAddress, "Shell");
+	addProcess(codeModuleAddress, "Shell", 1);
 
 	inizialized = 1;
 
