@@ -10,6 +10,7 @@ GLOBAL play_music_sys
 GLOBAL play_beep_sys
 GLOBAL ps_sys
 GLOBAL sys_addProcess
+GLOBAL sys_killProcess
 
 %macro pushaq 0
     push rax
@@ -84,6 +85,33 @@ sys_addProcess:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0x1 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+sys_getActivePID:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0xE ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+sys_killProcess:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x2 ;Se hace la llamada para crear un proceso
   mov rdx, rdi
   mov rcx, rsi
   int 0x80

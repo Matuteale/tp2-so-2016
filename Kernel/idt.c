@@ -107,9 +107,9 @@ void create_process(void * entryPoint, char * name)
 }
 
 /* sys call 0x2 */
-void kill_process()
+void kill_process(int PID)
 {
-
+  removeProcess(PID);
 }
 
 /* sys call 0xD */
@@ -134,13 +134,20 @@ void list_processes(int * vec, char ** names)
   }
 }
 
+/* sys call 0xE */
+void getActivePID(int * PID)
+{
+  Process * process = getCurrentProcess();
+  PID[0] = process->PID;
+}
+
 /* maneja los system calls */
 void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 {
 	switch(syscall)
 	{
     case 0x1: create_process((void *) str, (char *) len); break;
-    case 0x2: kill_process(); break;
+    case 0x2: kill_process(len); break;
 		case 0x3: sys_readKeyboard((char *)str); break;
 		case 0x4: sys_displayWrite((char *)str, len); break;
 		case 0x5: read_rtc_time((char *) str, len); break;
@@ -152,7 +159,8 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xB: play_music_idt(); break;
 		case 0xC: play_beep_idt(str, len); break;
    	case 0xD: list_processes((int *) str, (char **) len);break;
-    	//case 0xE: mutexLockU(str);break;
+    case 0xE: getActivePID((int *) len);break;
+    //case 0xE: mutexLockU(str);break;
 	}
 	return ;
 }

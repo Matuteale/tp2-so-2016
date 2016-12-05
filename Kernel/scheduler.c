@@ -125,18 +125,15 @@ void printA() {
 
 }
 
-void printB() {
-
-	while(1) {
-
-	}
-
+void nullProcess()
+{
+	while(1);
 }
 
 
 void initializeScheduler() {
 
-	addProcess(0, "Null");
+	addProcess(nullProcess, "Null");
 
 	addProcess(codeModuleAddress, "Shell");
 
@@ -240,7 +237,21 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-
+	if(pid == 1) return; //NULL process
+	Process * process = currentProcess;
+	Process * processAux = NULL;
+	while(process->PID != pid){
+		processAux = process;
+		process = currentProcess->next;
+	}
+	if(processAux == NULL){
+		processAux = process;
+		while(process->PID != processAux->next->PID){
+			processAux = processAux->next;
+		}
+	}
+	processAux->next = process->next;
+	process->next->state = ACTIVE;
 
 }
 

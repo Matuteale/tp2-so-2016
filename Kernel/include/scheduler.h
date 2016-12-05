@@ -19,5 +19,6 @@ void * userSchedToKernel(uint64_t * rsp);
 void * kernelSchedToUser();
 void setNextProcess();
 Process * getCurrentProcess();
+void nullProcess();
 
 #endif
