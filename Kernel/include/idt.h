@@ -49,7 +49,7 @@ void pit_setup(uint32_t msecs);
 
 void list_processes(int * vec, char ** names);
 
-void kill_process(int PID);
+void kill_process(uint64_t PID);
 
 void create_process(void * entryPoint, char * name);
 
