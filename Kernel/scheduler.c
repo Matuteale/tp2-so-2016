@@ -253,32 +253,6 @@ int removeProcess(pid_t pid) {
 
 pid_t getCurrentPID() {
 	return currentProcess->PID;
-	if(pid == 1) return; //NULL process
-	Process * process = currentProcess;
-	Process * processAux = NULL;
-	while(process->PID != pid){
-		processAux = process;
-		process = process->next;
-	}
-	if(processAux == NULL){
-		processAux = process;
-		while(process->PID != processAux->next->PID){
-			processAux = processAux->next;
-		}
-	}
-	processAux->next = process->next;
-	if(pid == currentProcess->PID){
-		currentProcess->state = INACTIVE;
-		if(currentProcess->next->PID == 1){
-			currentProcess->next->next->state = ACTIVE;
-		}else{
-			currentProcess->next->state = ACTIVE;
-		}
-		currentProcess = currentProcess->next;
-		scheduleNow();
-	}
-	//clearscreen();
-
 }
 
 void * mem_alloc() {

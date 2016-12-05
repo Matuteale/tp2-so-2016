@@ -141,6 +141,22 @@ void getActivePID(int * PID)
   PID[0] = process->PID;
 }
 
+void mutexLockU(int mutex) { 
+	mutexLock(mutex);
+}
+
+// void initCondVarU(cond_t * condVar, int pid) {
+
+// }
+
+// void waitCondVarU(cond_t * condVar, int mutex) {
+
+// }
+
+// void signalCondVarU(cond_t * condVar) {
+
+// }
+
 /* maneja los system calls */
 void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 {
@@ -160,7 +176,8 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xC: play_beep_idt(str, len); break;
    	case 0xD: list_processes((int *) str, (char **) len);break;
     case 0xE: getActivePID((int *) len);break;
-    //case 0xE: mutexLockU(str);break;
+    // case 0xF: mutexLockU(str);break;
+    // case 0x10: mutexUnlockU(str);break;
 	}
 	return ;
 }

@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <scheduler.h>
+#include <process.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -17,16 +18,16 @@ void waitCondVar(cond_t * condVar, int mutex){
     //pause scheduler
     condVar->mutex = mutex;
     addToCondVarQueue(condVar,getCurrentPID());
-    changeProcessState(getCurrentPID(),BLOCKED);
-    mutexUnlock(mutex);
+    changeProcessState(getCurrentPID(),1); //blocked
+    mutexUnlock(&mutex);
     //unlockScheduler();
     yield();
-    mutexLock(mutex);
+    mutexLock(&mutex);
 }
 
 void signalCondVar(cond_t * condVar) {
 	int pid = removeFromCondVarQueue(condVar);
-    if(pid != -1) changeProcessState(pid,READY);	
+    if(pid != -1) changeProcessState(pid,0);	//ready
 }
 
 void broadcastCondVar(cond_t * condVar){
