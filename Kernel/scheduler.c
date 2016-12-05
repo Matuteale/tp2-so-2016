@@ -251,7 +251,10 @@ int removeProcess(pid_t pid) {
 		}
 	}
 	processAux->next = process->next;
-	process->next->state = ACTIVE;
+	if(process->PID == currentProcess->PID){
+		currentProcess->state = INACTIVE;
+		process->next->state = ACTIVE;
+	}
 
 }
 
