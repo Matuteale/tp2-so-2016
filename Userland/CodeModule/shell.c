@@ -5,7 +5,7 @@
 #include "consumerProducer.h"
 #include "philosopher.h"
 
-#define CANT_COMMANDS_SHELL 10
+#define CANT_COMMANDS_SHELL 11
 
 typedef void (*fptr)(void);
 
@@ -118,7 +118,7 @@ void philosophers()
 
 void prodCons()
 {
-	// sys_addProcess("mainPC", mainProdCons);
+	sys_addProcess("mainPC", mainProdCons, 0);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */

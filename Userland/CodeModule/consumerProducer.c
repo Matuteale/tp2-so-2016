@@ -34,6 +34,7 @@ void mainProdCons() {
 	sys_addProcess("producer",&producer, 1);
 	sys_addProcess("consumer",&consumer, 1);
 	while(1){
+		printString("Press e to exit\n");
 		//control();
 	}
 }
