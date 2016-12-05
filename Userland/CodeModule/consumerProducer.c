@@ -27,7 +27,7 @@ int get() {
 	return tmp;
 }
 
-cond_t empty, fill;
+int empty, fill;
 int mutex;
 
 void mainProdCons() {
@@ -46,7 +46,7 @@ void * producer(void *arg) {
 			waitCondVar(&empty, mutex);
 		}
 		put(i);
-		printf("Produce %d\n", i);
+		//printf("Produce %d\n", i);
 		signalCondVar(&fill);
 		mutexUnlock(&mutex);
 	}
@@ -60,38 +60,38 @@ void * consumer(void * arg) {
 			waitCondVar(&fill, mutex);
 		}
 		int tmp = get();
-		printf("Consume %d\n", tmp):
+		//printf("Consume %d\n", tmp):
 		signalCondVar(&empty);
 		mutexUnlock(&mutex);
 	}
 }
 
-void control() {
-	int end = 0;
+// void control() {
+// 	int end = 0;
 
-	while(!end) {
-		int c = getchar();
+// 	while(!end) {
+// 		int c = getchar();
 
-		switch(c) {
-			case 'a':
-				prodSleepTime++;
-			break;
+// 		switch(c) {
+// 			case 'a':
+// 				prodSleepTime++;
+// 			break;
 
-			case 'z':
-				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
-			break;
+// 			case 'z':
+// 				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
+// 			break;
 
-			case 's':
-				consSleepTime++;
-			break;
+// 			case 's':
+// 				consSleepTime++;
+// 			break;
 
-			case 'x':
-				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
-			break;
+// 			case 'x':
+// 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
+// 			break;
 
-			case 'q':
-				end = 1;
-			break;
-		}
-	}
-}
+// 			case 'q':
+// 				end = 1;
+// 			break;
+// 		}
+// 	}
+// }
