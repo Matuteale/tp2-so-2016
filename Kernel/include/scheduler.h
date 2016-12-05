@@ -19,5 +19,6 @@ void * userSchedToKernel(uint64_t * rsp);
 void * kernelSchedToUser();
 void setNextProcess();
 Process * getProcessArray();
-
+pid_t getCurrentPID();
+void changeProcessState(pid_t pid, ProcessState state);
 #endif
