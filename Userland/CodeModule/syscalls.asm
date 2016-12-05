@@ -9,6 +9,9 @@ GLOBAL timer_tick
 GLOBAL play_music_sys
 GLOBAL play_beep_sys
 GLOBAL ps_sys
+GLOBAL sys_addProcess
+GLOBAL sys_killProcess
+GLOBAL sys_getActivePID
 
 %macro pushaq 0
     push rax
@@ -77,14 +80,55 @@ read:
 	pop rbp
 	ret
 
+sys_addProcess:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x1 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+sys_getActivePID:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0xE ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+sys_killProcess:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x2 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
 ps_sys:
 
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0xD ;Se hace la llamada para listar los processes
-  mov rdx, 0
-  mov rcx, 0
+  mov rdx, rdi
+  mov rcx, rsi
   int 0x80
 
   mov rsp, rbp
@@ -97,7 +141,7 @@ read_system_time:
 	mov rbp, rsp
 	 				 ;Se usa la convecion de linux
 	mov rax, 0x5 ;Se hace la llamada para rtc_read
-	mov rdx ,rdi ;Se pasa por el registro rdx el tamaño del buffer
+	mov rdx, rdi ;Se pasa por el registro rdx el tamaño del buffer
 	mov rcx, rsi ;Se pasa por el registro rcx un puntero al buffer
 	int 0x80
 

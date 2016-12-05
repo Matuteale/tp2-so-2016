@@ -12,9 +12,9 @@ Process process[16];
 
 Process * currentProcess = NULL;
 
-Process * lastProcess = NULL;
-
 Process * freeProcess = NULL;
+
+int inizialized = 0;
 
 char stackkkk[STACKKKK];
 
@@ -58,27 +58,27 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 
 	StackFrame * stackFrame = (StackFrame *) userStack - 1;
 
-	stackFrame->gs = 0x001;
-	stackFrame->fs = 0x002;
-	stackFrame->r15 = 0x003;
-	stackFrame->r14 = 0x004;
-	stackFrame->r13 = 0x005;
-	stackFrame->r12 = 0x006;
-	stackFrame->r11 = 0x007;
-	stackFrame->r10 = 0x008;
-	stackFrame->r9 = 0x009;
-	stackFrame->r8 = 0x00A;
-	stackFrame->rsi = 0x00B;
-	stackFrame->rdi = 0x00C;
-	stackFrame->rbp = 0x00D;
-	stackFrame->rdx = 0x00E;
-	stackFrame->rcx = 0x00F;
+	stackFrame->gs = 0x01;
+	stackFrame->fs = 0x02;
+	stackFrame->r15 = 0x03;
+	stackFrame->r14 = 0x04;
+	stackFrame->r13 = 0x05;
+	stackFrame->r12 = 0x06;
+	stackFrame->r11 = 0x07;
+	stackFrame->r10 = 0x08;
+	stackFrame->r9 = 0x09;
+	stackFrame->r8 = 0x0A;
+	stackFrame->rsi = 0x0B;
+	stackFrame->rdi = 0x0C;
+	stackFrame->rbp = 0x0D;
+	stackFrame->rdx = 0x0E;
+	stackFrame->rcx = 0x0F;
 	stackFrame->rbx = 0x010;
 	stackFrame->rax = 0x011;
 	stackFrame->rip = (uint64_t) entryPoint;
 	stackFrame->cs = 0x008;
 	stackFrame->eflags = 0x202;
-	stackFrame->rsp = (uint64_t)&(stackFrame->base);
+	stackFrame->rsp = (uint64_t) userStack;
 	stackFrame->ss = 0x000;
 	stackFrame->base = 0x000;
 
@@ -99,27 +99,12 @@ void setNextProcess(){
 		do {
 			current = current->next;
 
-		} while(current->state != READY);
-
+		} while(current->state != ACTIVE);
 		currentProcess = current;
-
-		// ncPrint("EntryPoint: ");
-		// ncPrintHex(currentProcess->entryPoint);
-		// ncNewline();
-		// ncPrint("stack: ");
-		// ncPrintHex(currentProcess->stack);
-		// ncNewline();
-		// ncPrint("next: ");
-	 // 	ncPrintHex(currentProcess->next);
-		// ncNewline();
-	 // 	ncPrint("PID: ");
-	 // 	ncPrintDec(currentProcess->PID);
 	}
 }
 
 void * kernelSchedToUser(){
-	ncPrint("EntryPointkernelTouser: ");
-	ncPrintHex(currentProcess->entryPoint);
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
@@ -140,12 +125,11 @@ void printA() {
 
 }
 
-void printB() {
-
-	while(1) {
-
-	}
-
+void nullProcess()
+{
+	while(1){
+		ncPrint("A");
+	};
 }
 
 void changeProcessState(pid_t pid, ProcessState state) {
@@ -160,9 +144,11 @@ void changeProcessState(pid_t pid, ProcessState state) {
 
 void initializeScheduler() {
 
-	addProcess(0, "Null");
+	addProcess(nullProcess, "Null");
 
 	addProcess(codeModuleAddress, "Shell");
+
+	inizialized = 1;
 
 	scheduleNow();
 }
@@ -189,7 +175,7 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	//new_process->stack = stackkkk;
 
-	new_process->stack = fillStackFrame(entry_point, (char *) new_process->stack + STACKKKK);
+	new_process->stack = fillStackFrame(entry_point, (void *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
 		return -1;
@@ -201,6 +187,10 @@ pid_t addProcess(void * entry_point, char * name) {
 
 	new_process->PID = getNewPid();
 	new_process->entryPoint = entry_point;
+	memset(new_process->name, 0, 24);
+	int i = 0;
+	while(name[i++] != 0);
+  memcpy(new_process->name, name, i+1);
 
 	// copy name
 
@@ -213,28 +203,26 @@ pid_t addProcess(void * entry_point, char * name) {
 
 		currentProcess = new_process;
 
-		lastProcess = new_process;
-
 		new_process->next = new_process;
 
-		new_process->state = DEAD;
+		new_process->state = INACTIVE;
 
 	} else {
 
-		new_process->next = lastProcess->next;
+		ncPrint("Agrego el nuevo process");
 
-		lastProcess->next = new_process;
+		new_process->next = currentProcess->next;
 
-		lastProcess = new_process;
+		currentProcess->next = new_process;
 
-		new_process->state = READY;
+		currentProcess->state = INACTIVE;
+
+		new_process->state = ACTIVE;
 
 	}
 
 	--freeProcesses;
-	ncPrint("Agrego el nuevo process");
 	ncNewline();
-
 	ncPrint("EntryPoint: ");
 	ncPrintHex(new_process->entryPoint);
 	ncNewline();
@@ -248,13 +236,15 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncPrintDec(new_process->PID);
 	ncNewline();
 
+	clearscreen();
+
 	return new_process->PID;
 
 }
 
-Process * getProcessArray()
+Process * getCurrentProcess()
 {
-	return process;
+	return currentProcess;
 }
 
 int removeProcess(pid_t pid) {
@@ -263,6 +253,32 @@ int removeProcess(pid_t pid) {
 
 pid_t getCurrentPID() {
 	return currentProcess->PID;
+	if(pid == 1) return; //NULL process
+	Process * process = currentProcess;
+	Process * processAux = NULL;
+	while(process->PID != pid){
+		processAux = process;
+		process = process->next;
+	}
+	if(processAux == NULL){
+		processAux = process;
+		while(process->PID != processAux->next->PID){
+			processAux = processAux->next;
+		}
+	}
+	processAux->next = process->next;
+	if(pid == currentProcess->PID){
+		currentProcess->state = INACTIVE;
+		if(currentProcess->next->PID == 1){
+			currentProcess->next->next->state = ACTIVE;
+		}else{
+			currentProcess->next->state = ACTIVE;
+		}
+		currentProcess = currentProcess->next;
+		scheduleNow();
+	}
+	//clearscreen();
+
 }
 
 void * mem_alloc() {

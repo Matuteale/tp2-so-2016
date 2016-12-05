@@ -7,14 +7,16 @@
 
 typedef enum {
 
-	RUNNING = 0,
+	ACTIVE = 0,
 	BLOCKED,
-	READY,
-	DEAD
+	INACTIVE,
+	DEAD,
+
 
 } ProcessState;
 
 typedef struct Process {
+	char name[24];
 	void * stack;
 	void * stackPointer;
 	uint64_t nOfPages;

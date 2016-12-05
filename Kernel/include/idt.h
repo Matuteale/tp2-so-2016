@@ -47,11 +47,13 @@ void play_music_idt();
 
 void pit_setup(uint32_t msecs);
 
-void list_processes();
+void list_processes(int * vec, char ** names);
 
-void kill_process();
+void kill_process(int PID);
 
-void create_process();
+void create_process(void * entryPoint, char * name);
+
+void getActivePID(int * PID);
 
 extern int timertick;
 

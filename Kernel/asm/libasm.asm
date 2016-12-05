@@ -12,6 +12,8 @@ GLOBAL yield
 GLOBAL outb
 GLOBAL inb
 GLOBAL clear_interrupts
+GLOBAL userToKernel
+GLOBAL kernelToUser
 
 extern keyboard_interrupt
 extern timer_interrupt
@@ -70,7 +72,7 @@ yield:
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
-pushaq            			; Se salvan los registros
+  pushaq            			; Se salvan los registros
 
   call timer_interrupt
 
@@ -210,20 +212,29 @@ stop_sound_asm:
 
 ;SoundBlasterosOS
 userToKernel:
-  ;pop QWORD[retAddr]
+  pop QWORD[ret_addr]
 
-  ;mov QWORD[procStack], rsp
-  ;mov rsp, QWORD[kernelStack]
+  mov QWORD[proc_stack], rsp
+  mov rsp, QWORD[kernelStack]
 
-  ;push QWORD[retAddr]
+  push QWORD[ret_addr]
   ret
 
 ;SoundBlasterosOS
 kernelToUser:
-  ;pop QWORD[retAddr]
+  pop QWORD[ret_addr]
 
-  ;mov QWORD[kernelStack], rsp
-  ;mov rsp, QWORD[procStack]
+  mov QWORD[kernelStack], rsp
+  mov rsp, QWORD[proc_stack]
 
-  ;push QWORD[retAddr]
+  push QWORD[ret_addr]
   ret
+
+section .bss
+
+
+  ret_addr:
+    resq 1
+
+  proc_stack:
+    resq 1

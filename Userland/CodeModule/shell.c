@@ -62,7 +62,19 @@ void shell()
 /*Lista de procesos*/
 void ps()
 {
-	ps_sys();
+	unsigned int processPID[16];
+	char * names[16];
+	printString("PIDs\n");
+	ps_sys(names, processPID);
+	int i = 0;
+	while(processPID[i] != 0){
+		printString(names[i]);
+		printString(" - ");
+		printDec(processPID[i]);
+		printString("\n");
+		i++;
+	}
+	return;
 }
 
 /* interpreta el comando ingresado */
@@ -92,14 +104,14 @@ void help()
 	printString("screensavertimer - setear tiempo de protector de pantallas\n");
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
+	printString("philosophers - corre la aplicación de filosofos\n");
 	printString("----------------------------------------------------------\n");
-
 	return;
 }
 
 void philosophers()
 {
-
+	sys_addProcess("Philosophers", mainPhil);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
