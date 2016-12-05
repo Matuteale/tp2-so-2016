@@ -236,7 +236,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			ncPrintHex(new_process->stack);
 			ncNewline();
 			ncPrintHex(new_process->next->PID);
-			while(1);
 		}
 
 	// ncNewline();
