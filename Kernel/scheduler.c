@@ -151,7 +151,7 @@ void initializeScheduler() {
 
 	inizialized = 1;
 
-	scheduleNow();
+	//scheduleNow();
 }
 
 void linkProcessStructures() {

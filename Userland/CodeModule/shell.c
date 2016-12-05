@@ -114,7 +114,7 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", ps, 0);
+	sys_addProcess("Philosophers", &ps, 0);
 }
 
 void prodCons()
