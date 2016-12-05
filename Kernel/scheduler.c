@@ -14,7 +14,7 @@ Process * currentProcess = NULL;
 
 Process * freeProcess = NULL;
 
-Process * nullProcess = NULL;
+Process * nilProcess = NULL;
 
 int inizialized = 0;
 
@@ -203,7 +203,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		ncPrint("Agrego el Null process");
 		ncNewline();
 
-		nullProcess = new_process;
+		nilProcess = new_process;
 
 		currentProcess = new_process;
 
