@@ -34,7 +34,6 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 void diningPhilosophers() {
 	if(philosopherInit() == -1) {
-		return;
 	}
 	printString("Press e to exit");
 
@@ -72,7 +71,7 @@ void takeForks(int id) {
 			try(id);
 			if(philosopherState[id] == EATING) {
 				mutexUnlock(&mutex);
-			}		
+			}
 		}
 	}
 }
