@@ -33,8 +33,9 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 
 void diningPhilosophers() {
-	if(philosopherInit() == -1) {
-	}
+	// if(philosopherInit() == -1) {
+	// 	return;
+	// }
 	printString("Press e to exit");
 
 	printString("Press s to add a philosopher or w to remove one");
