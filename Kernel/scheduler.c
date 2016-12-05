@@ -248,11 +248,6 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-
-}
-
-pid_t getCurrentPID() {
-	return currentProcess->PID;
 	if(pid == 1) return; //NULL process
 	Process * process = currentProcess;
 	Process * processAux = NULL;
@@ -278,7 +273,10 @@ pid_t getCurrentPID() {
 		scheduleNow();
 	}
 	//clearscreen();
+}
 
+pid_t getCurrentPID() {
+	return currentProcess->PID;
 }
 
 void * mem_alloc() {
