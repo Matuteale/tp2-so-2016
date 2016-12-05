@@ -104,7 +104,9 @@ void create_process(void * entryPoint, char * name, int isBackground)
   userToKernel();
   addProcess(entryPoint, name, isBackground);
   kernelToUser();
-  scheduleNow();
+  if(!isBackground){
+    scheduleNow();
+  }
 }
 
 /* sys call 0x2 */
