@@ -2,8 +2,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "philosophers.h"
-#include "philosophersGUI.h"
+#include "philosopher.h"
+//#include "philosophersGUI.h"
 
 int left(int i);
 int right(int i);
@@ -61,7 +61,7 @@ void takeForks(int id) {
 			try(id);
 			if(philosopherState[id] == EATING) {
 				mutexUnlock(mutex);
-			}		
+			}
 		}
 	}
 }
