@@ -26,6 +26,8 @@ void music();
 
 void ps();
 
+void prodCons();
+
 void philosophers();
 
 int mainPhil(int argc, char ** argv);

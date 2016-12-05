@@ -2,6 +2,8 @@
 #include "shell.h"
 #include "RTCuserspace.h"
 #include "string.h"
+#include "consumerProducer.h"
+#include "philosopher.h"
 
 #define CANT_COMMANDS_SHELL 10
 
@@ -13,11 +15,11 @@ extern int set_ss_timer(int n);
 
 //comandos
 char * shell_commands[] = {"systime", "setsystime", "changecolor",
-						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers"} ;
+						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc"} ;
 
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,
-						  change_text_color, clearscreen, screensavertimer, beep, music, ps, help, philosophers} ;
+						  change_text_color, clearscreen, screensavertimer, beep, music, ps, help, philosophers, prodCons} ;
 
 int command;
 char input_char;
@@ -111,7 +113,12 @@ void help()
 
 void philosophers()
 {
-	//sys_addProcess("Philosophers", mainPhil);
+	sys_addProcess("Philosophers", diningPhilosophers);
+}
+
+void prodCons()
+{
+	sys_addProcess("mainPC", mainProdCons);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */

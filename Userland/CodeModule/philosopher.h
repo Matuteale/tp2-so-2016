@@ -11,5 +11,6 @@ typedef enum {
 	Eating = 2
 } State;
 
+void diningPhilosophers(); 
 
 #endif

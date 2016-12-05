@@ -8,7 +8,6 @@ GLOBAL write_byte_to_port_0x71
 GLOBAL read_byte_from_port_0x71
 GLOBAL play_sound_asm
 GLOBAL stop_sound_asm
-GLOBAL yield
 GLOBAL outb
 GLOBAL inb
 GLOBAL clear_interrupts
@@ -66,9 +65,6 @@ extern setNextProcess
 
 section .text
 
-yield:
-	int 0x81
-	ret
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
 

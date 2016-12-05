@@ -1,91 +1,100 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <semaphore.h>
-// #include <signal.h>
-// #include <pthread.h>
-// #include <semaphore.h>
-// #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <semaphore.h>
+#include <signal.h>
+#include <consumerProducer.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
 
-// #define BUFFER_SIZE 100
+#define BUFFER_SIZE 100
 
-// void * producer(void * ctx);
-// void * consumer(void * ctx);
-// void control();
 
-// int buffer[BUFFER_SIZE];
-// int fill_ptr = 0;
-// int use_ptr = 0;
-// int count = 0;
 
-// void put(int value) {
-// 	buffer[fill_ptr] = value;
-// 	fill_ptr = (fill_ptr + 1) % BUFFER_SIZE;
-// 	count++;
-// }
+int buffer[BUFFER_SIZE];
+int fill_ptr = 0;
+int use_ptr = 0;
+int count = 0;
+int loops = 30;
 
-// int get() {
-// 	int tmp = buffer[use_ptr];
-// 	use_ptr = (use_ptr +1) % BUFFER_SIZE;
-// 	count--;
-// 	return tmp;
-// }
+void put(int value) {
+	buffer[fill_ptr] = value;
+	fill_ptr = (fill_ptr + 1) % BUFFER_SIZE;
+	count++;
+}
 
-// cond_t empty, fill;
-// int mutex;
+int get() {
+	int tmp = buffer[use_ptr];
+	use_ptr = (use_ptr +1) % BUFFER_SIZE;
+	count--;
+	return tmp;
+}
 
-// void * producer(void *arg) {
-// 	int i;
-// 	for(i = 0; i < loops; i++) {
-// 		mutexLock(&mutex);
-// 		while(count == BUFFER_SIZE) {
-// 			waitCondVar(&empty, mutex);
-// 		}
-// 		put(i);
-// 		signalCondVar(&fill);
-// 		mutexUnlock(&mutex);
-// 	}
-// }
+cond_t empty, fill;
+int mutex;
 
-// void * consumer(void * arg) {
-// 	int i;
-// 	for(i = 0; i < loops; i++) {
-// 		mutexLock(mutex);
-// 		while(count == 0) {
-// 			waitCondVar(&fill, mutex);
-// 		}
-// 		int tmp = get();
-// 		printf("Consume %d\n", tmp):
-// 		signalCondVar(&empty);
-// 		mutexUnlock(&mutex);
-// 	}
-// }
+void mainProdCons() {
+	sys_addProcess("producer",&producer);
+	sys_addProcess("consumer",&consumer);
+	while(1){
+		control();
+	}
+}
 
-// void control() {
-// 	int end = 0;
+void * producer(void *arg) {
+	int i;
+	for(i = 0; i < loops; i++) {
+		mutexLock(&mutex);
+		while(count == BUFFER_SIZE) {
+			waitCondVar(&empty, mutex);
+		}
+		put(i);
+		printf("Produce %d\n", i);
+		signalCondVar(&fill);
+		mutexUnlock(&mutex);
+	}
+}
 
-// 	while(!end) {
-// 		int c = getchar();
+void * consumer(void * arg) {
+	int i;
+	for(i = 0; i < loops; i++) {
+		mutexLock(mutex);
+		while(count == 0) {
+			waitCondVar(&fill, mutex);
+		}
+		int tmp = get();
+		printf("Consume %d\n", tmp):
+		signalCondVar(&empty);
+		mutexUnlock(&mutex);
+	}
+}
 
-// 		switch(c) {
-// 			case 'a':
-// 				prodSleepTime++;
-// 			break;
+void control() {
+	int end = 0;
 
-// 			case 'z':
-// 				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
-// 			break;
+	while(!end) {
+		int c = getchar();
 
-// 			case 's':
-// 				consSleepTime++;
-// 			break;
+		switch(c) {
+			case 'a':
+				prodSleepTime++;
+			break;
 
-// 			case 'x':
-// 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
-// 			break;
+			case 'z':
+				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
+			break;
 
-// 			case 'q':
-// 				end = 1;
-// 			break;
-// 		}
-// 	}
-// }
+			case 's':
+				consSleepTime++;
+			break;
+
+			case 'x':
+				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
+			break;
+
+			case 'q':
+				end = 1;
+			break;
+		}
+	}
+}

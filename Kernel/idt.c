@@ -5,6 +5,7 @@
 #include <screensaver.h>
 #include <RTCkernelspace.h>
 #include <sound.h>
+#include <condVar.h>
 #include <naiveConsole.h>
 
 
@@ -141,9 +142,7 @@ void getActivePID(int * PID)
   PID[0] = process->PID;
 }
 
-void mutexLockU(int mutex) { 
-	mutexLock(mutex);
-}
+
 
 // void initCondVarU(cond_t * condVar, int pid) {
 
@@ -176,8 +175,11 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 		case 0xC: play_beep_idt(str, len); break;
    	case 0xD: list_processes((int *) str, (char **) len);break;
     case 0xE: getActivePID((int *) len);break;
-    // case 0xF: mutexLockU(str);break;
-    // case 0x10: mutexUnlockU(str);break;
+    case 0xF: ncPrint("ASS"); mutexLockK(str);break;
+    case 0x10: mutexUnlockK(str);break;
+    case 0x11: initCondVarK((cond_t*) len);
+    case 0x12: waitCondVarK((cond_t*) len, (int *)str);
+    case 0x13: signalCondVarK((cond_t*) len);
 	}
 	return ;
 }

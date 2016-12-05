@@ -261,6 +261,13 @@ int scanf(const char *fmt, ...)
     return 1;
 }
 
+void sleep (int ticks) {
+	int i = ticks;
+	while(i>0) {
+		i--;
+	}
+}
+
 /* cambia los colores de texto y fondo de la pantalla mediante system call */
 void change_text_color()
 {

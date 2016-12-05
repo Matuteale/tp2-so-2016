@@ -1,5 +1,6 @@
 global loader
 global scheduleNow
+GLOBAL yield
 extern main
 extern initializeKernelBinary
 extern userSchedToKernel
@@ -55,6 +56,9 @@ hang:
 	hlt							;halt machine should kernel return
 	jmp hang
 
+
+
+
 ;SoundBlasterosOS
 scheduleNow:
     ;Push de los registros que dps va a levantar el iretq
@@ -93,7 +97,10 @@ scheduleNow:
     popa
 
     iretq
-
+    
+yield:
+    call scheduleNow
+    ret
 
 section .bss
 
