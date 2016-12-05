@@ -107,7 +107,7 @@ void create_process(void * entryPoint, char * name)
 }
 
 /* sys call 0x2 */
-void kill_process(uint64_t PID)
+void kill_process(int PID)
 {
   removeProcess(PID);
 }
@@ -147,7 +147,7 @@ void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
 	switch(syscall)
 	{
     case 0x1: create_process((void *) str, (char *) len); break;
-    case 0x2: kill_process(len); break;
+    case 0x2: kill_process((int) len); break;
 		case 0x3: sys_readKeyboard((char *)str); break;
 		case 0x4: sys_displayWrite((char *)str, len); break;
 		case 0x5: read_rtc_time((char *) str, len); break;
