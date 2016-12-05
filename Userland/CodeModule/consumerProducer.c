@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <consumerProducer.h>
+#include "consumerProducer.h"
 #include <pthread.h>
-#include <semaphore.h>
 #include <unistd.h>
 
 #define BUFFER_SIZE 100
