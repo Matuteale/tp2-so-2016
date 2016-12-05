@@ -2,9 +2,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "philosopher.h"
-//#include "philosophersGUI.h"
-#include "shell.h"
+#include "philosophers.h"
+#include "philosophersGUI.h"
 
 int left(int i);
 int right(int i);
@@ -12,113 +11,181 @@ void * philosopher(void * id);
 void takeForks(int id);
 void putForks(int id);
 void test(int i);
-//int randRange(int min, int max);
+int randRange(int min, int max);
 
-static const int philosopherCount = 2;
-//State state[philosopherCount];
 
-// pthread_mutex_t mutex;
-// pthread_mutex_t semaphores[philosopherCount];
-// pthread_t philosopherThread[philosopherCount];
-// int philosopherId[philosopherCount];
+int mutex;
+int canEat[MAX_PHILOSPHERS];
+State philosopherState[MAX_PHILOSPHERS];
+int forks[MAX_PHILOSPHERS];
+pid_t philosopherPID[MAX_PHILOSPHERS];
+int philosopherCount;
 
-void * philosopher(void * id) {
-	// while(1) {
-	// 	//Think
-	// 	//sleep(10);
-	// 	sleep(randRange(5, 10));
+void diningPhilosophers() {
+	if(philosopherInit() == -1) {
+		return;
+	}
+	printString("Press e to exit");
 
-	// 	takeForks(*(int*)id);
+	printString("Press s to add a philosopher or w to remove one");
 
-	// 	//Eat
-	// 	//sleep(10);
-	// 	sleep(randRange(5, 10));
+	while(1) {
+		char c = getchar();
+		switch(c) {
+			case 'q': killPhilosopher(); return; break;
+			case 'w': addPhilosopher(); break;
+			case 's': removePhilosopher(); break;
+		}
+	}
+}
 
-	// 	putForks(*(int*)id);
-	// }
+void philosopher() {
+	int id = philosopherCount++;
+	while(1) {
+		wait(800);
+		takeForks(id);
+		wait(3000*id);
+		putForks(id);
+	}
 }
 
 void takeForks(int id) {
-	// mutexLock(&mutex);				//Crit zone
-
-	// //Set state
-	// state[id] = Hungry;
-	// setPhiloState(id, Hungry);
-	// render();
-
-	// test(id);								//Try to acquire forks
-	// mutexUnlock(&mutex);			//Crit zone exit
-	// mutexLock(&semaphores[id]);	//Locks if forks not acquired
+	mutexLock(mutex);
+	philosopherState[id] = HUNGRY;
+	try(id);
+	if(philosopherState[id] == EATING) {
+		mutexUnlock(mutex);
+	} else {
+		while(philosopherState[id] != EATING) {
+			waitCondVar(canEat[id], mutex);
+			try(id);
+			if(philosopherState[id] == EATING) {
+				mutexUnlock(mutex);
+			}		
+		}
+	}
 }
 
 void putForks(int id) {
-	// mutexLock(&mutex);				//Crit zone
+	mutexLock(mutex);
+	state[id] = THINKING;
+	forks[left(id)] = -1;
+	forks[id] = -1;
+	try(left(id));
+	try(right(id));
 
-	// //Set state
-	// state[id] = Thinking;
-	// //Think and release forks
-	// setPhiloState(id, Thinking);
-	// setForkState(left(id), -1);
-	// setForkState(id, -1);
-	// render();
-
-	// test(left(id));							//Try to acquire forks for left
-	// test(right(id));						//Try to acquire forks for right
-	// mutexUnlock(&mutex);			//Crit zone exit
+	mutexUnlock(mutex)
 }
 
-void test(int id) {
-	// if (state[id] == Hungry &&				//Philosopher is hungry
-	// 	state[left(id)] != Eating &&		//Both philosophers at
-	// 	state[right(id)] != Eating) {		//left and right are not eating
+void try(int id) {
 
-	// 	//Set state
-	// 	state[id] = Eating;					//Philosopher can eat!
-	// 	//Take forks and eat
-	// 	setPhiloState(id, Eating);
-	// 	setForkState(left(id), id);
-	// 	setForkState(id, id);
-	// 	render();
+	if (state[id] == HUNGRY && state[left(id)] != EATING && state[right(id)] != EATING) {
+		state[id] = EATING;
+		fork_state[left(id)] = id;
+		fork_state[id] = id;
+		render();
+		signalCondVar(canEat[id]);
+	}
 
-	// 	mutexUnlock(&semaphores[id]);	//Forks acquired, unlock
-	// }
 }
 
-int mainPhil(int argc, char ** argv) {
-	//Setup
-	printString("--------------------< Soy filosofo >--------------------\n");
-	// for (int i = 0; i < philosopherCount; i++) {
-	// 	mutexLock(&semaphores[i]);		//Philosophers start not having
-	// }											//ownership of the forks
+int left(int id) {
 
-	// pthread_attr_t attr;
-	// pthread_attr_init(&attr);
-	// pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+	return (id + philosopherCount - 1) % philosopherCount;
 
-	// for (int i = 0; i < philosopherCount; i++) {
-	// 	philosopherId[i] = i;
-	// 	state[i] = Thinking;
-	// 	pthread_create(&philosopherThread[i], &attr, philosopher, &philosopherId[i]);
-	// }
+}
 
-	// printf("running\n");
-	// getchar();
-	sys_killProcess(3);
+int right(int id) {
 
-	while(1);
+	return (id + 1) % philosopherCount;
+
+}
+
+void render() {
+	for(int i = 0; i < philosopherCount; i++) {
+		printf("Philosopher %d: %s\n", i, stateStrings[philoState[i]]);
+		printf("Fork - ");
+
+		if (forkState[i] == -1)
+			printf("Free\n");
+		else
+			printf("Owner %d\n", forkState[forkState[i]]);
+	}
+
+	putchar('\n');
+	putchar('\n');
+}
+
+int removePhilosopher() {
+	if(philosopherCount == 2) {
+		return -1;
+	}
+
+	while (1) {
+		mutexLock(mutex);
+		if (state[philosopherCount - 1] != EATING && state[0] != EATING) {
+
+			philosopherPID[philosopherCount - 1] = 0;
+
+			forks[philosopherCount - 1] = -1;
+
+			removeSeat(canEat[philosopherCount - 1]);
+
+			killProcess(philosopherPID[philosopherCount - 1]);
+
+			philosopherCount--;
+
+			mutexUnlock(mutex);
+
+			return 0;
+
+		}
+
+		mutexUnlock(mutex);
+
+	}
 
 	return 0;
-
 }
 
-int left(int i) {
-	return (i + philosopherCount - 1) % philosopherCount;
-}
+int philoInitialize() {
 
-int right(int i) {
-	return (i + 1) % philosopherCount;
-}
+	int i;
+	int pid;
 
-// int randRange(int min, int max) {
-// 	return rand() % (max - min) + min;
-// }
+	philosopherCount = 0;
+	mutex = createMutex(MUTEX_KEY);
+	if(mutex == -1) {
+		return -1;
+	}
+	if(mutex == -2) {
+		fprintf(STDERR, "Error: no mutex available \n");
+		return -1;
+	}
+	for(i = 0 ; i < MAXPHILOS ; i++) {
+		fork_state[i] = -1;
+	}
+	for(i = 0 ; i < MAXPHILOS ; i++) {
+		state[i] = 0;
+	}
+	for(i = 0 ; i < MAXPHILOS ; i++) {
+		philosopherPID[i] = 0;
+	}
+	for(i = 0 ; i < INITIALNUMBER ; i++) {
+		canEat[i] = initCondVar(condition_key++);
+		if(canEat[i] < 0) {
+			fprintf(STDERR, "Error: error creating condition variables.\n");
+			return -1;
+		}
+	}
+	for(i = 0 ; i < INITIALNUMBER ; i ++) {
+		pid = create_process(&philosopher);
+		philosopherPID[i] = pid;
+		if(pid == -1) {
+			fprintf(STDERR, "Error: couldn't create philosopher process.\n");
+			killPhilosophers();
+		return -1;
+		}
+	}
+	return 0;
+}

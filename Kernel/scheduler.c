@@ -132,6 +132,15 @@ void nullProcess()
 	};
 }
 
+void changeProcessState(pid_t pid, ProcessState state) {
+	int i;
+	for(i = 0; i<16; i++) {
+		if(process[i].PID == pid) {
+			process[i].state = state;
+		}
+	}
+}
+
 
 void initializeScheduler() {
 
@@ -239,6 +248,11 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
+
+}
+
+pid_t getCurrentPID() {
+	return currentProcess->PID;
 	if(pid == 1) return; //NULL process
 	Process * process = currentProcess;
 	Process * processAux = NULL;

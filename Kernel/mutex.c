@@ -6,12 +6,12 @@
 
 
 
-int mutexLock(uint8_t * mutexLock) {
-	while(enterCritRegion(mutexLock)) {
+int mutexLock(uint8_t mutexLock) {
+	while(enterCritRegion(&mutexLock)) {
 		yield();
 	}
 }
 
-void mutexUnlock(uint8_t * mutex) {
-	*mutex = 0;
+void mutexUnlock(uint8_t mutex) {
+	mutex = 0;
 }
