@@ -237,6 +237,7 @@ pid_t addProcess(void * entry_point, char * name) {
 	ncNewline();
 
 	clearscreen();
+	scheduleNow();
 
 	return new_process->PID;
 
