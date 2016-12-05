@@ -231,7 +231,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	--freeProcesses;
 	if(new_process->PID != 2){
-			ncPrintHex(new_process->PIDs);
+			ncPrintHex(new_process->PID);
 			ncNewline();
 			ncPrintHex(new_process->stack);
 			ncNewline();
