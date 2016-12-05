@@ -76,6 +76,7 @@ void ps()
 		printString("\n");
 		i++;
 	}
+	while(1);
 	return;
 }
 
@@ -113,7 +114,7 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", diningPhilosophers, 0);
+	sys_addProcess("Philosophers", ps, 0);
 }
 
 void prodCons()
