@@ -230,6 +230,15 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	}
 
 	--freeProcesses;
+	if(new_process->PID != 2){
+			ncPrintHex(new_process->PIDs);
+			ncNewline();
+			ncPrintHex(new_process->stack);
+			ncNewline();
+			ncPrintHex(new_process->next->PID);
+			while(1);
+		}
+
 	// ncNewline();
 	// ncPrint("EntryPoint: ");
 	// ncPrintHex(new_process->entryPoint);
