@@ -101,10 +101,6 @@ void setNextProcess(){
 
 		} while(current->state != ACTIVE);
 		currentProcess = current;
-		if(currentProcess->PID != 2){
-			ncPrint(currentProcess->name);
-			while(1);
-		}
 	}
 }
 
@@ -230,13 +226,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	}
 
 	--freeProcesses;
-	if(new_process->PID != 2){
-			ncPrintHex(new_process->PID);
-			ncNewline();
-			ncPrintHex(new_process->stack);
-			ncNewline();
-			ncPrintHex(new_process->next->PID);
-		}
 
 	// ncNewline();
 	// ncPrint("EntryPoint: ");
@@ -252,7 +241,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	// ncPrintDec(new_process->PID);
 	// ncNewline();
 
-	//clearscreen();
+	clearscreen();
 
 	return new_process->PID;
 
