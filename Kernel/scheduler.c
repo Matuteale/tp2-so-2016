@@ -244,7 +244,7 @@ int removeProcess(pid_t pid) {
 	Process * processAux = NULL;
 	while(process->PID != pid){
 		processAux = process;
-		process = currentProcess->next;
+		process = process->next;
 	}
 	if(processAux == NULL){
 		processAux = process;
@@ -255,12 +255,12 @@ int removeProcess(pid_t pid) {
 	processAux->next = process->next;
 	if(pid == currentProcess->PID){
 		currentProcess->state = INACTIVE;
-		if(process->next->PID == 1){
-			process->next->next->state = ACTIVE;
-			currentProcess = process->next->next;
+		if(currentProcess->next->PID == 1){
+			currentProcess->next->next->state = ACTIVE;
+			currentProcess = proccurrentProcessess->next->next;
 		}else{
-			process->next->state = ACTIVE;
-			currentProcess = process->next;
+			currentProcess->next->state = ACTIVE;
+			currentProcess = currentProcess->next;
 		}
 	}
 	//clearscreen();
