@@ -255,13 +255,10 @@ int removeProcess(pid_t pid) {
 		currentProcess->state = INACTIVE;
 		if(process->next->PID == 1){
 			process->next->next->state = ACTIVE;
-			currentProcess = process->next->next;
 		}else{
 			process->next->state = ACTIVE;
-			currentProcess = process->next;
 		}
 	}
-	scheduleNow();
 	clearscreen();
 
 }
