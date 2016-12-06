@@ -148,11 +148,11 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	// 		process[i].state = state;
 	// 	}
 	// }
-	Process * auxProcess = currentProcess;
-	while(currentProcess->PID != pid) {
-		auxProcess = auxProcess->next;
-	}
-	auxProcess->state = state;
+	// Process * auxProcess = currentProcess;
+	// while(currentProcess->PID != pid) {
+	// 	auxProcess = auxProcess->next;
+	// }
+	// auxProcess->state = state;
 }
 
 
