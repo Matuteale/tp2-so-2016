@@ -93,7 +93,7 @@ sys_addProcess:
   mov rax, 0x1 ;Se hace la llamada para crear un proceso
   mov rdx, rdi
   mov rcx, rsi
-  mov rsx, rdx
+  mov rbx, rdx
   int 0x80
 
   mov rsp, rbp
