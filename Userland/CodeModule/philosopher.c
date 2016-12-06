@@ -35,9 +35,9 @@ void diningPhilosophers() {
 	if(philosopherInit() == -1) {
 	 	return;
  	}
-  printString("Press e to exit\n");
+ //  printString("Press e to exit\n");
 
-	printString("Press s to add a philosopher or w to remove one\n");
+	// printString("Press s to add a philosopher or w to remove one\n");
 
 	 while(1) {
 	 	// render();

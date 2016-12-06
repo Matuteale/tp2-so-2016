@@ -179,7 +179,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	//new_process->stack = stackkkk;
   new_process->stack = mem_alloc();
 	new_process->stack = fillStackFrame(entry_point, (void *) new_process->stack + STACKKKK);
-	new_process->foreground = 0;
 
 	if(freeProcesses == 0) {
 		return -1;
@@ -219,7 +218,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 				currentProcess->state = DEAD;
 			}else{
 				currentProcess->state = READY;
-				ncPrintDec(currentProcess->foreground);
 				currentProcess->foreground = 0;
 			}
 			new_process->state = RUNNING;
