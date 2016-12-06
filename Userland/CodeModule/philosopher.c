@@ -55,12 +55,12 @@ void diningPhilosophers() {
 void philosopher() {
 	int id = philosopherCount++;
 	while(1) {
-		if(philosopherCount > 1) {
-		//sleep(800);
-		takeForks(id);
-		//sleep(3000*id);
-		putForks(id);
-		}
+		// if(philosopherCount > 1) {
+		// //sleep(800);
+		// takeForks(id);
+		// //sleep(3000*id);
+		// putForks(id);
+		//}
 
 	}
 }
