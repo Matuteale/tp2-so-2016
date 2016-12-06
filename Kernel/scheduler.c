@@ -208,10 +208,13 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 		// ncPrint("Agrego el nuevo process");
 		// ncNewline();
-
-		new_process->next = currentProcess->next;
-
-		currentProcess->next = new_process;
+		if(currentProcess == nilProcess){
+			new_process->next = currentProcess;
+			currentProcess->next = new_process;
+		}else{
+			new_process->next = currentProcess->next;
+			currentProcess->next = new_process;
+		}
 
 		if(!isBackground){
 			ncPrint("nobackground");
