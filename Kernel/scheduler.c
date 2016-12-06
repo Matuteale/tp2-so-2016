@@ -97,12 +97,15 @@ void * userSchedToKernel(uint64_t * rsp){
 
 void setNextProcess(){
 	Process * current = currentProcess;
+	Process * auxProcess = NULL;
 	if(current != NULL && current->next != NULL){
 		do {
+			auxProcess = current;
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
 				current = current->next;
+				auxProcess->next = current;
 				//freeProcess(aux);
 			}
 		} while(current->state != RUNNING && current->state != READY);
