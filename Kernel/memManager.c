@@ -3,15 +3,13 @@
 #include <video.h>
 #include <memManager.h>
 
-
-
 static void *pageStack[STACK_SIZE];
 static uint16_t stackTop = 0;
 static int initialized = 0;
 
 
 static void pushPage(void *page);
-static void *popPage();
+static void * popPage();
 
 
 void initializePageStack() {
@@ -39,7 +37,7 @@ void pageManager(Action action, void **page) {
 static void pushPage(void *page) {
 
 	if (stackTop > 0 && stackTop < STACK_SIZE) {
-	
+
 		pageStack[--stackTop] = page;
 	}
 
@@ -67,7 +65,7 @@ void * alloc() {
 void freeMem(void *page) {
 
 	if (stackTop > 0 && stackTop < STACK_SIZE) {
-	
+
 		pageStack[--stackTop] = page;
 	}
 
