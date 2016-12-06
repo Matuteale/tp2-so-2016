@@ -165,7 +165,7 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
   if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
-    case 0x1: create_process((void *) arg_2, (char *) arg_1, int arg_3); break;
+    case 0x1: create_process((void *) arg_2, (char *) arg_1, (int) arg_3); break;
     case 0x2: kill_process((int) arg_1); break;
 		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);} break;
 		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);} break;
