@@ -112,6 +112,7 @@ void create_process(void * entryPoint, char * name, int isBackground)
   ncPrint(process->name);
   while(process->next->PID != processAux->PID){
     ncPrint(process->name);
+    ncPrint(" - ");
     process = process->next;
   }
 }
