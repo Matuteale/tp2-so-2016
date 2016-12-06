@@ -109,9 +109,11 @@ void setNextProcess(){
 				freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
-		//currentProcess->state = READY;
+		if(currentProcess->state != DEAD && currentProcess->state != DYING){
+			currentProcess->state = READY;
+		}
 		currentProcess = current;
-		//currentProcess->state = RUNNING;
+		currentProcess->state = RUNNING;
 	}
 }
 
