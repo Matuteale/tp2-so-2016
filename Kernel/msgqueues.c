@@ -1,6 +1,7 @@
 #include <msgqueues.h>
 #include <process.h>
 #include <naiveConsole.h>
+#include <memManager.h>
 
 #define MAX_QUEUES 50
 
@@ -20,6 +21,36 @@ char ** getOpenedMessageQs(){
     }
   }
   return openedMsgQs;
+}
+
+MessageQ * getMessageQ(char * name){
+  for (int i = 0; i < MAX_QUEUES; ++i){
+    if(strcmp(msgQNames[i], name))
+      return queue[i];
+  }
+  return 0;
+}
+
+MessageQ * openMessageQ(char * name){
+  for (int i = 0; i < MAX_QUEUES; ++i){
+    if(strcmp(msgQNames[i], name))
+      return queue[i];
+  }
+
+  for (int i = 0; i < MAX_QUEUES; ++i){
+    if(msgQNames[i] == 0){
+      MessageQ * auxQueue = malloc(sizeof(MessageQ));
+      auxQueue->id = i;
+      auxQueue->name = name;
+      auxQueue->dead = 0;
+      auxQueue->first = 0;
+      auxQueue->last = 0;
+      msgQNames[i] = name;
+      queue[i] = auxQueue;
+      return auxQueue;
+    }
+  }
+  return 0;
 }
 
 void destroyMessageQ(MessageQ * msgQ){
@@ -57,4 +88,10 @@ void sendMessageQ(MessageQ * msgQ, char msg){
     msgQ->last->next = newMsg;
     msgQ->last = newMsg;
   }
+}
+
+void closeMessageQ(MessageQ * msgQ){
+  msgQ->dead = 1;
+  if(msgQ->first == 0)
+    destroyMessageQ(msgQ);
 }

@@ -7,6 +7,8 @@ static void *pageStack[STACK_SIZE];
 static uint16_t stackTop = 0;
 static int initialized = 0;
 
+uint64_t * currMalloc = (uint64_t *) (6*0x100000);
+
 
 static void pushPage(void *page);
 static void * popPage();
@@ -69,7 +71,11 @@ void freeMem(void *page) {
 		pageStack[--stackTop] = page;
 	}
 
+}
 
+void * malloc(int len){
+	currMalloc += (uint64_t)len;
+	return currMalloc;
 }
 
 
