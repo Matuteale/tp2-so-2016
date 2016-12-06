@@ -213,6 +213,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		currentProcess->next = new_process;
 
 		if(!isBackground){
+			ncPrint("isbackground");
 			if(nilProcess->PID == currentProcess->PID){
 				currentProcess->state = DEAD;
 			}else{
@@ -222,6 +223,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			new_process->state = RUNNING;
 			new_process->foreground = 1;
 		}else{
+			ncPrint("nobackground");
 			new_process->state = READY;
 			new_process->foreground = 0;
 		}
