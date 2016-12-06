@@ -244,7 +244,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	// ncPrintDec(new_process->PID);
 	// ncNewline();
 
-	clearscreen();
+	//clearscreen();
 
 	return new_process->PID;
 
