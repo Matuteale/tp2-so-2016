@@ -109,9 +109,9 @@ void setNextProcess(){
 				freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
-		currentProcess->state = READY;
+		//currentProcess->state = READY;
 		currentProcess = current;
-		currentProcess->state = RUNNING;
+		//currentProcess->state = RUNNING;
 	}
 }
 
@@ -225,7 +225,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 				currentProcess->state = READY;
 			}
 			currentProcess->foreground = 0;
-			new_process->state = READY;
+			new_process->state = RUNNING;
 			new_process->foreground = 1;
 		}else{
 			ncPrint("isbackground");
