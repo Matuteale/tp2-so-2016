@@ -279,6 +279,7 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
+	ncPrint("Paso por: ");
 	if(pid == nilProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
