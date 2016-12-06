@@ -273,12 +273,14 @@ int removeProcess(pid_t pid) {
 	}
 	if(pid == process->PID){
 		process->state = DYING;
+		process->foreground = 0;
 		processAux = process;
 		do{
 			process = process->next;
 		} while(process->PID != currentProcess->PID && process->state != READY);
 		if(process->state == READY){
 			process->state = RUNNING;
+			process->foreground = 1;
 		}
 	}
 	//clearscreen();
