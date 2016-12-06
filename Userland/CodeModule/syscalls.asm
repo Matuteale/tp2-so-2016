@@ -91,9 +91,9 @@ sys_addProcess:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0x1 ;Se hace la llamada para crear un proceso
-  mov rdi, rdi
-  mov rsi, rsi
-  mov rdx, rdx
+  mov rdx, rdi
+  mov rcx, rsi
+  mov rbx, rdx
   int 0x80
 
   mov rsp, rbp
