@@ -206,6 +206,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 		new_process->state = DEAD;
 
+		new_process->foreground = 0;
+
 	} else {
 
 		// ncPrint("Agrego el nuevo process");
