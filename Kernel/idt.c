@@ -109,8 +109,9 @@ void create_process(void * entryPoint, char * name, int isBackground)
   }
   Process * process = getCurrentProcess();
   Process * processAux = process;
+  ncPrintDec(process->PID);
   while(process->next->PID != processAux->PID){
-    ncPrintDec(process->PID);
+    ncPrintDec(process->next->PID);
     ncPrint(" - ");
     process = process->next;
   }
@@ -171,7 +172,7 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
 {
   Process * process = getCurrentProcess();
   if(syscall == 0x4){}
-  if(syscall == 0x1){ncPrintDec((int)arg_3);}
+  //if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
     case 0x1: create_process((void *) arg_2, (char *) arg_1, (int) arg_3); break;
