@@ -148,11 +148,11 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	// 		process[i].state = state;
 	// 	}
 	// }
-	// Process * auxProcess = currentProcess;
-	// while(currentProcess->PID != pid) {
-	// 	auxProcess = auxProcess->next;
-	// }
-	// auxProcess->state = state;
+	Process * auxProcess = currentProcess;
+	while(currentProcess->PID != pid) {
+		auxProcess = auxProcess->next;
+	}
+	auxProcess->state = state;
 }
 
 
@@ -204,8 +204,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	} else {
 
-		ncPrint("Agrego el nuevo process");
-		ncNewline();
+		// ncPrint("Agrego el nuevo process");
+		// ncNewline();
 
 		new_process->next = currentProcess->next;
 
