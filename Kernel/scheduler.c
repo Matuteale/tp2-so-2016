@@ -176,7 +176,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	Process * new_process = &process[counter++];
 
 	//new_process->stack = stackkkk;
-  new_process->stack = alloc();
+  new_process->stack = mem_alloc();
 	new_process->stack = fillStackFrame(entry_point, (void *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
@@ -189,14 +189,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	new_process->PID = getNewPid();
 	new_process->entryPoint = entry_point;
-	memset(new_process->name, 0, 24);
-	int i = 0;
-	while(name[i++] != 0);
-  memcpy(new_process->name, name, i+1);
-
-	// copy name
-
-	//new_process->stack = fillStackFrame(entry_point, (char *) &currentProcess->stack + STACK_SIZE);
+	setName(new_process, name);
 
 	if(currentProcess == NULL) {
 
@@ -226,8 +219,10 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 				currentProcess->state = READY;
 			}
 			new_process->state = RUNNING;
+			new_process->foreground = 1;
 		}else{
 			new_process->state = READY;
+			new_process->foreground = 0;
 		}
 
 	}
@@ -293,4 +288,11 @@ pid_t getCurrentPID() {
 
 void * mem_alloc() {
 	return alloc();
+}
+
+void setName(Process * process, char * name){
+	memset(new_process->name, 0, 24);
+	int i = 0;
+	while(name[i++] != 0);
+  memcpy(new_process->name, name, i+1);
 }

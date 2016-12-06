@@ -23,5 +23,6 @@ pid_t getCurrentPID();
 void changeProcessState(pid_t pid, ProcessState state);
 Process * getCurrentProcess();
 void nullProcess();
+void setName(Process * process, char * name);
 
 #endif
