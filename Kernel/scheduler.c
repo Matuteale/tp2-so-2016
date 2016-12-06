@@ -225,10 +225,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 				currentProcess->state = READY;
 			}
 			currentProcess->foreground = 0;
-			ncPrintDec(currentProcess->foreground);
 			new_process->state = READY;
 			new_process->foreground = 1;
-			ncPrintDec(new_process->foreground);
 		}else{
 			ncPrint("isbackground");
 			ncNewline();
