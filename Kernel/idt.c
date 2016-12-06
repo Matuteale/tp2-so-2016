@@ -165,9 +165,11 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
   if(syscall == 0x4){
     Process * process1 = process;
     Process * processAux = process;
-    while(process1->next->PID != processAux->PID){
-      ncPrintDec(process1->PID);
-      process1 = process1->next;
+    if(process->next->PID == 1){
+      while(process1->next->PID != processAux->PID){
+        ncPrintDec(process1->PID);
+        process1 = process1->next;
+      }
     }
   }
   if(syscall == 0x1){ncPrintDec((int)arg_3);}
