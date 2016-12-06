@@ -109,10 +109,10 @@ void create_process(void * entryPoint, char * name, int isBackground)
   }
   Process * process = getCurrentProcess();
   Process * processAux = process;
-  ncPrintDec(process->PID);
+  ncPrintDec(process->foreground);
   ncPrint(" - ");
   while(process->next->PID != processAux->PID){
-    ncPrintDec(process->next->PID);
+    ncPrintDec(process->next->foreground);
     ncPrint(" - ");
     process = process->next;
   }
@@ -172,7 +172,7 @@ void getActivePID(int * PID)
 void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
   Process * process = getCurrentProcess();
-  if(syscall == 0x3){ncPrintDec(process->PID);}
+  if(syscall == 0x3){}
   //if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
