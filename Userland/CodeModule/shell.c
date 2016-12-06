@@ -77,7 +77,6 @@ void ps()
 		i++;
 	}
 	sys_killProcess(3);
-	while(1);
 	return;
 }
 
