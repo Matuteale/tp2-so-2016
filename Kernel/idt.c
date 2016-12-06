@@ -162,6 +162,7 @@ void getActivePID(int * PID)
 void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
   Process * process = getCurrentProcess();
+  ncPrintDec(arg_3);
 	switch(syscall)
 	{
     case 0x1: create_process((void *) arg_2, (char *) arg_1, arg_3); break;
