@@ -76,7 +76,10 @@ void ps()
 		printString("\n");
 		i++;
 	}
-	sys_killProcess(3);
+	int activePID;
+	sys_getActivePID(&activePID);
+	sys_killProcess(activePID);
+	while(1);
 	return;
 }
 

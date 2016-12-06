@@ -104,7 +104,7 @@ sys_getActivePID:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
-  mov rax, 0xE ;Se hace la llamada para crear un proceso
+  mov rax, 0xE
   mov rdx, rdi
   mov rcx, rsi
   int 0x80
