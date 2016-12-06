@@ -16,6 +16,8 @@ Process * currentProcess = NULL;
 
 Process * nilProcess = NULL;
 
+Process * shellProcess = NULL;
+
 int inizialized = 0;
 
 char stackkkk[STACKKKK];
@@ -215,6 +217,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		if(currentProcess->PID == nilProcess->PID){
 			new_process->next = currentProcess;
 			currentProcess->next = new_process;
+			shellProcess = new_process;
 		}else{
 			new_process->next = currentProcess->next;
 			currentProcess->next = new_process;
@@ -288,7 +291,7 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-	if(pid == nilProcess->PID) return -1;
+	if(pid == nilProcess->PID || pid == shellProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
 	while(process->PID != pid){ //Process=processToRemove
@@ -298,12 +301,19 @@ int removeProcess(pid_t pid) {
 		process->state = DYING;
 		process->foreground = 0;
 		processAux = process;
-		do{
-			process = process->next;
-		} while(process->PID != currentProcess->PID && process->state != READY);
+		if(shellProcess != NULL){
+			process = shellProcess;
+		}else{
+			do{
+				process = process->next;
+			} while(process->PID != processAux->PID && process->state != READY);
+		}
 		if(process->state == READY){
 			process->foreground = 1;
 		}
+	}else{
+		process->state = DYING;
+		process->foreground = 0;
 	}
 	//clearscreen();
 	return processAux->PID;
