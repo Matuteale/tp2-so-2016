@@ -193,7 +193,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	if(currentProcess == NULL) {
 
-		ncPrint("Agrego el Null process");
+		ncPrint("Agrego el Null process\n");
 		ncNewline();
 
 		nilProcess = new_process;
@@ -206,14 +206,14 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	} else {
 
-		ncPrint("Agrego el nuevo process");
+		ncPrint("Agrego el nuevo process\n");
 
 		new_process->next = currentProcess->next;
 
 		currentProcess->next = new_process;
 
 		if(!isBackground){
-			ncPrint("isbackground");
+			ncPrint("isbackground\n");
 			if(nilProcess->PID == currentProcess->PID){
 				currentProcess->state = DEAD;
 			}else{
@@ -223,7 +223,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			new_process->state = RUNNING;
 			new_process->foreground = 1;
 		}else{
-			ncPrint("nobackground");
+			ncPrint("nobackground\n");
 			new_process->state = READY;
 			new_process->foreground = 0;
 		}
