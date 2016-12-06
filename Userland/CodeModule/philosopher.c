@@ -35,6 +35,7 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 void diningPhilosophers() {
 
 	if(philosopherInit() == -1) {
+		printString("Press e to exit\n");
 	 	return;
  	}
   printString("Press e to exit\n");
