@@ -99,10 +99,10 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 }
 
 /* sys call 0x1 */
-void create_process(void * entryPoint, char * name, int * isBackground)
+void create_process(void * entryPoint, char * name, int isBackground)
 {
   userToKernel();
-  addProcess(entryPoint, name, isBackground[0]);
+  addProcess(entryPoint, name, isBackground);
   kernelToUser();
   if(!isBackground){
     scheduleNow();
@@ -162,9 +162,10 @@ void getActivePID(int * PID)
 void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
   Process * process = getCurrentProcess();
+  if(syscall == 0x1){ncPrintDec((int)arg_3)}
 	switch(syscall)
 	{
-    case 0x1: create_process((void *) arg_2, (char *) arg_1, (int *) arg_3); break;
+    case 0x1: create_process((void *) arg_2, (char *) arg_1, int arg_3); break;
     case 0x2: kill_process((int) arg_1); break;
 		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);} break;
 		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);} break;
