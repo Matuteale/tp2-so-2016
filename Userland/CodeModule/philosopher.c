@@ -40,9 +40,9 @@ void diningPhilosophers() {
 	printString("Press s to add a philosopher or w to remove one\n");
 
 	 while(1) {
-	 	render();
-	 	sleep(1 	);
-	 	clearscreen();
+	 	// render();
+	 	// sleep(1 	);
+	 	// clearscreen();
 	 	// char c = getChar();
 	 	// switch(c) {
 	 	// 	case 'q': killPhilosophers(); return; break;
@@ -59,9 +59,9 @@ void philosopher() {
 		//sleep(800);
 		takeForks(id);
 		//sleep(3000*id);
-		putForks(id);	
+		putForks(id);
 		}
-		
+
 	}
 }
 
