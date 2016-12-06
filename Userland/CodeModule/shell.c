@@ -81,8 +81,7 @@ void ps()
 }
 
 void run_ps(){
-	int a = 0;
-	sys_addProcess("PS", ps, &a);
+	sys_addProcess("PS", ps, 0);
 }
 
 /* interpreta el comando ingresado */
