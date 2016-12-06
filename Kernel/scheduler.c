@@ -217,6 +217,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 				currentProcess->state = DEAD;
 			}else{
 				currentProcess->state = READY;
+				currentProcess->foreground = 0;
 			}
 			new_process->state = RUNNING;
 			new_process->foreground = 1;
