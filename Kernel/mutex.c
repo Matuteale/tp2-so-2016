@@ -8,6 +8,7 @@
 
 int mutexLockK(uint8_t * mutexLock) {
 	while(enterCritRegion(mutexLock)) {
+		ncPrint("LOCKEADO MAQUILINCE");
 		yield();
 	}
 }

@@ -262,10 +262,11 @@ int scanf(const char *fmt, ...)
 }
 
 void sleep (int ticks) {
-	int i = ticks;
-	while(i>0) {
-		i--;
-	}
+	int c = 1, d = 1;
+ 
+   for ( c = 1 ; c <= 32767 ; c++ )
+       for ( d = 1 ; d <= 1 ; d++ )
+       {}
 }
 
 /* cambia los colores de texto y fondo de la pantalla mediante system call */

@@ -122,7 +122,7 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", diningPhilosophers, 0);
+	sys_addProcess("Philosophers", diningPhilosophers, 1);
 }
 
 void prodCons()
