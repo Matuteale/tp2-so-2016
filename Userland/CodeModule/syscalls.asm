@@ -12,6 +12,11 @@ GLOBAL ps_sys
 GLOBAL sys_addProcess
 GLOBAL sys_killProcess
 GLOBAL sys_getActivePID
+GLOBAL mutexUnlock
+GLOBAL mutexLock
+GLOBAL initCondVar
+GLOBAL signalCondVar
+GLOBAL waitCondVar
 
 %macro pushaq 0
     push rax
@@ -86,6 +91,7 @@ sys_addProcess:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0x1 ;Se hace la llamada para crear un proceso
+  mov rbx, rdx
   mov rdx, rdi
   mov rcx, rsi
   int 0x80
@@ -244,3 +250,73 @@ play_beep_sys:
 	mov rsp, rbp
 	pop rbp
 	ret
+
+mutexLock:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0xF ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 80h
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+mutexUnlock:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x10 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+  initCondVar:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x11 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+  waitCondVar:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x12 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+  signalCondVar:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x13 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret

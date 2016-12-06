@@ -5,8 +5,9 @@
 #include <screensaver.h>
 #include <RTCkernelspace.h>
 #include <sound.h>
+#include <condVar.h>
 #include <naiveConsole.h>
-
+#include <mutex.h>
 
 int timertick = 0;
 int t = 0;
@@ -98,12 +99,14 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 }
 
 /* sys call 0x1 */
-void create_process(void * entryPoint, char * name)
+void create_process(void * entryPoint, char * name, int isBackground)
 {
   userToKernel();
-  addProcess(entryPoint, name);
+  addProcess(entryPoint, name, isBackground);
   kernelToUser();
-  scheduleNow();
+  if(!isBackground){
+    scheduleNow();
+  }
 }
 
 /* sys call 0x2 */
@@ -141,26 +144,46 @@ void getActivePID(int * PID)
   PID[0] = process->PID;
 }
 
+
+
+// void initCondVarU(cond_t * condVar, int pid) {
+
+// }
+
+// void waitCondVarU(cond_t * condVar, int mutex) {
+
+// }
+
+// void signalCondVarU(cond_t * condVar) {
+
+// }
+
 /* maneja los system calls */
-void syscall_handler(uint64_t str, uint64_t len, uint64_t syscall)
+void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
+  Process * process = getCurrentProcess();
+  if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
-    case 0x1: create_process((void *) str, (char *) len); break;
-    case 0x2: kill_process((int) len); break;
-		case 0x3: sys_readKeyboard((char *)str); break;
-		case 0x4: sys_displayWrite((char *)str, len); break;
-		case 0x5: read_rtc_time((char *) str, len); break;
-		case 0x6: set_rtc_time((char *) str, len); break;
-		case 0x7: sys_changeColor(len); break;
-		case 0x8: clearscreen(); break;
-		case 0x9: set_ss_timeout(len); break;
-		case 0xA: timer_tick((char *)str); break;
+    case 0x1: create_process((void *) arg_2, (char *) arg_1, (int) arg_3); break;
+    case 0x2: kill_process((int) arg_1); break;
+		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);} break;
+		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);} break;
+		case 0x5: read_rtc_time((char *) arg_2, arg_1); break;
+		case 0x6: set_rtc_time((char *) arg_2, arg_1); break;
+		case 0x7: sys_changeColor(arg_1); break;
+		case 0x8: if(process->foreground){clearscreen();} break;
+		case 0x9: set_ss_timeout(arg_1); break;
+		case 0xA: timer_tick((char *)arg_2); break;
 		case 0xB: play_music_idt(); break;
-		case 0xC: play_beep_idt(str, len); break;
-   	case 0xD: list_processes((int *) str, (char **) len);break;
-    case 0xE: getActivePID((int *) len);break;
-    //case 0xE: mutexLockU(str);break;
+		case 0xC: play_beep_idt(arg_2, arg_1); break;
+   	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
+    case 0xE: getActivePID((int *) arg_1);break;
+    case 0xF: mutexLockK(arg_1);break;
+    case 0x10: mutexUnlockK(arg_1);break;
+    case 0x11: initCondVarK((cond_t*) arg_1);
+    case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);
+    case 0x13: signalCondVarK((cond_t*) arg_1);
 	}
 	return ;
 }

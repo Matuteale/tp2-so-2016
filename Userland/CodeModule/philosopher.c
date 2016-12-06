@@ -3,88 +3,96 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "philosopher.h"
-//#include "philosophersGUI.h"
-
+#define MAX_PHILOSPHERS 8
+#define INITIALNUMBER 2
 int left(int i);
 int right(int i);
-void * philosopher(void * id);
+void philosopher();
 void takeForks(int id);
 void putForks(int id);
 void test(int i);
 int randRange(int min, int max);
+void killPhilosophers();
+int addPhilosopher();
+int removePhilosopher();
 
 
 int mutex;
+int condition_key =  CONDKEY;
+
 int canEat[MAX_PHILOSPHERS];
 State philosopherState[MAX_PHILOSPHERS];
 int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
 int philosopherCount;
 
+
+char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
+
+
 void diningPhilosophers() {
+
 	if(philosopherInit() == -1) {
-		return;
-	}
-	printString("Press e to exit");
+	 	return;
+ 	}
+  printString("Press e to exit\n");
 
-	printString("Press s to add a philosopher or w to remove one");
-
-	while(1) {
-		char c = getchar();
-		switch(c) {
-			case 'q': killPhilosopher(); return; break;
-			case 'w': addPhilosopher(); break;
-			case 's': removePhilosopher(); break;
-		}
-	}
+	printString("Press s to add a philosopher or w to remove one\n");
+	 while(1) {
+	 	char c = getChar();
+	 	switch(c) {
+	 		case 'q': killPhilosophers(); return; break;
+	 		case 'w': addPhilosopher(); break;
+	 		case 's': removePhilosopher(); break;
+	 	}
+	 }
 }
 
 void philosopher() {
 	int id = philosopherCount++;
 	while(1) {
-		wait(800);
+		printString("WWWWWWWWWWWWWWWW");
+		sleep(800);
 		takeForks(id);
-		wait(3000*id);
+		sleep(3000*id);
 		putForks(id);
 	}
 }
 
 void takeForks(int id) {
-	mutexLock(mutex);
+	mutexLock(&mutex);
 	philosopherState[id] = HUNGRY;
 	try(id);
 	if(philosopherState[id] == EATING) {
 		mutexUnlock(mutex);
 	} else {
 		while(philosopherState[id] != EATING) {
-			waitCondVar(canEat[id], mutex);
+			waitCondVar(&canEat[id], mutex);
 			try(id);
 			if(philosopherState[id] == EATING) {
-				mutexUnlock(mutex);
+				mutexUnlock(&mutex);
 			}
 		}
 	}
 }
 
 void putForks(int id) {
-	mutexLock(mutex);
-	state[id] = THINKING;
+	mutexLock(&mutex);
+	philosopherState[id] = THINKING;
 	forks[left(id)] = -1;
 	forks[id] = -1;
 	try(left(id));
 	try(right(id));
-
-	mutexUnlock(mutex)
+	mutexUnlock(&mutex);
 }
 
 void try(int id) {
-
-	if (state[id] == HUNGRY && state[left(id)] != EATING && state[right(id)] != EATING) {
-		state[id] = EATING;
-		fork_state[left(id)] = id;
-		fork_state[id] = id;
+	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
+		philosopherState[id] = EATING;
+		forks[left(id)] = id;
+		forks[id] = id;
 		render();
-		signalCondVar(canEat[id]);
+		signalCondVar(&canEat[id]);
 	}
 
 }
@@ -103,17 +111,19 @@ int right(int id) {
 
 void render() {
 	for(int i = 0; i < philosopherCount; i++) {
-		printf("Philosopher %d: %s\n", i, stateStrings[philoState[i]]);
+		printf("Philosopher %d: %s\n", i, stateStrings[philosopherState[i]]);
 		printf("Fork - ");
 
-		if (forkState[i] == -1)
+		if (forks[i] == -1)
 			printf("Free\n");
 		else
-			printf("Owner %d\n", forkState[forkState[i]]);
+			printf("Owner %d\n", forks
+				[forks
+				[i]]);
 	}
 
-	putchar('\n');
-	putchar('\n');
+	printf("\n");
+	printf("\n");
 }
 
 int removePhilosopher() {
@@ -122,70 +132,98 @@ int removePhilosopher() {
 	}
 
 	while (1) {
-		mutexLock(mutex);
-		if (state[philosopherCount - 1] != EATING && state[0] != EATING) {
-
+		mutexLock(&mutex);
+		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
 			philosopherPID[philosopherCount - 1] = 0;
 
 			forks[philosopherCount - 1] = -1;
 
-			removeSeat(canEat[philosopherCount - 1]);
 
-			killProcess(philosopherPID[philosopherCount - 1]);
+			sys_killProcess(philosopherPID[philosopherCount - 1]);
 
 			philosopherCount--;
 
-			mutexUnlock(mutex);
+			mutexUnlock(&mutex);
 
 			return 0;
 
 		}
 
-		mutexUnlock(mutex);
+		mutexUnlock(&mutex);
 
 	}
 
 	return 0;
 }
 
-int philoInitialize() {
+int addPhilosopher() {
+	int pid;
+	if(philosopherCount == MAX_PHILOSPHERS) {
+		return -1;
+	}
+	while(1) {
+		mutexLock(&mutex);
+		if (philosopherState[0] != EATING) {
+			canEat[philosopherCount] = initCondVar(canEat[philosopherCount]);
+			//pid = sys_addProcess(&philosopher);
+			philosopherPID[philosopherCount] = pid;
+			if(pid == -1) {
+				return -1;
+			}
+			mutexUnlock(&mutex);
+			return 0;
+		}
+		mutexUnlock(&mutex);
+	}
+	return 0;
+}
+
+int philosopherInit() {
 
 	int i;
 	int pid;
 
 	philosopherCount = 0;
-	mutex = createMutex(MUTEX_KEY);
+	mutex = 0;
 	if(mutex == -1) {
 		return -1;
 	}
 	if(mutex == -2) {
-		fprintf(STDERR, "Error: no mutex available \n");
 		return -1;
 	}
-	for(i = 0 ; i < MAXPHILOS ; i++) {
-		fork_state[i] = -1;
+	for(i = 0 ; i < MAX_PHILOSPHERS ; i++) {
+		forks[i] = -1;
 	}
-	for(i = 0 ; i < MAXPHILOS ; i++) {
-		state[i] = 0;
+	for(i = 0 ; i < MAX_PHILOSPHERS ; i++) {
+		philosopherState[i] = 0;
 	}
-	for(i = 0 ; i < MAXPHILOS ; i++) {
+	for(i = 0 ; i < MAX_PHILOSPHERS ; i++) {
 		philosopherPID[i] = 0;
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i++) {
-		canEat[i] = initCondVar(condition_key++);
+		//canEat[i] = initCondVar(&canEat[i]);
 		if(canEat[i] < 0) {
-			fprintf(STDERR, "Error: error creating condition variables.\n");
 			return -1;
 		}
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
-		pid = create_process(&philosopher);
+		pid = sys_addProcess("philo", philosopher, 1);
 		philosopherPID[i] = pid;
 		if(pid == -1) {
-			fprintf(STDERR, "Error: couldn't create philosopher process.\n");
 			killPhilosophers();
 		return -1;
 		}
 	}
 	return 0;
+}
+
+void killPhilosophers() {
+
+	int i = 0;
+
+	while(philosopherPID[i] > 0) {
+
+		sys_killProcess(philosopherPID[i++]);
+	}
+
 }

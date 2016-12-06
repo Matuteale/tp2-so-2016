@@ -13,9 +13,9 @@ typedef struct {
     int mutex;
 }cond_t;
 
-void initCondVar(cond_t * condVar, int pid);
-void waitCondVar(cond_t * condVar, int mutex);
-void signalCondVar(cond_t * condVar);
+void initCondVarK(cond_t * condVar);
+void waitCondVarK(cond_t * condVar, int mutex);
+void signalCondVarK(cond_t * condVar);
 void broadcastCondVar(cond_t * condVar);
 
 #endif

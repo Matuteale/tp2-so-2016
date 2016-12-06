@@ -8,7 +8,6 @@ GLOBAL write_byte_to_port_0x71
 GLOBAL read_byte_from_port_0x71
 GLOBAL play_sound_asm
 GLOBAL stop_sound_asm
-GLOBAL yield
 GLOBAL outb
 GLOBAL inb
 GLOBAL clear_interrupts
@@ -66,9 +65,6 @@ extern setNextProcess
 
 section .text
 
-yield:
-	int 0x81
-	ret
 
 int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
@@ -123,11 +119,12 @@ int_21_hand:					; Handler de INT 21 ( Teclado )
 
 int_80_hand:					; Handler de INT 80 ( llamada al systema )
 
-   	pushaq            			; Se salvan los registros
+  pushaq            			; Se salvan los registros
 
-	mov rdi, rcx				; Se pasa en rdi el puntero asl buffer
-	mov rsi, rdx				; Se pasa en rsi el tamaño del buffer
-	mov rdx, rax				; Se pasa en rdx a que syscall se esta llamando
+  mov rdi, rbx        ; Sepasa en rdi el tercer argumento
+	mov rsi, rcx				; Se pasa en rsi el segundo argumento
+	mov rdx, rdx				; Se pasa en rdx el primer argumento
+	mov rcx, rax				; Se pasa en rcx a que syscall se esta llamando
 	call syscall_handler
 
 	popaq

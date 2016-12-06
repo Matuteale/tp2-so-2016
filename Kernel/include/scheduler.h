@@ -11,7 +11,7 @@ typedef struct Scheduler {
 
 Scheduler * newScheduler();
 
-pid_t addProcess(void * entryPoint, char * name);
+pid_t addProcess(void * entryPoint, char * name, int isBackground);
 //void removeProcess(Process * process);
 int removeProcess(pid_t pid);
 void * mem_alloc();
@@ -23,5 +23,6 @@ pid_t getCurrentPID();
 void changeProcessState(pid_t pid, ProcessState state);
 Process * getCurrentProcess();
 void nullProcess();
+void setName(Process * process, char * name);
 
 #endif

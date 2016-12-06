@@ -3,15 +3,15 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <naiveConsole.h>
 
 
-
-int mutexLock(uint8_t mutexLock) {
-	while(enterCritRegion(&mutexLock)) {
+int mutexLockK(uint8_t * mutexLock) {
+	while(enterCritRegion(mutexLock)) {
 		yield();
 	}
 }
 
-void mutexUnlock(uint8_t mutex) {
-	mutex = 0;
+void mutexUnlockK(uint8_t * mutex) {
+	*mutex = 0;
 }

@@ -18,6 +18,8 @@ void get_input(char * c);
 
 void getString(char *buffer, const int size);
 
+void sleep(int ticks);
+
 void printString(const char * str);
 
 int getInt(int * num, const int size);

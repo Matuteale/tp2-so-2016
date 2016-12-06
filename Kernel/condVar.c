@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <scheduler.h>
+#include <process.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -7,41 +8,32 @@
 #include <condVar.h>
 #include <mutex.h>
 
-void initCondVar(cond_t * condVar, int pid) {
+void initCondVarK(cond_t * condVar) {
 	condVar->index = 0;
 	condVar->size = 0;
 }
 
 
-void waitCondVar(cond_t * condVar, int mutex){
+void waitCondVarK(cond_t * condVar, int mutex){
     //pause scheduler
     condVar->mutex = mutex;
-    addToCondVarQueue(condVar,getCurrentPID());
-    changeProcessState(getCurrentPID(),BLOCKED);
-    mutexUnlock(mutex);
+    addToCondVarQueueK(condVar,getCurrentPID());
+    changeProcessState(getCurrentPID(),1); //blocked
+    mutexUnlockK(&mutex);
     //unlockScheduler();
     yield();
-    mutexLock(mutex);
+    mutexLockK(&mutex);
 }
 
-void signalCondVar(cond_t * condVar) {
+void signalCondVarK(cond_t * condVar) {
 	int pid = removeFromCondVarQueue(condVar);
-    //if(pid != -1) changeProcessState(pid,READY);
-}
-
-void broadcastCondVar(cond_t * condVar){
-    //int notPreviouslyLocked=lockScheduler();
-    int i;
-    int prevMax = condVar->size;
-    for (i = 0; i < prevMax;i++){
-        signalCondVar(condVar);
-    }
-    //if(notPreviouslyLocked) unlockScheduler();
+    if(pid != -1) changeProcessState(pid,0);	//ready
 }
 
 
 
-void addToCondVarQueue(cond_t * condVar, int pid){
+
+void addToCondVarQueueK(cond_t * condVar, int pid){
     if(condVar->size == MAX_COND_VAR_QUEUE_SIZE) return;
     int index = (condVar->index + condVar->size)%MAX_COND_VAR_QUEUE_SIZE;
     condVar->queue[index] = pid;
