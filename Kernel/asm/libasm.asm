@@ -119,7 +119,7 @@ int_21_hand:					; Handler de INT 21 ( Teclado )
 
 int_80_hand:					; Handler de INT 80 ( llamada al systema )
 
-   	pushaq            			; Se salvan los registros
+  pushaq            			; Se salvan los registros
 
   mov rdi, rbx        ; Sepasa en rdi el tercer argumento
 	mov rsi, rcx				; Se pasa en rsi el segundo argumento
