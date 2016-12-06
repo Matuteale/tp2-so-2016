@@ -121,7 +121,7 @@ int_80_hand:					; Handler de INT 80 ( llamada al systema )
 
    	pushaq            			; Se salvan los registros
 
-  mov rdi, r8        ; Sepasa en rdi el tercer argumento
+  mov rdi, rbx        ; Sepasa en rdi el tercer argumento
 	mov rsi, rcx				; Se pasa en rsi el segundo argumento
 	mov rdx, rdx				; Se pasa en rdx el primer argumento
 	mov rcx, rax				; Se pasa en rcx a que syscall se esta llamando
