@@ -104,8 +104,8 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
-				// current = current->next;
-				// auxProcess->next = current;
+				current = current->next;
+				auxProcess->next = current;
 				freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
@@ -279,7 +279,6 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-	ncPrint("Paso por: ");
 	if(pid == nilProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
