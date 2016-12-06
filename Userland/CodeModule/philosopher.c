@@ -35,7 +35,6 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 void diningPhilosophers() {
 
 	if(philosopherInit() == -1) {
-		printString("Press e to exit\n");
 	 	return;
  	}
   printString("Press e to exit\n");
@@ -204,7 +203,7 @@ int philosopherInit() {
 		philosopherPID[i] = 0;
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i++) {
-		canEat[i] = initCondVar(&canEat[i]);
+		//canEat[i] = initCondVar(&canEat[i]);
 		if(canEat[i] < 0) {
 			return -1;
 		}
