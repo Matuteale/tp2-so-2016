@@ -76,6 +76,7 @@ void ps()
 		printString("\n");
 		i++;
 	}
+	//Matarlo o volver a ponerlo como antes.
 	return;
 }
 
