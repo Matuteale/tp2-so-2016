@@ -9,7 +9,8 @@
 #include <mutex.h>
 
 void initCondVarK(cond_t * condVar) {
-	condVar->index = 0;
+	ncPrint("AAAAAAAA");
+    condVar->index = 0;
 	condVar->size = 0;
 }
 
