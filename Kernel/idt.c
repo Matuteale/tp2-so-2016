@@ -108,11 +108,11 @@ void create_process(void * entryPoint, char * name, int isBackground)
     scheduleNow();
   }
   Process * process = getCurrentProcess();
-  ncPrint(process->next->name);
-  ncPrint(process->next->next->name);
-  ncPrint(process->next->next->next->name);
-  ncPrint(process->next->next->next->next->name);
-  ncPrint(process->next->next->next->next->next->name);
+  Process * processAux = process;
+  while(process->next->PID != procesAux->PID){
+    ncPrint(process->name);
+    process = process->next;
+  }
 }
 
 /* sys call 0x2 */
