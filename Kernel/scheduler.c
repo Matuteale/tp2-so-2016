@@ -240,7 +240,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	}
 
-	// --freeProcesses;
+	--freeProcesses;
 
 	// ncNewline();
 	// ncPrint("EntryPoint: ");

@@ -114,6 +114,7 @@ void create_process(void * entryPoint, char * name, int isBackground)
     ncPrint(" - ");
     process = process->next;
   }
+  ncNewline();
 }
 
 /* sys call 0x2 */
