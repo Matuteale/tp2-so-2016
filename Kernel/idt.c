@@ -162,7 +162,12 @@ void getActivePID(int * PID)
 void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
   Process * process = getCurrentProcess();
-  if(syscall == 0x4){ncPrint(process->next->name);}
+  if(syscall == 0x4){
+    Process * processAux = process;
+    while(process->next->PID != processAux->PID){
+      ncPrintDec(process->PID);
+    }
+  }
   if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
