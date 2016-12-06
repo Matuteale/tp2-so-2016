@@ -12,7 +12,7 @@ Process process[16];
 
 Process * currentProcess = NULL;
 
-Process * freeProcess = NULL;
+// Process * freeProcess = NULL;
 
 Process * nilProcess = NULL;
 
@@ -104,9 +104,9 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
-				current = current->next;
-				auxProcess->next = current;
-				//freeProcess(aux);
+				// current = current->next;
+				// auxProcess->next = current;
+				freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		currentProcess = current;
@@ -143,11 +143,16 @@ void nullProcess()
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
-	for(i = 0; i<16; i++) {
-		if(process[i].PID == pid) {
-			process[i].state = state;
-		}
+	// for(i = 0; i<16; i++) {
+	// 	if(process[i].PID == pid) {
+	// 		process[i].state = state;
+	// 	}
+	// }
+	Process * auxProcess = currentProcess;
+	while(currentProcess->PID != pid) {
+		auxProcess = auxProcess->next;
 	}
+	auxProcess->state = state;
 }
 
 
@@ -162,17 +167,6 @@ void initializeScheduler() {
 	scheduleNow();
 }
 
-void linkProcessStructures() {
-
-	for(int i = 0 ; i < 15 ; i++) {
-
-		process[i].next = &process[i+1];
-
-	}
-
-	freeProcess = &process[0];
-
-}
 
 
 pid_t addProcess(void * entry_point, char * name, int isBackground) {
@@ -180,7 +174,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	//ncPrintHex(entry_point);
 	//ncNewline();
 
-	Process * new_process = &process[counter++];
+	Process * new_process = alloc();
 
 	//new_process->stack = stackkkk;
   new_process->stack = mem_alloc();
@@ -262,6 +256,26 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 }
 
+void freeProcess(pid_t pid) {
+	ncPrint("saco el: ");
+	ncPrintDec(pid);
+	ncNewline();
+	Process * prevProcess = currentProcess;
+	Process * processToRemove; 
+	while(prevProcess->next->PID != pid) {
+		ncPrint("Paso por: ");
+	ncPrintDec(prevProcess->next->PID);
+	ncNewline();
+		
+		prevProcess = prevProcess->next;
+		ncPrint("AYA");
+	}
+	processToRemove = prevProcess->next;
+	prevProcess->next = processToRemove->next;
+	freeMem(processToRemove);
+	freeProcesses++;
+}
+
 Process * getCurrentProcess()
 {
 	return currentProcess;
@@ -271,7 +285,7 @@ int removeProcess(pid_t pid) {
 	if(pid == nilProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
-	while(process->PID != pid){
+	while(process->PID != pid){ //Process=processToRemove
 		process = process->next;
 	}
 	if(pid == process->PID){

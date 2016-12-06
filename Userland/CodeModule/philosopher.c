@@ -201,7 +201,7 @@ int philosopherInit() {
 		philosopherPID[i] = 0;
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i++) {
-		//canEat[i] = initCondVar(&canEat[i]);
+		initCondVar(&canEat[i]);
 		if(canEat[i] < 0) {
 			return -1;
 		}
@@ -218,12 +218,9 @@ int philosopherInit() {
 }
 
 void killPhilosophers() {
-
 	int i = 0;
-
 	while(philosopherPID[i] > 0) {
-
 		sys_killProcess(philosopherPID[i++]);
 	}
-
+	sys_killProcess(sys_getActivePID());
 }

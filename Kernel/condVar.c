@@ -4,19 +4,19 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <naiveConsole.h>
 #include <stdlib.h>
 #include <condVar.h>
 #include <mutex.h>
 
 void initCondVarK(cond_t * condVar) {
-	ncPrint("AAAAAAAA");
     condVar->index = 0;
 	condVar->size = 0;
 }
 
 
 void waitCondVarK(cond_t * condVar, int mutex){
-    //pause scheduler
+    //pauseScheduler();
     condVar->mutex = mutex;
     addToCondVarQueueK(condVar,getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked

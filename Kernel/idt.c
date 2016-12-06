@@ -181,9 +181,9 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;
-    case 0x11: initCondVarK((cond_t*) arg_1);
-    case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);
-    case 0x13: signalCondVarK((cond_t*) arg_1);
+    case 0x11: initCondVarK((cond_t*) arg_1);break;
+    case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);break;
+    case 0x13: signalCondVarK((cond_t*) arg_1);break;
 	}
 	return ;
 }

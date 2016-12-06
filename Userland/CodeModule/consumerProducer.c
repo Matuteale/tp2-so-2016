@@ -34,8 +34,8 @@ void mainProdCons() {
 	sys_addProcess("producer",&producer, 1);
 	sys_addProcess("consumer",&consumer, 1);
 	while(1){
-		printString("Press e to exit\n");
-		//control();
+		// printString("Press e to exit\n");
+		control();
 	}
 }
 
@@ -67,13 +67,13 @@ void * consumer(void * arg) {
 	}
 }
 
-// void control() {
-// 	int end = 0;
-
-// 	while(!end) {
-// 		int c = getchar();
-
-// 		switch(c) {
+ void control() {
+ 	int end = 0;
+ 	printString("Press q to quit");
+ 	while(!end) {
+ 		char c = getChar();
+ 		printString(c);
+ 		switch(c) {
 // 			case 'a':
 // 				prodSleepTime++;
 // 			break;
@@ -90,9 +90,10 @@ void * consumer(void * arg) {
 // 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
 // 			break;
 
-// 			case 'q':
-// 				end = 1;
-// 			break;
-// 		}
-// 	}
-// }
+ 			case 'q':
+ 				printString("AA");
+ 				end = 1;
+ 			break;
+ 		}
+ 	}
+ }
