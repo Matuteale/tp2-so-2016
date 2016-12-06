@@ -288,7 +288,7 @@ int removeProcess(pid_t pid) {
 			process->state = RUNNING;
 		}
 	}
-	clearscreen();
+	//clearscreen();
 	return processAux->PID;
 }
 
