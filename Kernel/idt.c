@@ -107,6 +107,12 @@ void create_process(void * entryPoint, char * name, int isBackground)
   if(!isBackground){
     scheduleNow();
   }
+  Process * process = getCurrentProcess();
+  ncPrint(process->next->name);
+  ncPrint(process->next->next->name);
+  ncPrint(process->next->next->next->name);
+  ncPrint(process->next->next->next->next->name);
+  ncPrint(process->next->next->next->next->next->name);
 }
 
 /* sys call 0x2 */
@@ -162,16 +168,7 @@ void getActivePID(int * PID)
 void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
   Process * process = getCurrentProcess();
-  if(syscall == 0x4){
-    Process * process1 = process;
-    Process * processAux = process;
-    if(process->next->PID == 1){
-      while(process1->next->PID != processAux->PID){
-        ncPrintDec(process1->PID);
-        process1 = process1->next;
-      }
-    }
-  }
+  if(syscall == 0x4){}
   if(syscall == 0x1){ncPrintDec((int)arg_3);}
 	switch(syscall)
 	{
