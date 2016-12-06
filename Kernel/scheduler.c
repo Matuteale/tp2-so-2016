@@ -106,7 +106,7 @@ void setNextProcess(){
 				Process * aux = current;
 				current = current->next;
 				auxProcess->next = current;
-				freeProcess(aux->PID);
+				//freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DEAD && currentProcess->state != DYING){
