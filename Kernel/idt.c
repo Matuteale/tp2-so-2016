@@ -109,10 +109,10 @@ void create_process(void * entryPoint, char * name, int isBackground)
   }
   Process * process = getCurrentProcess();
   Process * processAux = process;
-  ncPrint(process->name);
+  ncPrintDec(process->PID);
   ncPrint(" - ");
   while(process->next->PID != processAux->PID){
-    ncPrint(process->next->name);
+    ncPrintDec(process->next->PID);
     ncPrint(" - ");
     process = process->next;
   }
