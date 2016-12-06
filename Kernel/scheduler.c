@@ -102,14 +102,14 @@ void setNextProcess(){
 		do {
 			auxProcess = current;
 			current = current->next;
-			// if(current->state == DYING){
-			// 	Process * aux = current;
-			// 	current = current->next;
-			// 	auxProcess->next = current;
-			// 	freeProcess(aux->PID);
-			// }
+			if(current->state == DYING){
+				Process * aux = current;
+				current = current->next;
+				auxProcess->next = current;
+				freeProcess(aux->PID);
+			}
 		} while(current->state != RUNNING && current->state != READY);
-		if(currentProcess->state != DEAD && currentProcess->state != DYING){
+		if(currentProcess->state != DEAD && currentProcess->state != DYING && current->state == RUNNING){
 			currentProcess->state = READY;
 		}
 		currentProcess = current;
