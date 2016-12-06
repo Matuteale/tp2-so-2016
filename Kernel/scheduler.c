@@ -194,9 +194,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	if(currentProcess == NULL) {
 
-		ncPrint("Agrego el Null process\n");
-		ncNewline();
-
 		nilProcess = new_process;
 
 		currentProcess = new_process;
@@ -261,12 +258,12 @@ void freeProcess(pid_t pid) {
 	ncPrintDec(pid);
 	ncNewline();
 	Process * prevProcess = currentProcess;
-	Process * processToRemove; 
+	Process * processToRemove;
 	while(prevProcess->next->PID != pid) {
 		ncPrint("Paso por: ");
 	ncPrintDec(prevProcess->next->PID);
 	ncNewline();
-		
+
 		prevProcess = prevProcess->next;
 		ncPrint("AYA");
 	}
