@@ -76,7 +76,6 @@ void ps()
 		printString("\n");
 		i++;
 	}
-	while(1);
 	return;
 }
 
