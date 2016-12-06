@@ -100,7 +100,11 @@ void setNextProcess(){
 	if(current != NULL && current->next != NULL){
 		do {
 			current = current->next;
-
+			if(current->state == DYING){
+				Process * aux = current;
+				current = current->next;
+				//freeProcess(aux);
+			}
 		} while(current->state != RUNNING && current->state != READY);
 		currentProcess = current;
 	}
@@ -206,14 +210,16 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	} else {
 
-		ncPrint("Agrego el nuevo process\n");
+		ncPrint("Agrego el nuevo process");
+		ncNewline();
 
 		new_process->next = currentProcess->next;
 
 		currentProcess->next = new_process;
 
 		if(!isBackground){
-			ncPrint("isbackground\n");
+			ncPrint("isbackground");
+			ncNewline();
 			if(nilProcess->PID == currentProcess->PID){
 				currentProcess->state = DEAD;
 			}else{
@@ -223,7 +229,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			new_process->state = RUNNING;
 			new_process->foreground = 1;
 		}else{
-			ncPrint("nobackground\n");
+			ncPrint("nobackground");
+			ncNewline();
 			new_process->state = READY;
 			new_process->foreground = 0;
 		}
@@ -258,7 +265,7 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-	if(pid == 1) return; //NULL process
+	if(pid == nilProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
 	while(process->PID != pid){
@@ -271,18 +278,18 @@ int removeProcess(pid_t pid) {
 			processAux = processAux->next;
 		}
 	}
-	processAux->next = process->next;
-	if(pid == currentProcess->PID){
-		//currentProcess->state = INACTIVE;
-		if(currentProcess->next->PID == 1){
-			//currentProcess->next->next->state = ACTIVE;
-		}else{
-			//currentProcess->next->state = ACTIVE;
+	if(pid == process->PID){
+		process->state = DYING;
+		processAux = process;
+		do{
+			process = process->next;
+		} while(process->PID != currentProcess->PID && process->state != READY);
+		if(process->state == READY){
+			process->state = RUNNING;
 		}
-		currentProcess = currentProcess->next;
-		scheduleNow();
 	}
-	//clearscreen();
+	clearscreen();
+	return processAux->PID;
 }
 
 pid_t getCurrentPID() {
