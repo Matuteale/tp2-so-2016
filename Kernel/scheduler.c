@@ -291,8 +291,8 @@ void * mem_alloc() {
 }
 
 void setName(Process * process, char * name){
-	memset(new_process->name, 0, 24);
+	memset(process->name, 0, 24);
 	int i = 0;
 	while(name[i++] != 0);
-  memcpy(new_process->name, name, i+1);
+  memcpy(process->name, name, i+1);
 }
