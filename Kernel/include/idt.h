@@ -1,7 +1,6 @@
 #ifndef IDT_H
 #define IDT_H
 #include <stdint.h>
-#include <scheduler.h>
 #include <stddef.h>
 
 typedef struct idt_entry_struct

@@ -10,6 +10,7 @@
 #include <mutex.h>
 #include <msgqueues.h>
 #include <sleep.h>
+#include <scheduler.h>
 
 int timertick = 0;
 int t = 0;
