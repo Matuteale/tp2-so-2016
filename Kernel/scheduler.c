@@ -131,31 +131,33 @@ void setNextProcess(){
 				current = current->next;
 				freeProcess(aux->PID);
 			}
-			if(current->state == SLEEPING){
-				int i = 0;
-				for(; i < 16; i++){
-					if(waitingProcess[i] = current->PID){
-						break;
-					}
-				}
-				timertickFlag--;
-				if(timertickFlag == 0){
-					waitingMilis[i] = waitingMilis[i] - 1;
-					ncPrint("s");
-  				ncPrintDec(waitingMilis[i]);
-  				timertickFlag = 3500;
-				}
-    		if(waitingMilis[i] <= 0){
-    			changeProcessState(waitingProcess[i], READY);
-    			waitingProcess[i] = -1;
-    		}
-			}
+			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DEAD && currentProcess->state != DYING){
 			currentProcess->state = READY;
 		}
 		currentProcess = current;
 		currentProcess->state = RUNNING;
+	}
+}
+
+void wakeOrContinueSleep(Process * process){
+	if(current->state == SLEEPING){
+		int i = 0;
+		for(; i < 16; i++){
+			if(waitingProcess[i] = current->PID){
+				break;
+			}
+		}
+		timertickFlag--;
+		if(timertickFlag == 0){
+			waitingMilis[i] = waitingMilis[i] - 1;
+			timertickFlag = 3500;
+		}
+		if(waitingMilis[i] <= 0){
+			changeProcessState(waitingProcess[i], READY);
+			waitingProcess[i] = -1;
+		}
 	}
 }
 
