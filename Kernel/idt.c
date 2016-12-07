@@ -206,6 +206,8 @@ void getActivePID(int * PID)
 
 void sleepProcess(int milis){
   Process * process = getCurrentProcess();
+  int * waitingProcess = getWaitingProcess();
+  int * waitingMilis = getWaitingMilis();
   int flag = 0;
   int i = 0;
   for(; i < 16; i++){

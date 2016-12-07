@@ -28,6 +28,9 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
+int waitingProcess[16];
+int waitingMilis[16];
+
 extern void * kernelStack;
 
 static void * const codeModuleAddress = (void*)0x400000;
@@ -176,6 +179,15 @@ void nullProcess()
 		ncPrint("A");
 	};
 }
+
+int * getWaitingProcess(){
+	return waitingProcess;
+}
+
+int * getWaitingMilis(){
+	return waitingMilis;
+}
+
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	for(int i = 0; i<16; i++) {
