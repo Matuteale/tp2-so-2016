@@ -35,8 +35,8 @@ void pit_setup(uint32_t msecs) {
   count /= 1000;
 
   outb(0x36, 0x43);
-  outb(550, 0x40);
-  outb(550 >> 8, 0x40);
+  outb(count, 0x40);
+  outb(count >> 8, 0x40);
 }
 
 /* setea una entrada de la IDT */

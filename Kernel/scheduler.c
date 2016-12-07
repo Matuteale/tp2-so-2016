@@ -30,6 +30,7 @@ int counter = 0;
 
 int waitingProcess[16];
 int waitingMilis[16];
+int timertickFlag = 55;
 
 extern void * kernelStack;
 
@@ -137,10 +138,13 @@ void setNextProcess(){
 						break;
 					}
 				}
-    		waitingMilis[i] = waitingMilis[i] - 1;
-
-    		ncPrint("s");
-  			ncPrintDec(waitingMilis[i]);
+				timertickFlag--;
+				if(timertickFlag == 0){
+					waitingMilis[i] = waitingMilis[i] - 1;
+					ncPrint("s");
+  				ncPrintDec(waitingMilis[i]);
+  				timertickFlag = 55;
+				}
     		if(waitingMilis[i] <= 0){
     			changeProcessState(waitingProcess[i], READY);
     			waitingProcess[i] = -1;
