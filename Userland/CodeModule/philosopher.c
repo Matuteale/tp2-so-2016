@@ -35,10 +35,7 @@ void diningPhilosophers() {
 	if(philosopherInit() == -1) {
 	 	return;
  	}
-    printString("Press e to exit\n");
-
-	printString("Press s to add a philosopher or w to remove one\n");
-
+   
 	 while(1) {
 	 	// printString("a");
 	 	// render();
@@ -129,6 +126,8 @@ int right(int id) {
 }
 
 void render() {
+	printString("Press e to exit\n");
+	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
 		printString("Philosopher ");
 		printDec(i);
@@ -252,5 +251,7 @@ void killPhilosophers() {
 	for(int i = 0; i < philosopherCount; i++) {
 		sys_killProcess(philosopherPID[i]);
 	}
-	sys_killProcess(sys_getActivePID());
+	sys_getActivePID(&i);
+	sys_killProcess(i);
+	while(1);
 }

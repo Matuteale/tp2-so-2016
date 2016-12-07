@@ -7,7 +7,7 @@
 #define BUFFER_SIZE 10
 
 
-
+void * pcMQ;
 int buffer[BUFFER_SIZE];
 int fill_ptr = 0;
 int use_ptr = 0;
@@ -31,6 +31,7 @@ int empty, fill;
 int mutexp;
 
 void mainProdCons() {
+	openMessageQ(pcMQ);
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){

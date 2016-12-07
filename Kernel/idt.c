@@ -159,35 +159,35 @@ void getActivePID(int * PID)
   PID[0] = process->PID;
 }
 
-void openMsgQ()
-{
-  //openMessageQ();
-}
+// void openMsgQ()
+// {
+//   //openMessageQ();
+// }
 
-void getMsgQ()
-{
+// void getMsgQ()
+// {
 
-}
+// }
 
-void closeMsgQ()
-{
+// void closeMsgQ()
+// {
 
-}
+// }
 
-void sendMsgQTo()
-{
+// void sendMsgQTo()
+// {
 
-}
+// }
 
-void receiveMsgQFrom()
-{
+// void receiveMsgQFrom()
+// {
 
-}
+// }
 
-void getOpenedMsgQs()
-{
+// void getOpenedMsgQs()
+// {
 
-}
+// }
 
 
 // void initCondVarU(cond_t * condVar, int pid) {
@@ -228,12 +228,12 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x11: initCondVarK((cond_t*) arg_1);break;
     case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);break;
     case 0x13: signalCondVarK((cond_t*) arg_1);break;
-    case 0x14: openMsgQ();break;
-    case 0x15: getMsgQ();break;
-    case 0x16: closeMsgQ();break;
-    case 0x17: sendMsgQTo();break;
-    case 0x18: receiveMsgQFrom();break;
-    case 0x19: getOpenedMsgQs();break;
+    case 0x14: openMessageQ(arg_1);break;
+    case 0x15: getMessageQ(arg_1);break;
+    case 0x16: closeMessageQ(arg_1);break;
+    case 0x17: sendMessageQ(arg_1, arg_2);break;
+    case 0x18: receiveMessageQ(arg_1, arg_2);break;
+    case 0x19: getOpenedMessageQs();break;
 	}
 	return pid;
 }
