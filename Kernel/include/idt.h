@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <scheduler.h>
 #include <stddef.h>
-#include <sleep.h>
 
 typedef struct idt_entry_struct
 {
