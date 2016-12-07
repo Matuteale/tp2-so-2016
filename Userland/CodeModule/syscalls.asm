@@ -279,7 +279,7 @@ mutexUnlock:
   pop rbp
   ret
 
-  initCondVar:
+initCondVar:
 
   push rbp
   mov rbp, rsp
@@ -293,7 +293,7 @@ mutexUnlock:
   pop rbp
   ret
 
-  waitCondVar:
+waitCondVar:
 
   push rbp
   mov rbp, rsp
@@ -307,12 +307,90 @@ mutexUnlock:
   pop rbp
   ret
 
-  signalCondVar:
+signalCondVar:
 
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0x13 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+openMessageQ:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x14 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+getMessageQ:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x15 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+closeMessageQ:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x16 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+sendMessageQ:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x17 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+receiveMessageQ:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x18 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+getOpenedMessageQs:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x19 ;Se hace la llamada para crear un proceso
   mov rdx, rdi
   mov rcx, rsi
   int 0x80
