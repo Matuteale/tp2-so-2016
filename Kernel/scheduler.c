@@ -175,12 +175,6 @@ void nullProcess()
 }
 
 void changeProcessState(pid_t pid, ProcessState state) {
-	int i;
-	for(i = 0; i<16; i++) {
-		if(process[i]->PID == pid) {
-			process[i]->state = state;
-		}
-	}
 	Process * auxProcess = currentProcess;
 	while(currentProcess->PID != pid) {
 		auxProcess = auxProcess->next;
