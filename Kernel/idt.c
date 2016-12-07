@@ -160,7 +160,7 @@ void openMsgQ()
   //openMessageQ();
 }
 
-void getMsgQs()
+void getMsgQ()
 {
 
 }

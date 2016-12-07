@@ -55,6 +55,18 @@ void create_process(void * entryPoint, char * name, int isBackground);
 
 void getActivePID(int * PID);
 
+void openMsgQ();
+
+void getMsgQ();
+
+void closeMsgQ();
+
+void sendMsgQTo();
+
+void receiveMsgQFrom();
+
+void getOpenedMsgQs();
+
 extern int timertick;
 
 #endif
