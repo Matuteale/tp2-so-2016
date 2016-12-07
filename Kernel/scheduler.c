@@ -117,7 +117,7 @@ void setNextProcess(){
 		currentProcess = current;
 		currentProcess->state = RUNNING;
 		if(currentProcess->PID == shellProcess->PID){
-			pit_setup(10000);
+			pit_setup(10);
 		}else{
 			pit_setup(100);
 		}
