@@ -157,7 +157,7 @@ void getActivePID(int * PID)
 
 void openMsgQ()
 {
-  openMessageQ();
+  //openMessageQ();
 }
 
 void getMsgQs()
