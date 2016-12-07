@@ -218,7 +218,7 @@ void sleepProcess(long milis){
   }
   if(flag){
     waitingProcess[i] = process->PID;
-    waitingMilis[i] = (double) milis;
+    waitingMilis[i] = milis;
     changeProcessState(waitingProcess[i], SLEEPING);
   }
   ncPrint("durmiendo");
