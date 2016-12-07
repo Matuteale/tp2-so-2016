@@ -141,7 +141,7 @@ void setNextProcess(){
 
     		ncPrint("s");
   			ncPrintDec(waitingMilis[i]);
-    		if(waitingMilis[i] <= 0){
+    		if(waitingMilis[i] <= 0.0){
     			changeProcessState(waitingProcess[i], READY);
     			waitingProcess[i] = -1;
     		}
