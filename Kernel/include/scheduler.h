@@ -3,6 +3,7 @@
 
 #include <process.h>
 #include <idt.h>
+#include <sleep.h>
 
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
