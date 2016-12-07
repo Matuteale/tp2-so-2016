@@ -74,7 +74,7 @@ void timer_interrupt()
 {
 	soundtimer();
 
-	screensavertimer();
+	//screensavertimer();
 
 	timertick = (timertick+1)%2;
 
@@ -202,6 +202,22 @@ void getActivePID(int * PID)
 
 // }
 
+void sleep(int milis){
+  Process * process = getCurrentProcess();
+  int flag = 0;
+  for(int i = 0; i < 16; i++){
+    if(waitingProcess[i] == -1){
+      flag = 1;
+      break;
+    }
+  }
+  if(flag){
+    waitingProcess[i] = process->PID;
+    waitingMilis[i] = milis;
+    changeProcessState(waitingProcess[i], SLEEPING);
+  }
+}
+
 /* maneja los system calls */
 int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
@@ -234,6 +250,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x17: sendMessageQ(arg_1, arg_2);break;
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
     case 0x19: getOpenedMessageQs();break;
+    case 0x20: sleep((int) arg_1);break;
 	}
 	return pid;
 }

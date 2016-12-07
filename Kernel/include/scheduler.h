@@ -9,6 +9,9 @@ typedef struct Scheduler {
 	Process * currentProcess;
 }Scheduler;
 
+int waitingProcess[16];
+int waitingMilis[16];
+
 Scheduler * newScheduler();
 
 pid_t addProcess(void * entryPoint, char * name, int isBackground);

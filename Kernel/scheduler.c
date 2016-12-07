@@ -122,7 +122,20 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
+				current = current->next;
 				freeProcess(aux->PID);
+			}
+			if(current->state == SLEEPING){
+				for(int i = 0; i < 16; i++){
+					if(waitingProcess[i] = current->PID){
+						break;
+					}
+				}
+    		waitingMilis[i] = waitingMilis[i] - 55;
+    		if(waitingMilis[i] <= 0){
+    			changeProcessState(waitingProcess[i], READY);
+    			waitingProcess[i] = -1;
+    		}
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DEAD && currentProcess->state != DYING){
@@ -163,20 +176,22 @@ void nullProcess()
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
-	// for(i = 0; i<16; i++) {
-	// 	if(process[i].PID == pid) {
-	// 		process[i].state = state;
-	// 	}
-	// }
-	// Process * auxProcess = currentProcess;
-	// while(currentProcess->PID != pid) {
-	// 	auxProcess = auxProcess->next;
-	// }
-	// auxProcess->state = state;
+	for(i = 0; i<16; i++) {
+		if(process[i]->PID == pid) {
+			process[i]->state = state;
+		}
+	}
+	Process * auxProcess = currentProcess;
+	while(currentProcess->PID != pid) {
+		auxProcess = auxProcess->next;
+	}
+	auxProcess->state = state;
 }
 
 
 void initializeScheduler() {
+
+	fillWaitings();
 
 	addProcess(nullProcess, "Null", 1);
 
@@ -185,6 +200,13 @@ void initializeScheduler() {
 	inizialized = 1;
 
 	scheduleNow();
+}
+
+void fillWaitings(){
+	for(int i = 0; i < 16; i++){
+		waitingProcess[i] = -1;
+		waitingMilis[i] = -1;
+	}
 }
 
 
