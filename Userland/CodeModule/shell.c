@@ -85,7 +85,7 @@ void ps()
 
 void run_ps(){
 	int a = 0;
-	sys_sleep(10000);
+	sys_sleep(55000);
 	//sys_addProcess("PS", ps, 0);
 }
 
