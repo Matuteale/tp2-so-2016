@@ -10,8 +10,8 @@ typedef struct Scheduler {
 
 Scheduler * newScheduler();
 
-int waitingProcess[16];
-int waitingMilis[16];
+const int waitingProcess[16];
+const int waitingMilis[16];
 
 pid_t addProcess(void * entryPoint, char * name, int isBackground);
 //void removeProcess(Process * process);
