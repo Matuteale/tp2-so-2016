@@ -1,7 +1,6 @@
 #include <scheduler.h>
 #include <naiveConsole.h>
 #include <stddef.h>
-#include "idt.c"
 
 #define STACKKKK 4096
 

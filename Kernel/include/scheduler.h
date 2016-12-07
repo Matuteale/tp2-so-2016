@@ -4,6 +4,9 @@
 #include <process.h>
 #include <idt.h>
 
+int waitingProcess[16];
+int waitingMilis[16];
+
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
 	Process * currentProcess;
