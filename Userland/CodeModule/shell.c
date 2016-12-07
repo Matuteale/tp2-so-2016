@@ -23,7 +23,7 @@ fptr shell_functions[] = {print_system_time, change_system_time,
 
 int command;
 char input_char;
-char command_buffer[BUFFERLENGTH] = {0};
+char command_buffer[BUFFERLENGTH] = {50};
 
 
 /* funcion del shell */
