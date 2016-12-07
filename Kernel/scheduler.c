@@ -29,7 +29,7 @@ char stackkkk[STACKKKK];
 int counter = 0;
 
 int waitingProcess[16];
-int waitingMilis[16];
+double waitingMilis[16];
 
 extern void * kernelStack;
 
@@ -137,7 +137,7 @@ void setNextProcess(){
 						break;
 					}
 				}
-    		waitingMilis[i] = waitingMilis[i] - 1;
+    		waitingMilis[i] = waitingMilis[i] - 0.1;
 
     		ncPrint("s");
   			ncPrintDec(waitingMilis[i]);
