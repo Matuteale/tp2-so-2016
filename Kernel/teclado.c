@@ -6,8 +6,7 @@ int rshift_state = OFF;
 int capslock_state = OFF;
 
 int p;
-unsigned char input_buffer[50];
-int buffCounter = 0;
+unsigned char input_buffer;
 unsigned char buffer_status = NO_INPUT;
 
 
@@ -147,8 +146,7 @@ void sys_readKeyboard(char * inputdestination)
 		inputdestination[0] = NO_INPUT;
 	else
 	{
-		inputdestination[0] = input_buffer[buffCounter];
-		buffCounter--;
+		inputdestination[0] = input_buffer;
 		buffer_status = NO_INPUT;
 	}
 }
@@ -156,8 +154,7 @@ void sys_readKeyboard(char * inputdestination)
 /* coloca un valor ascii dentro del input buffer */
 void to_input_buffer(unsigned char input)
 {
-	input_buffer[buffCounter] = input;
-	buffCounter++;
+	input_buffer = input;
 	buffer_status = INPUT_READY;
 }
 
