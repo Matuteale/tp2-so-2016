@@ -176,7 +176,7 @@ void nullProcess()
 }
 
 void changeProcessState(pid_t pid, ProcessState state) {
-	for(i = 0; i<16; i++) {
+	for(int i = 0; i<16; i++) {
  		if(process[i]->PID == pid) {
  			process[i]->state = state;
  		}
