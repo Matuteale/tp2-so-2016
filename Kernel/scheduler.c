@@ -29,7 +29,7 @@ char stackkkk[STACKKKK];
 int counter = 0;
 
 int waitingProcess[16];
-long waitingMilis[16];
+int waitingMilis[16];
 
 extern void * kernelStack;
 
