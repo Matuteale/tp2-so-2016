@@ -177,8 +177,8 @@ void nullProcess()
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	for(int i = 0; i<16; i++) {
- 		if(process[i]->PID == pid) {
- 			process[i]->state = state;
+ 		if(process[i].PID == pid) {
+ 			process[i].state = state;
  		}
  	}
 	Process * auxProcess = currentProcess;
