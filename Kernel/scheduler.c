@@ -142,10 +142,10 @@ void setNextProcess(){
 }
 
 void wakeOrContinueSleep(Process * process){
-	if(current->state == SLEEPING){
+	if(process->state == SLEEPING){
 		int i = 0;
 		for(; i < 16; i++){
-			if(waitingProcess[i] = current->PID){
+			if(waitingProcess[i] = process->PID){
 				break;
 			}
 		}
