@@ -2,10 +2,11 @@
 #ifndef MSGQUEUES_H
 #define MSGQUEUES_H
 
-typedef struct Msg{
+typedef struct MsgAux Msg;
+struct MsgAux{
   char msg;
   Msg * next;
-} Msg;
+};
 
 typedef struct MessageQ {
   unsigned int  id;
