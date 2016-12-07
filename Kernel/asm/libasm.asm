@@ -13,7 +13,9 @@ GLOBAL inb
 GLOBAL clear_interrupts
 GLOBAL userToKernel
 GLOBAL kernelToUser
+GLOBAL leave_int
 
+EXTERN checkIfSchedulerPaused
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
@@ -72,6 +74,10 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
   call timer_interrupt
 
+  call checkIfSchedulerPaused
+  cmp rax, 0
+  je leave_int
+
   mov     rdi, rsp
   call    userSchedToKernel
   mov     rsp, rax
@@ -87,6 +93,14 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
 	popaq
     iretq
+
+leave_int:
+  mov rax, 0
+  mov al, 20h         ; Envio de EOI generico al PIC
+  out 20h,al
+
+  popaq
+    iretq    
 
 outb:         ;outb(value, port)
   mov rdx, rsi
@@ -126,10 +140,10 @@ int_80_hand:					; Handler de INT 80 ( llamada al systema )
 	mov rdx, rdx				; Se pasa en rdx el primer argumento
 	mov rcx, rax				; Se pasa en rcx a que syscall se esta llamando
 	call syscall_handler
-
+  mov QWORD[returnSysCall], rax;
 	popaq
-
-   	iretq
+  mov rax, [returnSysCall]
+  iretq
 
 set_interrupts:
 	sti
@@ -229,9 +243,11 @@ kernelToUser:
 
 section .bss
 
-
   ret_addr:
     resq 1
 
   proc_stack:
     resq 1
+
+  returnSysCall:
+    resw 1

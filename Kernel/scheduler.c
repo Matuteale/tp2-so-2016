@@ -8,6 +8,8 @@ int last_pid_given = 0;
 
 int freeProcesses = 16;
 
+int schedulerPaused = 1;
+
 Process process[16];
 
 Process * currentProcess = NULL;
@@ -89,11 +91,25 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 	return stackFrame;
 }
 
+int checkIfSchedulerPaused() {
+	return schedulerPaused;
+}
+
+void pauseScheduler() {
+	schedulerPaused = 0;
+}
+
+void unpauseScheduler() {
+	schedulerPaused = 1;
+}
+
 void * userSchedToKernel(uint64_t * rsp){
 
 	if (currentProcess != 0) { //NULL
 		currentProcess->stack = rsp;
 	}
+	// ncPrint("PID: ");
+	// ncPrintDec(currentProcess->PID);
 	return kernelStack;
 }
 
@@ -222,8 +238,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		}
 
 		if(!isBackground){
-			ncPrint("nobackground");
-			ncNewline();
+			// ncPrint("nobackground");
+			// ncNewline();
 			if(nilProcess->PID == currentProcess->PID){
 				currentProcess->state = DEAD;
 			}else{
@@ -233,8 +249,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			new_process->state = RUNNING;
 			new_process->foreground = 1;
 		}else{
-			ncPrint("isbackground");
-			ncNewline();
+			// ncPrint("isbackground");
+			// ncNewline();
 			new_process->state = READY;
 			new_process->foreground = 0;
 		}
@@ -253,9 +269,9 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	// ncPrint("next: ");
 	// ncPrintDec(new_process->next->PID);
 	// ncNewline();
-	// ncPrint("PID: ");
-	// ncPrintDec(new_process->PID);
-	// ncNewline();
+	 ncPrint("Agrego en sched PID: ");
+	 ncPrintDec(new_process->PID);
+	 ncNewline();
 
 	//clearscreen();
 
@@ -289,6 +305,9 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
+	// resetTarget();
+	ncPrint("Process to remove ");
+	ncPrintDec(pid);
 	if(pid == nilProcess->PID || pid == shellProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;

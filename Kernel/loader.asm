@@ -99,7 +99,7 @@ scheduleNow:
     iretq
     
 yield:
-    call scheduleNow
+    int 0x20
     ret
 
 section .bss

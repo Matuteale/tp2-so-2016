@@ -122,12 +122,12 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", diningPhilosophers, 1);
+	sys_addProcess("Philosophers", diningPhilosophers, 0);
 }
 
 void prodCons()
 {
-	sys_addProcess("mainPC", mainProdCons, 0);
+	sys_addProcess("mainPC", mainProdCons, 1);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */

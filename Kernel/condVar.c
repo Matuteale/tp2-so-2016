@@ -16,13 +16,17 @@ void initCondVarK(cond_t * condVar) {
 
 
 void waitCondVarK(cond_t * condVar, int mutex){
-    //pauseScheduler();
+    pauseScheduler();
     condVar->mutex = mutex;
     addToCondVarQueueK(condVar,getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked
     mutexUnlockK(&mutex);
-    //unlockScheduler();
+    // ncPrint("MUTEX: ");
+    // ncPrintDec(mutex);
+    unpauseScheduler();
+    // ncPrint(" VA A YIELDEAR");
     yield();
+    // ncPrint(" yieldio");
     mutexLockK(&mutex);
 }
 
@@ -47,4 +51,13 @@ int removeFromCondVarQueue(cond_t * condVar){
     condVar->index = (condVar->index + 1) % MAX_COND_VAR_QUEUE_SIZE;
     condVar->size --;
     return pid;
+}
+
+void broadcastCondVar(cond_t * condVar){
+    int notPreviouslyLocked = pauseScheduler();
+    int i,prevMax = condVar->size;
+    for (i = 0; i < prevMax;i++){
+        signalCondVarK(condVar);
+    }
+    if(notPreviouslyLocked) unpauseScheduler();
 }

@@ -7,10 +7,13 @@
 
 
 int mutexLockK(uint8_t * mutexLock) {
+	// ncPrint("ENTRO MIERDA");
 	while(enterCritRegion(mutexLock)) {
-		ncPrint("LOCKEADO MAQUILINCE");
+		// ncPrint("LOCKEADO MAQUILINCE");
 		yield();
 	}
+	// ncPrint("ENTRO");
+	// ncPrint("ENTRO");
 }
 
 void mutexUnlockK(uint8_t * mutex) {

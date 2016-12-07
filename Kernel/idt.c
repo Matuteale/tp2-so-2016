@@ -99,24 +99,28 @@ void play_beep_idt(uint64_t freq, uint64_t time)
 }
 
 /* sys call 0x1 */
-void create_process(void * entryPoint, char * name, int isBackground)
+int create_process(void * entryPoint, char * name, int isBackground)
 {
+  int pid;
   userToKernel();
-  addProcess(entryPoint, name, isBackground);
+  pid = addProcess(entryPoint, name, isBackground);
   kernelToUser();
   if(!isBackground){
     scheduleNow();
   }
   Process * process = getCurrentProcess();
   Process * processAux = process;
-  ncPrintDec(process->foreground);
-  ncPrint(" - ");
+  // ncPrintDec(process->foreground);
+  // ncPrint(" - ");
   while(process->next->PID != processAux->PID){
-    ncPrintDec(process->next->foreground);
-    ncPrint(" - ");
+    // ncPrintDec(process->next->foreground);
+    // ncPrint(" - ");
     process = process->next;
   }
-  ncNewline();
+  // ncPrint("PID PLS: ");
+  // ncPrintDec(pid);
+  // ncNewline();
+  return pid;
 }
 
 /* sys call 0x2 */
@@ -169,12 +173,13 @@ void getActivePID(int * PID)
 // }
 
 /* maneja los system calls */
-void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
+int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
+  int pid = 0;
   Process * process = getCurrentProcess();
 	switch(syscall)
 	{
-    case 0x1: create_process((void *) arg_2, (char *) arg_1, (int) arg_3); break;
+    case 0x1: pid = create_process((void *) arg_2, (char *) arg_1, (int) arg_3);break;
     case 0x2: kill_process((int) arg_1); break;
 		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);} break;
 		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);} break;
@@ -194,5 +199,5 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
     case 0x12: waitCondVarK((cond_t*) arg_1, (int *)arg_2);break;
     case 0x13: signalCondVarK((cond_t*) arg_1);break;
 	}
-	return ;
+	return pid;
 }

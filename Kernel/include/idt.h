@@ -31,7 +31,7 @@ void timer_interrupt();
 
 void keyboard_interrupt(unsigned short);
 
-void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall);
+int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall);
 
 void int_21_hand();
 
@@ -51,7 +51,7 @@ void list_processes(int * vec, char ** names);
 
 void kill_process(int PID);
 
-void create_process(void * entryPoint, char * name, int isBackground);
+int create_process(void * entryPoint, char * name, int isBackground);
 
 void getActivePID(int * PID);
 

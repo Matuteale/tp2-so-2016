@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 10
 
 
 
@@ -31,8 +31,8 @@ int empty, fill;
 int mutexp;
 
 void mainProdCons() {
-	sys_addProcess("producer",&producer, 1);
-	sys_addProcess("consumer",&consumer, 1);
+	sys_addProcess("producer", producer, 1);
+	sys_addProcess("consumer", consumer, 1);
 	while(1){
 		// printString("Press e to exit\n");
 		control();
@@ -47,7 +47,9 @@ void * producer(void *arg) {
 			waitCondVar(&empty, mutexp);
 		}
 		put(i);
-		//printf("Produce %d\n", i);
+		printString("Produce ");
+		printDec(i);
+		printString("\n");
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
@@ -61,7 +63,9 @@ void * consumer(void * arg) {
 			waitCondVar(&fill, mutexp);
 		}
 		int tmp = get();
-		//printf("Consume %d\n", tmp):
+		printf("Consume ");
+		printDec(tmp);
+		printString("\n");
 		signalCondVar(&empty);
 		mutexUnlock(&mutexp);
 	}

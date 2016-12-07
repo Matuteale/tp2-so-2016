@@ -8,8 +8,14 @@ static uint8_t * currentVideo = (uint8_t*)0xB8000;
 static const uint32_t width = 80;
 static const uint32_t height = 25 ;
 
+void resetTarget() {
+	ncClear();
+	currentVideo = video;
+}
+
 void ncPrint(const char * string)
 {
+	if(currentVideo > video + 80*2*25) resetTarget();
 	int i;
 
 	for (i = 0; string[i] != 0; i++)
