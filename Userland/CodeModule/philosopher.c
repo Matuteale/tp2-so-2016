@@ -38,17 +38,17 @@ void diningPhilosophers() {
    
 	 while(1) {
 	 	// printString("a");
-	 	// render();
+		 // render();
 	 	// sleep(1 	);
 	 	clearscreen();
 	 	render();
 	 	char c = getChar();
-	 	switch(c) {
-	 		case 'q': killPhilosophers(); return; break;
-	 		case 'w': addPhilosopher(); break;
-	 		case 's': removePhilosopher(); break;
-	 		case 'p': printPIDs(); break;
-	 	}
+	 	// switch(c) {
+	 		// case 'q': killPhilosophers(); return; break;
+	 		// case 'w': addPhilosopher(); break;
+	 		// case 's': removePhilosopher(); break;
+	 		// case 'p': printPIDs(); break;
+	 	// }
 	 	// clearscreen();
 	 }
 }
@@ -62,17 +62,19 @@ void printPIDs() {
 }
 
 void philosopher() {
-	// int id = philosopherCount++;
+	int id = philosopherCount++;
+	int aux = 0;
 	while(1) {
-	// 	if(philosopherCount > 5) {
-	// 	//sleep(800);
-	// 	takeForks(id);
-	// 	//sleep(3000*id);
-	// 	putForks(id);
-		
+		if(id == 3 + aux || id == 3 - aux) {
+		// sleep(800);
+		takeForks(id);
+		// sleep(3000*id);
+		putForks(id);
+		if(aux == 0) aux++;
+		else aux = 0;
 		}
 
-	// }
+	}
 }
 
 void takeForks(int id) {
@@ -83,6 +85,8 @@ void takeForks(int id) {
 		mutexUnlock(&mutex);
 	} else {
 		while(philosopherState[id] != EATING) {
+			printString("Va a esperar ");
+			printDec(id);
 			waitCondVar(&canEat[id], mutex);
 			try(id);
 			if(philosopherState[id] == EATING) {
@@ -105,9 +109,11 @@ void putForks(int id) {
 void try(int id) {
 	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
 		philosopherState[id] = EATING;
+		// render();
 		forks[left(id)] = id;
 		forks[id] = id;
-		render();
+		printString("Va a signalear   ");
+		printDec(id);
 		signalCondVar(&canEat[id]);
 	}
 
@@ -126,7 +132,7 @@ int right(int id) {
 }
 
 void render() {
-	printString("Press e to exit\n");
+	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
 		printString("Philosopher ");
@@ -160,9 +166,10 @@ int removePhilosopher() {
 	while (1) {
 		mutexLock(&mutex);
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
-			philosopherPID[philosopherCount - 1] = 0;
+			
 			forks[philosopherCount - 1] = -1;
-			// sys_killProcess(philosopherPID[philosopherCount - 1]);
+			sys_killProcess(philosopherPID[philosopherCount - 1]);
+			philosopherPID[philosopherCount - 1] = 0;
 			philosopherCount--;
 			mutexUnlock(&mutex);
 			return 0;
@@ -189,7 +196,7 @@ int addPhilosopher() {
 				return -1;
 			}
 			mutexUnlock(&mutex);
-			philosopherCount++;
+			// philosopherCount++;
 			return 0;
 		}
 		mutexUnlock(&mutex);

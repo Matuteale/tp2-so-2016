@@ -16,6 +16,8 @@ void initCondVarK(cond_t * condVar) {
 
 
 void waitCondVarK(cond_t * condVar, int mutex){
+    // ncPrint("ESPERA   -   ");
+    // ncPrintHex(condVar);
     pauseScheduler();
     condVar->mutex = mutex;
     addToCondVarQueueK(condVar,getCurrentPID());

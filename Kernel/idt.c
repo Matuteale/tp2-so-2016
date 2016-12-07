@@ -74,7 +74,7 @@ void timer_interrupt()
 {
 	soundtimer();
 
-	screensavertimer();
+	// screensavertimer();
 
 	timertick = (timertick+1)%2;
 
