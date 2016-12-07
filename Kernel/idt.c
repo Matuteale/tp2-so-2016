@@ -206,16 +206,16 @@ void syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sy
 	{
     case 0x1: create_process((void *) arg_2, (char *) arg_1, (int) arg_3); break;
     case 0x2: kill_process((int) arg_1); break;
-		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);} break;
-		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);} break;
-		case 0x5: read_rtc_time((char *) arg_2, arg_1); break;
-		case 0x6: set_rtc_time((char *) arg_2, arg_1); break;
-		case 0x7: sys_changeColor(arg_1); break;
-		case 0x8: if(process->foreground){clearscreen();} break;
-		case 0x9: set_ss_timeout(arg_1); break;
-		case 0xA: timer_tick((char *)arg_2); break;
-		case 0xB: play_music_idt(); break;
-		case 0xC: play_beep_idt(arg_2, arg_1); break;
+		case 0x3: if(process->foreground){sys_readKeyboard((char *)arg_2);}else{scheduleNow();} break;
+		case 0x4: if(process->foreground){sys_displayWrite((char *)arg_2, arg_1);}else{scheduleNow();} break;
+		case 0x5: read_rtc_time((char *) arg_2, arg_1);scheduleNow(); break;
+		case 0x6: set_rtc_time((char *) arg_2, arg_1);scheduleNow(); break;
+		case 0x7: sys_changeColor(arg_1);scheduleNow(); break;
+		case 0x8: if(process->foreground){clearscreen();}else{scheduleNow();} break;
+		case 0x9: set_ss_timeout(arg_1);scheduleNow();break;
+		case 0xA: timer_tick((char *)arg_2);scheduleNow(); break;
+		case 0xB: play_music_idt();scheduleNow(); break;
+		case 0xC: play_beep_idt(arg_2, arg_1);scheduleNow(); break;
    	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
