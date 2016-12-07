@@ -23,7 +23,7 @@ GLOBAL closeMessageQ
 GLOBAL sendMessageQ
 GLOBAL receiveMessageQ
 GLOBAL getOpenedMessageQs
-GLOBAL sleep
+GLOBAL sys_sleep
 
 %macro pushaq 0
     push rax
@@ -406,7 +406,7 @@ getOpenedMessageQs:
   pop rbp
   ret
 
-sleep:
+sys_sleep:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
