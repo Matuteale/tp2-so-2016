@@ -221,6 +221,8 @@ void sleepProcess(int milis){
     waitingMilis[i] = milis;
     changeProcessState(waitingProcess[i], SLEEPING);
   }
+  ncPrint("durmiendo");
+  ncPrintDec(milis);
 }
 
 /* maneja los system calls */
