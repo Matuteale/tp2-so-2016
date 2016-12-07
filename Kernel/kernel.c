@@ -91,7 +91,7 @@ int main()
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
 	ncPrint("Done.");
-	pit_setup(1);
+	pit_setup(100000);
 	ncNewline();
 	clearscreen();
 	//((EntryPoint)codeModuleAddress)();
