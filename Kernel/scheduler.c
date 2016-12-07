@@ -126,7 +126,8 @@ void setNextProcess(){
 				freeProcess(aux->PID);
 			}
 			if(current->state == SLEEPING){
-				for(int i = 0; i < 16; i++){
+				int i = 0;
+				for(; i < 16; i++){
 					if(waitingProcess[i] = current->PID){
 						break;
 					}
