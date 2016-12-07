@@ -137,7 +137,7 @@ void setNextProcess(){
 						break;
 					}
 				}
-    		waitingMilis[i] = waitingMilis[i] - 55;
+    		waitingMilis[i] = waitingMilis[i] - 1;
 
     		ncPrint("s");
   			ncPrintDec(waitingMilis[i]);
