@@ -67,7 +67,7 @@ void receiveMsgQFrom();
 
 void getOpenedMsgQs();
 
-void sleep(int milis);
+void sleepProcess(int milis);
 
 extern int timertick;
 
