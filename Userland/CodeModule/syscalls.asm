@@ -17,6 +17,12 @@ GLOBAL mutexLock
 GLOBAL initCondVar
 GLOBAL signalCondVar
 GLOBAL waitCondVar
+GLOBAL openMessageQ
+GLOBAL getMessageQ
+GLOBAL closeMessageQ
+GLOBAL sendMessageQ
+GLOBAL receiveMessageQ
+GLOBAL getOpenedMessageQs
 
 %macro pushaq 0
     push rax
