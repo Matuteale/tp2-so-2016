@@ -19,7 +19,7 @@ void initializePageStack();
 void pageManager(Action action, void **page);
 void * alloc();
 void freeMem(void * page);
-void * malloc(int len);
+void * myMalloc(int len);
 
 
 #endif /* MEMORY_H */

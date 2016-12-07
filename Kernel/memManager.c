@@ -73,7 +73,7 @@ void freeMem(void *page) {
 
 }
 
-void * malloc(int len){
+void * myMalloc(int len){
 	currMalloc += (uint64_t)len;
 	return currMalloc;
 }
