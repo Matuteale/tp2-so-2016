@@ -9,9 +9,11 @@
 #include <naiveConsole.h>
 #include <mutex.h>
 #include <msgqueues.h>
+#include <scheduler.h>
 
 int timertick = 0;
 int t = 0;
+
 
 void setup_idt()
 {
@@ -202,6 +204,27 @@ void getActivePID(int * PID)
 
 // }
 
+void sleepProcess(long milis){
+  Process * process = getCurrentProcess();
+  int * waitingProcess = getWaitingProcess();
+  int * waitingMilis = getWaitingMilis();
+  int flag = 0;
+  int i = 0;
+  for(; i < 16; i++){
+    if(waitingProcess[i] == -1){
+      flag = 1;
+      break;
+    }
+  }
+  if(flag){
+    waitingProcess[i] = process->PID;
+    waitingMilis[i] = milis;
+    changeProcessState(waitingProcess[i], SLEEPING);
+  }
+  ncPrint("durmiendo");
+  ncPrintDec(milis);
+}
+
 /* maneja los system calls */
 int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
@@ -234,6 +257,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x17: sendMessageQ(arg_1, arg_2);break;
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
     case 0x19: getOpenedMessageQs();break;
+    case 0x20: sleepProcess((long) arg_1);break;
 	}
 	return pid;
 }

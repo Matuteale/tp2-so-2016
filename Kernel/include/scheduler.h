@@ -2,7 +2,6 @@
 #define SCHEDULER_H
 
 #include <process.h>
-#include <idt.h>
 
 void * getCurrentEntryPoint();
 typedef struct Scheduler {
@@ -24,5 +23,8 @@ void changeProcessState(pid_t pid, ProcessState state);
 Process * getCurrentProcess();
 void nullProcess();
 void setName(Process * process, char * name);
+
+int * getWaitingProcess();
+int * getWaitingMilis();
 
 #endif

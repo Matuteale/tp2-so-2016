@@ -1,6 +1,8 @@
 #include <scheduler.h>
 #include <naiveConsole.h>
 #include <stddef.h>
+#include <idt.h>
+
 
 #define STACKKKK 4096
 
@@ -25,6 +27,10 @@ int inizialized = 0;
 char stackkkk[STACKKKK];
 
 int counter = 0;
+
+int waitingProcess[16];
+int waitingMilis[16];
+int timertickFlag = 550;
 
 extern void * kernelStack;
 
@@ -122,7 +128,27 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
+				current = current->next;
 				freeProcess(aux->PID);
+			}
+			if(current->state == SLEEPING){
+				int i = 0;
+				for(; i < 16; i++){
+					if(waitingProcess[i] = current->PID){
+						break;
+					}
+				}
+				timertickFlag--;
+				if(timertickFlag == 0){
+					waitingMilis[i] = waitingMilis[i] - 1;
+					ncPrint("s");
+  				ncPrintDec(waitingMilis[i]);
+  				timertickFlag = 550;
+				}
+    		if(waitingMilis[i] <= 0){
+    			changeProcessState(waitingProcess[i], READY);
+    			waitingProcess[i] = -1;
+    		}
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DEAD && currentProcess->state != DYING){
@@ -161,6 +187,15 @@ void nullProcess()
 	};
 }
 
+int * getWaitingProcess(){
+	return waitingProcess;
+}
+
+int * getWaitingMilis(){
+	return waitingMilis;
+}
+
+
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
 	// ncPrint("CAMBIO");
@@ -174,6 +209,8 @@ void changeProcessState(pid_t pid, ProcessState state) {
 
 void initializeScheduler() {
 
+	fillWaitings();
+
 	addProcess(nullProcess, "Null", 1);
 
 	addProcess(codeModuleAddress, "Shell", 0);
@@ -181,6 +218,13 @@ void initializeScheduler() {
 	inizialized = 1;
 
 	scheduleNow();
+}
+
+void fillWaitings(){
+	for(int i = 0; i < 16; i++){
+		waitingProcess[i] = -1;
+		waitingMilis[i] = -1;
+	}
 }
 
 

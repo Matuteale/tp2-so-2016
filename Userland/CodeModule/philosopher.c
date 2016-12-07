@@ -35,7 +35,7 @@ void diningPhilosophers() {
 	if(philosopherInit() == -1) {
 	 	return;
  	}
-   
+
 	 while(1) {
 	 	// printString("a");
 		 // render();
@@ -151,7 +151,7 @@ void render() {
 				[i]]);
 		printString("\n");
 		}
-		
+
 	}
 
 	printf("\n");
@@ -166,7 +166,6 @@ int removePhilosopher() {
 	while (1) {
 		mutexLock(&mutex);
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
-			
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
