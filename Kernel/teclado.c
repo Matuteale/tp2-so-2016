@@ -147,7 +147,7 @@ void sys_readKeyboard(char * inputdestination)
 		inputdestination[0] = NO_INPUT;
 	else
 	{
-		memcpy(inputdestination, input_buffer, 50);
+		memcpy(inputdestination, input_buffer, 49);
 		//inputdestination[0] = input_buffer;
 		buffCounter = 0;
 		buffer_status = NO_INPUT;
