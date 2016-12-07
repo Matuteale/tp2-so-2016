@@ -13,6 +13,9 @@
 int timertick = 0;
 int t = 0;
 
+int waitingProcess[16];
+int waitingMilis[16];
+
 void setup_idt()
 {
    idt_entry * idt;
