@@ -108,7 +108,7 @@ void setNextProcess(){
 				Process * aux = current;
 				current = current->next;
 				auxProcess->next = current;
-				//freeProcess(aux->PID);
+				freeProcess(aux->PID);
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DEAD && currentProcess->state != DYING){
@@ -116,6 +116,11 @@ void setNextProcess(){
 		}
 		currentProcess = current;
 		currentProcess->state = RUNNING;
+		if(currentProcess->PID == shellProcess->PID){
+			pit_setup(600);
+		}else{
+			pit_setup(100);
+		}
 	}
 }
 
