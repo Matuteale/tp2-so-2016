@@ -6,7 +6,7 @@ int rshift_state = OFF;
 int capslock_state = OFF;
 
 int p;
-unsigned char[50] input_buffer;
+unsigned char input_buffer[50];
 int buffCounter = 0;
 unsigned char buffer_status = NO_INPUT;
 
