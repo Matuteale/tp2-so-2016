@@ -49,6 +49,7 @@ void openMessageQ(char * name, MessageQ * msgQ){
       msgQNames[i] = name;
       queue[i] = auxQueue;
       memcpy(msgQ, auxQueue, sizeof(MessageQ));
+      ncPrint(msgQ->name);
       return;
     }
   }
