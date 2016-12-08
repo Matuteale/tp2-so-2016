@@ -157,7 +157,15 @@ void list_processes(char ** states, int * vec, char ** names)
 
 char * defineStringState(int state)
 {
-  return "READY";
+  switch(state){
+    case 0: return "RUNNING"; break;
+    case 1: return "BLOCKED"; break;
+    case 2: return "READY"; break;
+    case 3: return "DYING"; break;
+    case 4: return "SLEEPING"; break;
+    case 5: return "NIL"; break;
+  }
+  return "UNDEFINED";
 }
 
 /* sys call 0xE */
