@@ -88,6 +88,7 @@ void sendMessageQ(MessageQ * msgQ, char msg){
   if(msgQ->first == 0){
     msgQ->first = newMsg;
     msgQ->last = newMsg;
+    ncPrint("first");
   }
   else{
     msgQ->last->next = newMsg;
