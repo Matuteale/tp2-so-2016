@@ -128,12 +128,14 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
-				current = current->next;
+				if(current->next->PID != 1){
+					current = current->next;
+				}
 				freeProcess(aux->PID);
 			}
 			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
-		if(currentProcess->state != DYING && currentProcess->state != DEAD){
+		if(currentProcess->state != DYING){
 			currentProcess->state = READY;
 		}
 		currentProcess = current;
@@ -264,7 +266,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 		new_process->next = new_process;
 
-		new_process->state = DEAD;
+		new_process->state = DYING;
 
 		new_process->foreground = 0;
 
