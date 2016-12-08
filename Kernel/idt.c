@@ -240,7 +240,11 @@ void sleepProcess(long milis){
 
 void listIPCs(char ** ipcs, int * values)
 {
-
+  int i = 0;
+  ipcs[i] = "Mutex";
+  values[i] = 1;
+  i++;
+  ipcs[i] = "0";
 }
 
 /* maneja los system calls */
