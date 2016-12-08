@@ -48,7 +48,7 @@ void mainProdCons() {
 void * producer(void *arg) {
 	int i;
 	for(i = 0; i < loops; i++) {
-		//mutexLock(&mutexp);
+		mutexLock(&mutexp);
 		while(count == BUFFER_SIZE) {
 			waitCondVar(&empty, mutexp);
 		}
@@ -57,8 +57,8 @@ void * producer(void *arg) {
 		printDec(i);
 		printString("\n");
 		sendMessageQ(pcMQ, 'g');
-		//signalCondVar(&fill);
-		//mutexUnlock(&mutexp);
+		signalCondVar(&fill);
+		mutexUnlock(&mutexp);
 	}
 	return arg;
 }
@@ -66,7 +66,7 @@ void * producer(void *arg) {
 void * consumer(void * arg) {
 	int i;
 	for(i = 0; i < loops; i++) {
-		//mutexLock(&mutexp);
+		mutexLock(&mutexp);
 		while(count == 0) {
 			waitCondVar(&fill, mutexp);
 		}
@@ -75,8 +75,8 @@ void * consumer(void * arg) {
 		printDec(tmp);
 		printString("\n");
 		sendMessageQ(pcMQ, 'c');
-		//signalCondVar(&empty);
-		//mutexUnlock(&mutexp);
+		signalCondVar(&empty);
+		mutexUnlock(&mutexp);
 	}
 	return arg;
 }
