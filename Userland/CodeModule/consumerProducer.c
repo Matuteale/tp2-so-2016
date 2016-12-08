@@ -24,7 +24,7 @@ typedef struct MessageQ {
 //---
 
 
-void * pcMQ;
+MessageQ * pcMQ;
 char msgBuffer = 0;
 int buffer[BUFFER_SIZE];
 int fill_ptr = 0;
@@ -50,7 +50,7 @@ int mutexp;
 
 void mainProdCons() {
 	openMessageQ("pcMQ", &pcMQ);
-	printDec((((MessageQ *)pcMQ)->dead));
+	printDec(pcMQ->dead);
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
