@@ -32,6 +32,6 @@ void philosophers();
 
 void run_ps();
 
-void void killProcess();
+void killProcess();
 
 #endif
