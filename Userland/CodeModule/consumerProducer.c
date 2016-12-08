@@ -6,25 +6,7 @@
 
 #define BUFFER_SIZE 10
 
-
-//SACAR
-typedef struct MsgAux Msg;
-struct MsgAux{
-  char msg;
-  Msg * next;
-};
-
-typedef struct MessageQ {
-  unsigned int  id;
-  char * name;
-  int dead;
-  Msg* first;
-  Msg* last;
-} MessageQ;
-//---
-
-
-MessageQ * pcMQ;
+void * pcMQ;
 char msgBuffer = 0;
 int buffer[BUFFER_SIZE];
 int fill_ptr = 0;
