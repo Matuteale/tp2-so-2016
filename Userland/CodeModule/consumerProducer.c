@@ -41,7 +41,6 @@ void mainProdCons() {
 		printString("hola");
 		printString(&msgBuffer);
 		printString("\n");
-		sys_addProcess("PS", ps, 0);
 		control();
 	}
 }
@@ -58,6 +57,7 @@ void * producer(void *arg) {
 		printDec(i);
 		printString("\n");
 		sendMessageQ(pcMQ, 'g');
+		sys_addProcess("PS", ps, 0);
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
