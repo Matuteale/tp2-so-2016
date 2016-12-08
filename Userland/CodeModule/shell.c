@@ -5,7 +5,7 @@
 #include "consumerProducer.h"
 #include "philosopher.h"
 
-#define CANT_COMMANDS_SHELL 11
+#define CANT_COMMANDS_SHELL 13
 
 typedef void (*fptr)(void);
 
@@ -15,11 +15,11 @@ extern int set_ss_timer(int n);
 
 //comandos
 char * shell_commands[] = {"systime", "setsystime", "changecolor",
-						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc"} ;
+						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc", "kill", "ipcs"} ;
 
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,
-						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCons} ;
+						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCons, killProcess, run_ipcs} ;
 
 int command;
 char input_char;
@@ -61,18 +61,52 @@ void shell()
 	}
 }
 
+void killProcess(){
+	int PID;
+
+	printString("Ingrese el PID del proceso que desea matar: ");
+	if(getInt(&PID, 2) == INPUTERROR)
+		INPUT_ERROR_EXIT;
+	sys_killProcess(PID);
+}
+
 /*Lista de procesos*/
 void ps()
 {
 	unsigned int processPID[16];
 	char * names[16];
-	printString("PIDs\n");
-	ps_sys(names, processPID);
+	char * states[16];
+	printString("Name | PID | State \n");
+	ps_sys(names, processPID, states);
 	int i = 0;
 	while(processPID[i] != 0){
 		printString(names[i]);
 		printString(" - ");
 		printDec(processPID[i]);
+		printString(" - ");
+		printString(states[i]);
+		printString("\n");
+		i++;
+	}
+	int activePID;
+	sys_getActivePID(&activePID);
+	sys_killProcess(activePID);
+	while(1);
+	return;
+}
+
+/*Muestra una lista de estructuras creadas*/
+void ipcs()
+{
+	int values[16];
+	char * ipcs[16];
+	printString("IPC | Value \n");
+	ipcs_sys(ipcs, values);
+	int i = 0;
+	while(ipcs[i][0] != '0'){
+		printString(ipcs[i]);
+		printString(" - ");
+		printDec(values[i]);
 		printString("\n");
 		i++;
 	}
@@ -85,6 +119,10 @@ void ps()
 
 void run_ps(){
 	sys_addProcess("PS", ps, 0);
+}
+
+void run_ipcs(){
+	sys_addProcess("IPCS", ipcs, 0);
 }
 
 /* interpreta el comando ingresado */
@@ -114,14 +152,23 @@ void help()
 	printString("screensavertimer - setear tiempo de protector de pantallas\n");
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
+	printString("ps - muestra la lista de procesos\n");
 	printString("philosophers - corre la aplicación de filosofos\n");
+	printString("pc - corre la aplicación de producer-consumer\n");
+	printString("kill - mata un proceso identificado con cierto PID\n");
+	printString("ipcs - muestra una lista de las estructuras de IPCs creadas\n");
 	printString("----------------------------------------------------------\n");
 	return;
 }
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", diningPhilosophers, 0);
+	int background;
+
+	printString("Ingrese 1 si lo desea correr en background y 0 de lo contrario: ");
+	if(getInt(&background, 1) == INPUTERROR)
+		INPUT_ERROR_EXIT;
+	sys_addProcess("Philosophers", diningPhilosophers, background);
 }
 
 void prodCons()

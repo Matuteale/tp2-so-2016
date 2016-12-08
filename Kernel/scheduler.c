@@ -133,7 +133,7 @@ void setNextProcess(){
 			}
 			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
-		if(currentProcess->state != DEAD && currentProcess->state != DYING){
+		if(currentProcess->state != DYING && currentProcess->state != NIL){
 			currentProcess->state = READY;
 		}
 		currentProcess = current;
@@ -185,7 +185,6 @@ void printA() {
 void nullProcess()
 {
 	while(1){
-		ncPrint("A");
 	};
 }
 
@@ -262,7 +261,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 		new_process->next = new_process;
 
-		new_process->state = DEAD;
+		new_process->state = NIL;
 
 		new_process->foreground = 0;
 
@@ -282,13 +281,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		if(!isBackground){
 			// ncPrint("nobackground");
 			// ncNewline();
-			if(nilProcess->PID == currentProcess->PID){
-				currentProcess->state = DEAD;
-			}else{
-				currentProcess->state = READY;
-			}
 			currentProcess->foreground = 0;
-			new_process->state = RUNNING;
+			new_process->state = READY;
 			new_process->foreground = 1;
 		}else{
 			// ncPrint("isbackground");

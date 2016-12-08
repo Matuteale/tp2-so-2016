@@ -54,6 +54,7 @@ void * producer(void *arg) {
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
+	return arg;
 }
 
 void * consumer(void * arg) {
@@ -70,6 +71,7 @@ void * consumer(void * arg) {
 		signalCondVar(&empty);
 		mutexUnlock(&mutexp);
 	}
+	return arg;
 }
 
  void control() {

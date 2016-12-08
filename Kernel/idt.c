@@ -133,18 +133,20 @@ void kill_process(int PID)
 }
 
 /* sys call 0xD */
-void list_processes(int * vec, char ** names)
+void list_processes(char ** states, int * vec, char ** names)
 {
   Process * process = getCurrentProcess();
   Process * current = process;
   int i = 0;
   vec[i] = process->PID;
   names[i] = process->name;
+  states[i] = defineStringState(process->state);
   i++;
   process = process->next;
   while(process != current){
     vec[i] = process->PID;
     names[i] = process->name;
+    states[i] = defineStringState(process->state);
     process = process->next;
     i++;
   }
@@ -152,6 +154,19 @@ void list_processes(int * vec, char ** names)
     vec[i] = 0;
     i++;
   }
+}
+
+char * defineStringState(int state)
+{
+  switch(state){
+    case 0: return "RUNNING"; break;
+    case 1: return "BLOCKED"; break;
+    case 2: return "READY"; break;
+    case 3: return "DYING"; break;
+    case 4: return "SLEEPING"; break;
+    case 5: return "NIL"; break;
+  }
+  return "UNDEFINED";
 }
 
 /* sys call 0xE */
@@ -223,6 +238,15 @@ void sleepProcess(long milis){
   }
 }
 
+void listIPCs(char ** ipcs, int * values)
+{
+  int i = 0;
+  ipcs[i] = "Mutex";
+  values[i] = 1;
+  i++;
+  ipcs[i][0] = '0';
+}
+
 /* maneja los system calls */
 int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t syscall)
 {
@@ -242,7 +266,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
 		case 0xA: timer_tick((char *)arg_2);scheduleNow(); break;
 		case 0xB: play_music_idt();scheduleNow(); break;
 		case 0xC: play_beep_idt(arg_2, arg_1);scheduleNow(); break;
-   	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
+   	case 0xD: list_processes((char **) arg_3, (int *) arg_2, (char **) arg_1);break;
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;
@@ -256,6 +280,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
     case 0x19: getOpenedMessageQs();break;
     case 0x20: sleepProcess((long) arg_1);break;
+    case 0x21: listIPCs((char **) arg_1,(int *) arg_2);break;
 	}
 	return pid;
 }

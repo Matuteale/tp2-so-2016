@@ -72,8 +72,6 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
 
   pushaq            			; Se salvan los registros
 
-  call timer_interrupt
-
   call checkIfSchedulerPaused
   cmp rax, 0
   je leave_int
@@ -82,6 +80,7 @@ int_20_hand:					; Handler de INT 20 ( Timer Tick )
   call    userSchedToKernel
   mov     rsp, rax
   call    setNextProcess
+  call    timer_interrupt
 
   call    kernelSchedToUser
 
@@ -100,7 +99,7 @@ leave_int:
   out 20h,al
 
   popaq
-    iretq    
+    iretq
 
 outb:         ;outb(value, port)
   mov rdx, rsi

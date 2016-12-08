@@ -15,6 +15,7 @@ int randRange(int min, int max);
 void killPhilosophers();
 int addPhilosopher();
 int removePhilosopher();
+void render();
 
 
 int mutex;

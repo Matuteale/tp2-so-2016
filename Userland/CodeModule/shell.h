@@ -32,4 +32,10 @@ void philosophers();
 
 void run_ps();
 
+void killProcess();
+
+void run_ipcs();
+
+void ipcs();
+
 #endif

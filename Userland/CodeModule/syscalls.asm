@@ -24,6 +24,7 @@ GLOBAL sendMessageQ
 GLOBAL receiveMessageQ
 GLOBAL getOpenedMessageQs
 GLOBAL sys_sleep
+GLOBAL ipcs_sys
 
 %macro pushaq 0
     push rax
@@ -140,6 +141,22 @@ ps_sys:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0xD ;Se hace la llamada para listar los processes
+  mov rbx, rdx
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+ipcs_sys:
+
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x21 ;Se hace la llamada para listar los processes
+  mov rbx, rdx
   mov rdx, rdi
   mov rcx, rsi
   int 0x80
