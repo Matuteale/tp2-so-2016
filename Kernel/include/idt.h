@@ -68,6 +68,8 @@ void getOpenedMsgQs();
 
 void sleepProcess(long milis);
 
+char * defineStringState();
+
 extern int timertick;
 
 #endif

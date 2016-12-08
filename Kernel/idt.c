@@ -133,13 +133,14 @@ void kill_process(int PID)
 }
 
 /* sys call 0xD */
-void list_processes(int * vec, char ** names)
+void list_processes(char ** states, int * vec, char ** names)
 {
   Process * process = getCurrentProcess();
   Process * current = process;
   int i = 0;
   vec[i] = process->PID;
   names[i] = process->name;
+  states[i] = defineStringState(process->state);
   i++;
   process = process->next;
   while(process != current){
@@ -152,6 +153,11 @@ void list_processes(int * vec, char ** names)
     vec[i] = 0;
     i++;
   }
+}
+
+char * defineStringState(int state)
+{
+  return "READY";
 }
 
 /* sys call 0xE */
@@ -242,7 +248,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
 		case 0xA: timer_tick((char *)arg_2);scheduleNow(); break;
 		case 0xB: play_music_idt();scheduleNow(); break;
 		case 0xC: play_beep_idt(arg_2, arg_1);scheduleNow(); break;
-   	case 0xD: list_processes((int *) arg_2, (char **) arg_1);break;
+   	case 0xD: list_processes((char **) arg_3, (int *) arg_2, (char **) arg_1);break;
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;

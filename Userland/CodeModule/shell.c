@@ -77,7 +77,7 @@ void ps()
 	char * names[16];
 	char * states[16];
 	printString("Name | PID | State \n");
-	ps_sys(names, processPID);
+	ps_sys(names, processPID, states);
 	int i = 0;
 	while(processPID[i] != 0){
 		printString(names[i]);
