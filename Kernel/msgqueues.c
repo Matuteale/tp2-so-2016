@@ -2,6 +2,7 @@
 #include <process.h>
 #include <naiveConsole.h>
 #include <memManager.h>
+#include <lib.h>
 
 #define MAX_QUEUES 50
 
@@ -23,7 +24,7 @@ char ** getOpenedMessageQs(){
   return openedMsgQs;
 }
 
-MessageQ * getMessageQ(char * name){
+void getMessageQ(char * name){
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name))
       return queue[i];
@@ -31,7 +32,7 @@ MessageQ * getMessageQ(char * name){
   return 0;
 }
 
-MessageQ * openMessageQ(char * name){
+void openMessageQ(char * name, MessageQ * msgQ){
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name))
       return queue[i];
@@ -47,11 +48,12 @@ MessageQ * openMessageQ(char * name){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      return auxQueue;
+      memcpy(msgQ, auxQueue, sizeof(MessageQ));
+      return;
     }
   }
   ncPrint("Destroying messageQ: ");
-  return 0;
+  return;
 }
 
 void destroyMessageQ(MessageQ * msgQ){

@@ -49,7 +49,7 @@ int empty, fill;
 int mutexp;
 
 void mainProdCons() {
-	pcMQ = openMessageQ("pcMQ");
+	openMessageQ("pcMQ", &pcMQ);
 	printDec((((MessageQ *)pcMQ)->dead));
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
