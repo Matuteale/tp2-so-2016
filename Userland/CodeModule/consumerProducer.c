@@ -7,6 +7,23 @@
 #define BUFFER_SIZE 10
 
 
+//SACAR
+typedef struct MsgAux Msg;
+struct MsgAux{
+  char msg;
+  Msg * next;
+};
+
+typedef struct MessageQ {
+  unsigned int  id;
+  char * name;
+  int dead;
+  Msg* first;
+  Msg* last;
+} MessageQ;
+//---
+
+
 void * pcMQ;
 char msgBuffer = 0;
 int buffer[BUFFER_SIZE];
@@ -33,7 +50,7 @@ int mutexp;
 
 void mainProdCons() {
 	pcMQ = openMessageQ("pcMQ");
-	printString(pcMQ[0]->name);
+	printString(((* MessageQ)pcMQ)->name);
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
