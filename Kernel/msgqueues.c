@@ -72,6 +72,7 @@ void receiveMessageQ(MessageQ * msgQ, char * ret){
         destroyMessageQ(msgQ);
       }
       *ret = node->msg;
+      ncPrint("Destroying messageQ: ");
       return;
     }
   return;
