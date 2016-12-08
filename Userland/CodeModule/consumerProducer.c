@@ -36,7 +36,7 @@ void mainProdCons() {
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
 		// printString("Press e to exit\n");
-		receiveMessageQ(pcMQ, msgBuffer);
+		receiveMessageQ(pcMQ, &msgBuffer);
 		printString("hola");
 		if(msgBuffer == 'g'){
 			printString("1");
