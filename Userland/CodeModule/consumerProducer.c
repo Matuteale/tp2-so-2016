@@ -8,6 +8,7 @@
 
 
 void * pcMQ;
+char msgBuffer = 0;
 int buffer[BUFFER_SIZE];
 int fill_ptr = 0;
 int use_ptr = 0;
@@ -31,11 +32,13 @@ int empty, fill;
 int mutexp;
 
 void mainProdCons() {
-	openMessageQ(pcMQ);
+	pcMQ = openMessageQ("pcMQ");
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
 		// printString("Press e to exit\n");
+		receiveMessageQ(&pcMQ, &msgBuffer);
+		printString(msgBuffer);
 		control();
 	}
 }
@@ -51,6 +54,7 @@ void * producer(void *arg) {
 		printString("Produce ");
 		printDec(i);
 		printString("\n");
+		sendMessageQ(pcMQ, 'g');
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
@@ -68,6 +72,7 @@ void * consumer(void * arg) {
 		printf("Consume ");
 		printDec(tmp);
 		printString("\n");
+		sendMessageQ(pcMQ, 'c');
 		signalCondVar(&empty);
 		mutexUnlock(&mutexp);
 	}
@@ -101,6 +106,7 @@ void * consumer(void * arg) {
  				printString("AA");
  				end = 1;
  			break;
+ 			default: end = 1; break;
  		}
  	}
  }

@@ -32,7 +32,7 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 
 void diningPhilosophers() {
-
+	int a = 1;
 	if(philosopherInit() == -1) {
 	 	return;
  	}
@@ -43,6 +43,8 @@ void diningPhilosophers() {
 	 	// sleep(1 	);
 	 	clearscreen();
 	 	render();
+	 		 	printDec(a++);
+
 	 	char c = getChar();
 	 	// switch(c) {
 	 		// case 'q': killPhilosophers(); return; break;
@@ -66,19 +68,20 @@ void philosopher() {
 	int id = philosopherCount++;
 	int aux = 0;
 	while(1) {
-		if(id == 3 + aux || id == 3 - aux) {
+		// if(id == 3 + aux || id == 3 - aux) {
 		// sleep(800);
 		takeForks(id);
 		// sleep(3000*id);
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;
-		}
+		// }
 
 	}
 }
 
 void takeForks(int id) {
+	if(id == 8) printString("Se bugeo");
 	mutexLock(&mutex);
 	philosopherState[id] = HUNGRY;
 	try(id);
