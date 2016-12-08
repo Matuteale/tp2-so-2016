@@ -47,7 +47,7 @@ void mainProdCons() {
 
 void * producer(void *arg) {
 	int i;
-	//void * msgQ;
+	void * msgQ;
 	for(i = 0; i < loops; i++) {
 		mutexLock(&mutexp);
 		while(count == BUFFER_SIZE) {
@@ -57,8 +57,8 @@ void * producer(void *arg) {
 		printString("Produce ");
 		printDec(i);
 		printString("\n");
-		//getMeesageQ()
-		sendMessageQ(&pcMQ, 'g');
+		msgQ = getMeesageQ("pcMQ");
+		sendMessageQ(msgQ, 'g');
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
