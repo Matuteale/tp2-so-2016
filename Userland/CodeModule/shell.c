@@ -121,7 +121,12 @@ void help()
 
 void philosophers()
 {
-	sys_addProcess("Philosophers", diningPhilosophers, 0);
+	int background;
+
+	printString("Ingrese 1 si lo desea correr en foreground y 0 de lo contrario:");
+	if(getInt(&background, 1) == INPUTERROR)
+		INPUT_ERROR_EXIT;
+	sys_addProcess("Philosophers", diningPhilosophers, background);
 }
 
 void prodCons()
