@@ -49,8 +49,8 @@ int empty, fill;
 int mutexp;
 
 void mainProdCons() {
-	openMessageQ("pcMQ2", &pcMQ);
-	printString(pcMQ[0]);
+	openMessageQ("pcMQ", &pcMQ);
+	printString(pcMQ[0].name);
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
