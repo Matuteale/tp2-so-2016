@@ -100,7 +100,7 @@ void ipcs()
 {
 	int values[16];
 	char * ipcs[16];
-	printString("IPCs \n");
+	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
 	while(ipcs[i][0] != '0'){
