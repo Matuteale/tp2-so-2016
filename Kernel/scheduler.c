@@ -264,7 +264,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 		new_process->next = new_process;
 
-		new_process->state = READY;
+		new_process->state = DYING;
 
 		new_process->foreground = 0;
 
