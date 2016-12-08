@@ -146,6 +146,7 @@ void list_processes(char ** states, int * vec, char ** names)
   while(process != current){
     vec[i] = process->PID;
     names[i] = process->name;
+    states[i] = defineStringState(process->state);
     process = process->next;
     i++;
   }
