@@ -5,7 +5,7 @@
 #include "consumerProducer.h"
 #include "philosopher.h"
 
-#define CANT_COMMANDS_SHELL 12
+#define CANT_COMMANDS_SHELL 13
 
 typedef void (*fptr)(void);
 
@@ -15,11 +15,11 @@ extern int set_ss_timer(int n);
 
 //comandos
 char * shell_commands[] = {"systime", "setsystime", "changecolor",
-						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc", "kill"} ;
+						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc", "kill", "ipcs"} ;
 
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,
-						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCons, killProcess} ;
+						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCons, killProcess, run_ipcs} ;
 
 int command;
 char input_char;
@@ -95,8 +95,34 @@ void ps()
 	return;
 }
 
+/*Muestra una lista de estructuras creadas*/
+void ipcs()
+{
+	int values[16];
+	char * ipcs[16];
+	printString("IPCs \n");
+	ipcs_sys(ipcs, values);
+	int i = 0;
+	while(ipcs[i] != '0'){
+		printString(ipcs[i]);
+		printString(" - ");
+		printDec(values[i]);
+		printString("\n");
+		i++;
+	}
+	int activePID;
+	sys_getActivePID(&activePID);
+	sys_killProcess(activePID);
+	while(1);
+	return;
+}
+
 void run_ps(){
 	sys_addProcess("PS", ps, 0);
+}
+
+void run_ipcs(){
+	sys_addProcess("IPCS", ipcs, 0);
 }
 
 /* interpreta el comando ingresado */
@@ -129,6 +155,8 @@ void help()
 	printString("ps - muestra la lista de procesos\n");
 	printString("philosophers - corre la aplicación de filosofos\n");
 	printString("pc - corre la aplicación de producer-consumer\n");
+	printString("kill - mata un proceso identificado con cierto PID\n");
+	printString("ipcs - muestra una lista de las estructuras de IPCs creadas\n");
 	printString("----------------------------------------------------------\n");
 	return;
 }
