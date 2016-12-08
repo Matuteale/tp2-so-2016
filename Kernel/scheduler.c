@@ -128,6 +128,9 @@ void setNextProcess(){
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
+				if(current->next->next->PID != current->PID){
+					current = current->next;
+				}
 				freeProcess(aux->PID);
 			}
 			wakeOrContinueSleep(current);
