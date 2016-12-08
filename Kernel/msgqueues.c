@@ -47,7 +47,6 @@ MessageQ * openMessageQ(char * name){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      ncPrint("fffdd");
       return auxQueue;
     }
   }
