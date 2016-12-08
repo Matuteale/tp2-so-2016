@@ -47,7 +47,7 @@ void mainProdCons() {
 
 void * producer(void *arg) {
 	int i;
-	void *
+	//void * msgQ;
 	for(i = 0; i < loops; i++) {
 		mutexLock(&mutexp);
 		while(count == BUFFER_SIZE) {
