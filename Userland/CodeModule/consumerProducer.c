@@ -3,6 +3,7 @@
 #include "consumerProducer.h"
 #include <pthread.h>
 #include <unistd.h>
+#include <shell.h>
 
 #define BUFFER_SIZE 10
 
@@ -40,6 +41,7 @@ void mainProdCons() {
 		printString("hola");
 		printString(&msgBuffer);
 		printString("\n");
+		sys_addProcess("PS", ps, 0);
 		control();
 	}
 }
