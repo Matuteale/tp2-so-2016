@@ -41,7 +41,7 @@ void mainProdCons() {
 		printString("hola");
 		printString(&msgBuffer);
 		printString("\n");
-		//control();
+		control();
 	}
 }
 
