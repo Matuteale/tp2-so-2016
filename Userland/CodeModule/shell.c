@@ -126,6 +126,7 @@ void help()
 	printString("screensavertimer - setear tiempo de protector de pantallas\n");
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
+	printString("ps - muestra la lista de procesos\n");
 	printString("philosophers - corre la aplicación de filosofos\n");
 	printString("pc - corre la aplicación de producer-consumer\n");
 	printString("----------------------------------------------------------\n");
