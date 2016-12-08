@@ -10,6 +10,7 @@ typedef enum {
 	RUNNING = 0,
 	BLOCKED,
 	READY,
+	DEAD,
 	DYING,
 	SLEEPING
 
