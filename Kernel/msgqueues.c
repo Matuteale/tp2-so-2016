@@ -79,7 +79,7 @@ void receiveMessageQ(MessageQ * msgQ, char * ret){
 }
 
 void sendMessageQ(MessageQ * msgQ, char msg){
-  Msg * newMsg = myMalloc(sizeof(Msg));
+  Msg * newMsg = alloc();
 
   newMsg->msg = msg;
   newMsg->next = 0;
