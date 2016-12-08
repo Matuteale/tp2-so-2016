@@ -69,9 +69,9 @@ void receiveMessageQ(MessageQ * msgQ, char * ret){
     if(msgQ->first != 0){
       Msg * node = msgQ->first;
       msgQ->first = msgQ->first->next;
-      if(msgQ->dead == 1 && msgQ->first == 0){
-        destroyMessageQ(msgQ);
-      }
+      // if(msgQ->dead == 1 && msgQ->first == 0){
+      //   destroyMessageQ(msgQ);
+      // }
       *ret = node->msg;
       return;
     }
