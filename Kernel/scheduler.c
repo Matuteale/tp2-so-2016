@@ -185,7 +185,6 @@ void printA() {
 void nullProcess()
 {
 	while(1){
-		ncPrint("A");
 	};
 }
 
