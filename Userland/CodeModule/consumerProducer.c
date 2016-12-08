@@ -57,7 +57,6 @@ void * producer(void *arg) {
 		printDec(i);
 		printString("\n");
 		sendMessageQ(pcMQ, 'g');
-		sys_addProcess("PS", ps, 1);
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
