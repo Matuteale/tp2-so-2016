@@ -11,7 +11,8 @@ typedef enum {
 	BLOCKED,
 	READY,
 	DYING,
-	SLEEPING
+	SLEEPING,
+	NIL
 
 } ProcessState;
 
