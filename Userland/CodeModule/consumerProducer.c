@@ -57,7 +57,7 @@ void * producer(void *arg) {
 		printString("Produce ");
 		printDec(i);
 		printString("\n");
-		msgQ = getMeesageQ("pcMQ");
+		msgQ = getMessageQ("pcMQ");
 		sendMessageQ(msgQ, 'g');
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
