@@ -176,36 +176,6 @@ void getActivePID(int * PID)
   PID[0] = process->PID;
 }
 
-// void openMsgQ()
-// {
-//   //openMessageQ();
-// }
-
-// void getMsgQ()
-// {
-
-// }
-
-// void closeMsgQ()
-// {
-
-// }
-
-// void sendMsgQTo()
-// {
-
-// }
-
-// void receiveMsgQFrom()
-// {
-
-// }
-
-// void getOpenedMsgQs()
-// {
-
-// }
-
 
 // void initCondVarU(cond_t * condVar, int pid) {
 
