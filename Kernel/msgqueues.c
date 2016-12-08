@@ -50,6 +50,7 @@ MessageQ * openMessageQ(char * name){
       return auxQueue;
     }
   }
+  ncPrint("Destroying messageQ: ");
   return 0;
 }
 
