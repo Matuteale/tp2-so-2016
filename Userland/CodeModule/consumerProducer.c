@@ -32,12 +32,11 @@ int mutexp;
 
 void mainProdCons() {
 	openMessageQ("pcMQ", pcMQ);
-	printDec(pcMQ[0]);
 	sys_addProcess("producer", producer, 1);
 	sys_addProcess("consumer", consumer, 1);
 	while(1){
 		// printString("Press e to exit\n");
-		receiveMessageQ(&pcMQ, &msgBuffer);
+		receiveMessageQ(pcMQ, msgBuffer);
 		printString("hola");
 		if(msgBuffer == 'g'){
 			printString("1");
@@ -49,7 +48,6 @@ void mainProdCons() {
 
 void * producer(void *arg) {
 	int i;
-	void * msgQ;
 	for(i = 0; i < loops; i++) {
 		mutexLock(&mutexp);
 		while(count == BUFFER_SIZE) {
@@ -59,8 +57,7 @@ void * producer(void *arg) {
 		printString("Produce ");
 		printDec(i);
 		printString("\n");
-		msgQ = getMessageQ("pcMQ");
-		sendMessageQ(&msgQ, 'g');
+		sendMessageQ(pcMQ, 'g');
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
