@@ -41,7 +41,7 @@ void mainProdCons() {
 		printString("hola");
 		printString(&msgBuffer);
 		printString("\n");
-		control();
+		//control();
 	}
 }
 
@@ -58,7 +58,7 @@ void * producer(void *arg) {
 		printDec(i);
 		printString("\n");
 		//getMeesageQ()
-		sendMessageQ(&pcMQ, 'g');
+		sendMessageQ(pcMQ, 'g');
 		signalCondVar(&fill);
 		mutexUnlock(&mutexp);
 	}
