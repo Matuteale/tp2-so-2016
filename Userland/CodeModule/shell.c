@@ -5,7 +5,7 @@
 #include "consumerProducer.h"
 #include "philosopher.h"
 
-#define CANT_COMMANDS_SHELL 11
+#define CANT_COMMANDS_SHELL 12
 
 typedef void (*fptr)(void);
 
@@ -15,11 +15,11 @@ extern int set_ss_timer(int n);
 
 //comandos
 char * shell_commands[] = {"systime", "setsystime", "changecolor",
-						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc"} ;
+						   "clear", "screensavertimer", "beep", "music", "ps", "help", "philosophers", "pc", "kill"} ;
 
 //punteros a funciones correspondientes
 fptr shell_functions[] = {print_system_time, change_system_time,
-						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCons} ;
+						  change_text_color, clearscreen, screensavertimer, beep, music, run_ps, help, philosophers, prodCon, killProcess} ;
 
 int command;
 char input_char;
@@ -61,18 +61,30 @@ void shell()
 	}
 }
 
+void killProcess(){
+	int PID;
+
+	printString("Ingrese el PID del proceso que desea matar: ");
+	if(getInt(&PID, 2) == INPUTERROR)
+		INPUT_ERROR_EXIT;
+	sys_killProcess(PID);
+}
+
 /*Lista de procesos*/
 void ps()
 {
 	unsigned int processPID[16];
 	char * names[16];
-	printString("PIDs\n");
+	char * states[16];
+	printString("Name | PID | State \n");
 	ps_sys(names, processPID);
 	int i = 0;
 	while(processPID[i] != 0){
 		printString(names[i]);
 		printString(" - ");
 		printDec(processPID[i]);
+		printString(" - ");
+		printString(states[i]);
 		printString("\n");
 		i++;
 	}
@@ -115,6 +127,7 @@ void help()
 	printString("beep - reproduce un sonido durante un tiempo determinado\n");
 	printString("music - reproduce una cancion (estrellita)\n");
 	printString("philosophers - corre la aplicación de filosofos\n");
+	printString("pc - corre la aplicación de producer-consumer\n");
 	printString("----------------------------------------------------------\n");
 	return;
 }
@@ -123,7 +136,7 @@ void philosophers()
 {
 	int background;
 
-	printString("Ingrese 1 si lo desea correr en foreground y 0 de lo contrario:");
+	printString("Ingrese 1 si lo desea correr en background y 0 de lo contrario: ");
 	if(getInt(&background, 1) == INPUTERROR)
 		INPUT_ERROR_EXIT;
 	sys_addProcess("Philosophers", diningPhilosophers, background);
