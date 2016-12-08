@@ -38,9 +38,7 @@ void mainProdCons() {
 		// printString("Press e to exit\n");
 		receiveMessageQ(pcMQ, &msgBuffer);
 		printString("hola");
-		if(msgBuffer == 'g'){
-			printString("1");
-		}
+		printString(&msgBuffer);
 		printString("\n");
 		control();
 	}
