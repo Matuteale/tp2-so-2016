@@ -86,31 +86,31 @@ void * consumer(void * arg) {
  void control() {
  	int end = 0;
  	printString("Press q to quit");
- 	while(!end) {
- 		char c = getChar();
- 		printString(c);
- 		switch(c) {
-// 			case 'a':
-// 				prodSleepTime++;
-// 			break;
+//  	while(!end) {
+//  		char c = getChar();
+//  		printString(c);
+//  		switch(c) {
+// // 			case 'a':
+// // 				prodSleepTime++;
+// // 			break;
 
-// 			case 'z':
-// 				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
-// 			break;
+// // 			case 'z':
+// // 				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
+// // 			break;
 
-// 			case 's':
-// 				consSleepTime++;
-// 			break;
+// // 			case 's':
+// // 				consSleepTime++;
+// // 			break;
 
-// 			case 'x':
-// 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
-// 			break;
+// // 			case 'x':
+// // 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
+// // 			break;
 
- 			case 'q':
- 				printString("AA");
- 				end = 1;
- 			break;
- 			default: end = 1; break;
- 		}
- 	}
+//  			case 'q':
+//  				printString("AA");
+//  				end = 1;
+//  			break;
+//  			default: end = 1; break;
+//  		}
+//  	}
  }
