@@ -99,7 +99,8 @@ void sendMessageQ(char * name, char msg){
   }
 }
 
-void closeMessageQ(MessageQ * msgQ){
+void closeMessageQ(char * msgQ){
+  MessageQ * msgQ = findMessageQ(name);
   msgQ->dead = 1;
   if(msgQ->first == 0)
     destroyMessageQ(msgQ);
