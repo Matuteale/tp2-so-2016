@@ -103,17 +103,17 @@ void ipcs()
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
-	printString(&(ipcs[20]));
-	while(ipcs[i][0] != 0){
-		printString(ipcs[i]);
-		printString(" - ");
-		printDec(values[i]);
-		printString("\n");
-		i++;
-	}
-	int activePID;
-	sys_getActivePID(&activePID);
-	sys_killProcess(activePID);
+	printString(&(ipcs[1]));
+	// while(ipcs[i][0] != 0){
+	// 	printString(ipcs[i]);
+	// 	printString(" - ");
+	// 	printDec(values[i]);
+	// 	printString("\n");
+	// 	i++;
+	// }
+	// int activePID;
+	// sys_getActivePID(&activePID);
+	// sys_killProcess(activePID);
 	while(1);
 	return;
 }
