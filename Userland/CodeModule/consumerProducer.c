@@ -40,7 +40,7 @@ void mainProdCons() {
 	createCondVars(fill);
 	openMessageQ("pcMQ");
 	mutexLock(mutexp);
-	sys_addProcess("producer", producer, 0);
+	sys_addProcess("producer", producer, 1);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
 	sys_addProcess("consumer", consumer, 1);
@@ -69,8 +69,8 @@ void * producer(void *arg) {
 		put(i);
 		char msg[15];
 		char strInt[10];
-		sprintf(strInt, "%d", i);
-		reverse(strInt);
+		char * strIntAux = itoa(i, strInt);
+		reverse(strIntAux);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), &strInt);
