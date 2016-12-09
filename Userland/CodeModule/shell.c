@@ -103,8 +103,8 @@ void ipcs()
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
-	printString(&((ipcs[0])[1]));
-	printString(&((ipcs[1])[0]));
+	printString(&((ipcs[0])[0]));
+	printString(&((ipcs[1])[1]));
 	while(ipcs[i][0] != 0){
 		printString(ipcs[i]);
 		printString(" - ");
