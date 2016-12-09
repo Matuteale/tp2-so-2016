@@ -102,23 +102,20 @@ void ipcs()
 	char * ipcs[32];
 	char names[672];
 	int i = 0;
-	names[0] = 'a';
-	names[1] = 0;
 	while(i < 32){
 		ipcs[i] = &(names[i*21]);
 		i++;
 	}
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
-	printString(ipcs[0]);
 	i=0;
-	// while(aux != 0){
-	// 	printString(&names[0]);
-	// 	printString(" - ");
-	// 	printDec(values[i]);
-	// 	printString("\n");
-	// 	i++;
-	// }
+	while(ipcs[0] != 0){
+		printString(&names[0]);
+		printString(" - ");
+		printDec(values[i]);
+		printString("\n");
+		i++;
+	}
 	int activePID;
 	sys_getActivePID(&activePID);
 	sys_killProcess(activePID);
