@@ -183,7 +183,7 @@ void philosophers()
 
 void prodCons()
 {
-	sys_addProcess("mainPC", mainProdCons, 1);
+	sys_addProcess("mainPC", mainProdCons, 0);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
