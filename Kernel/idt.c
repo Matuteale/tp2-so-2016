@@ -214,6 +214,7 @@ void listIPCs(char ** ipcs, char * names, int * values)
   int j = 0;
   while(j < i){
     values[j] = "msgQueue";
+    j++;
   }
   ipcs[i] = 0;
 }
