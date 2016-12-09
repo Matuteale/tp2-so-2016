@@ -25,6 +25,7 @@ int getOpenedMessageQs(char ** openedQueues){
       j++;
     }
   }
+  ncPrintDec(j);
   return j;
 }
 
