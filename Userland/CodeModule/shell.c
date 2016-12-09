@@ -102,6 +102,8 @@ void ipcs()
 	char * ipcs[32];
 	char names[672];
 	int i = 0;
+	names[0] = 'a';
+	names[1] = 0;
 	while(i++ < 32){
 		ipcs[i] = &(names[i*21]);
 	}
