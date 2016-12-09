@@ -210,7 +210,7 @@ void sleepProcess(long milis){
 
 void listIPCs(char ** ipcs, char * names, int * values)
 {
-  int i = getOpenedMessageQs(ipcs);
+  int i = getOpenedMessageQs(names);
   ipcs[i] = 0;
 
   // ipcs[i] = "Mutex";
