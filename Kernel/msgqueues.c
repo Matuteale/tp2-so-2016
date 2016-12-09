@@ -21,6 +21,7 @@ int getOpenedMessageQs(char * names){
       int size = 0;
       while(msgQNames[i][size++] != 0);
       memcpy(&(names[j*21]), msgQNames[i], size);
+      ncPrint(&(names[j*21]));
       j++;
     }
   }
