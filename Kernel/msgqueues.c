@@ -26,8 +26,10 @@ char ** getOpenedMessageQs(){
 
 void getMessageQ(char * name){
   for (int i = 0; i < MAX_QUEUES; ++i){
-    if(strcmp(msgQNames[i], name))
+    if(strcmp(msgQNames[i], name)){
+      ncPrint(queue[i]->name);
       return queue[i];
+    }
   }
   return 0;
 }
