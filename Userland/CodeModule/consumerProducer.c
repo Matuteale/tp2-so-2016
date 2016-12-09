@@ -104,7 +104,14 @@ void * consumer(void * arg) {
 		int tmp = get();
 		// printString(" E ");
 		printf("Consume ");
-		sendMessageQ("pcMQ", "Consume ");
+		schar msg[15];
+		char strInt[10];
+		char * strIntAux = itoa(tmp, strInt);
+		char * aux = "Consume: ";
+		strcpy(msg, aux);
+		strcpy(&(msg[9]), strIntAux);
+		sendMessageQ("pcMQ", &msg);
+		printString("Produce: ");
 		// printString(" F ");
 		printDec(tmp);
 		// printString(" G ");
