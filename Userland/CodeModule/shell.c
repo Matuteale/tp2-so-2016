@@ -99,7 +99,7 @@ void ps()
 void ipcs()
 {
 	int values[32];
-	char * ipcs[32];
+	char ipcs[32][21];
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
