@@ -103,8 +103,8 @@ void ipcs()
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
-	printf("%s", ipcs[0]);
-	printf("%s", ipcs[1]);
+	printf("%s", ipcs[0][0]);
+	printf("%s", ipcs[1][0]);
 	// while(ipcs[i][0] != 0){
 	// 	printString(ipcs[i]);
 	// 	printString(" - ");
