@@ -80,6 +80,59 @@ void trim(char* s)
 		s[j]=s[i];
 }
 
+char* itoa(int i, char b[]){
+    char const digit[] = "0123456789";
+    char* p = b;
+    if(i<0){
+        *p++ = '-';
+        i *= -1;
+    }
+    int shifter = i;
+    do{ //Move to where representation ends
+        ++p;
+        shifter = shifter/10;
+    }while(shifter);
+    *p = '\0';
+    do{ //Move back, inserting digits as u go
+        *--p = digit[i%10];
+        i = i/10;
+    }while(i);
+    return b;
+}
+
+void reverse(char * str)
+{
+    /* skip null */
+    if (str == 0)
+    {
+        return;
+    }
+
+    /* skip empty string */
+    if (*str == 0)
+    {
+        return;
+    }
+
+    /* get range */
+    char *start = str;
+    char *end = start + strlen(str) - 1; /* -1 for \0 */
+    char temp;
+
+    /* reverse */
+    while (end > start)
+    {
+        /* swap */
+        temp = *start;
+        *start = *end;
+        *end = temp;
+
+        /* move */
+        ++start;
+        --end;
+    }
+}
+
 /* devuelve el valor ascii lower case de una letra */
 unsigned char tolower(unsigned char c)
 {

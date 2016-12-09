@@ -21,4 +21,8 @@ unsigned char tolower(unsigned char c);
 /* Borra los espacios del comienzo y del fin del string */
 void trim(char* str);
 
+void iToStr(char * str, int i);
+
+void reverse(char * str);
+
 #endif

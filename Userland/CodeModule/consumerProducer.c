@@ -35,22 +35,26 @@ int mutexp;
 
 void mainProdCons() {
 	mutexp = PCMUTEX;
-	createMutex(PCMUTEX); 
+	createMutex(PCMUTEX);
 	createCondVars(empty);
 	createCondVars(fill);
-	// openMessageQ("pcMQ");
-	// mutexLock(mutexp);
+	openMessageQ("pcMQ");
+	mutexLock(mutexp);
 	sys_addProcess("producer", producer, 1);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
 	sys_addProcess("consumer", consumer, 1);
 	mutexLock(mutexp);
+	printString("Press e to exit\n");
 	while(1){
-		// printString("Press e to exit\n");
-		// control();
+		//control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
-		// control();
+		if(msgBuffer[0] != 0){
+			printString("\n");
+		}
+		msgBuffer[0] = 0;
+		//control();
 	}
 }
 
@@ -63,7 +67,13 @@ void * producer(void *arg) {
 			waitCondVar(empty, mutexp);
 		}
 		put(i);
-		sendMessageQ("pcMQ", "Produce ");
+		char msg[15];
+		char strInt[10];
+		char * strIntAux = itoa(i, strInt);
+		char * aux = "Produce: ";
+		strcpy(msg, aux);
+		strcpy(&(msg[9]), strIntAux);
+		sendMessageQ("pcMQ", &msg);
 		printString("Produce: ");
 		printDec(i++);
 		printString("\n");
@@ -94,6 +104,14 @@ void * consumer(void * arg) {
 		int tmp = get();
 		// printString(" E ");
 		printf("Consume ");
+		char msg[15];
+		char strInt[10];
+		char * strIntAux = itoa(tmp, strInt);
+		char * aux = "Consume: ";
+		strcpy(msg, aux);
+		strcpy(&(msg[9]), strIntAux);
+		sendMessageQ("pcMQ", &msg);
+		printString("Produce: ");
 		// printString(" F ");
 		printDec(tmp);
 		// printString(" G ");
