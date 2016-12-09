@@ -61,7 +61,7 @@ void shell()
 			printString(TYPEHELP);
 		}
 		while(msg == 'j'){
-			receiveMessageQ(&msgQ, &msg);
+			receiveMessageQ(msgQ, &msg);
 		}
 		printString(&msg);
 
