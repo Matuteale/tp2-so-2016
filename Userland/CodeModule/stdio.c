@@ -29,7 +29,7 @@ void putChar(char c)
 }
 
 /* imprime un string mediante system call write */
-void printString(char * str)
+void printString(const char * str)
 {
 	write(strlen(str), (void *)str); // system call
 }
