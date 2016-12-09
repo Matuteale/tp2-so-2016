@@ -82,7 +82,7 @@ void ps()
 {
 	void * msgQ;
 	getMessageQ("shell", &msgQ);
-	sendMessageQ(&msgQ, 'h');
+	sendMessageQ(&msgQ, 'M');
 	unsigned int processPID[16];
 	char * names[16];
 	char * states[16];
