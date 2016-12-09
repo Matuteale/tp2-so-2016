@@ -10,6 +10,12 @@
 mutex_t mutexes[10];
 int mutexes_counter;
 
+void initializeMutexes() {
+	for(int id = 0 ; id < 10 ; id++) {
+		mutexes[id].key = 0;
+	}
+}
+
 int createMutexK(int key) {
 	int id;
 	if(key < 1) {

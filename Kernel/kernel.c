@@ -3,6 +3,8 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
+#include <condVar.h>
+#include <mutex.h>
 #include <teclado.h>
 #include <idt.h>
 #include <video.h>
@@ -90,6 +92,8 @@ int main()
 	/* Initializes memory management */
 	ncPrint("Initializing Memory Management...");
 	initializePageStack();
+	initalizeCVs();
+	initializeMutexes();
 	ncPrint("Done.");
 	pit_setup(100);
 	ncNewline();

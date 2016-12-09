@@ -239,9 +239,9 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;
-    case 0x11: initCondVarK((cond_t*) arg_1);break;
-    case 0x12: waitCondVarK((cond_t*) arg_1, (uint8_t *) arg_2);break;
-    case 0x13: signalCondVarK((cond_t*) arg_1);break;
+    case 0x11: initCondVarK((int)arg_1);break;
+    case 0x12: waitCondVarK((int) arg_1, (int) arg_2);break;
+    case 0x13: signalCondVarK((int) arg_1);break;
     case 0x14: openMessageQ(arg_1, arg_2);ncPrint(((MessageQ *)arg_2)->name);break;
     case 0x15: getMessageQ(arg_1);break;
     case 0x16: closeMessageQ(arg_1);break;
@@ -250,7 +250,8 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x19: getOpenedMessageQs();break;
     case 0x20: sleepProcess((long) arg_1);break;
     case 0x21: listIPCs((char **) arg_1,(int *) arg_2);break;
-    case 0x22: createMutexK((int)arg_1);
+    case 0x22: createMutexK((int)arg_1);break;
+    case 0x23: createMutexK((int)arg_1);break;
 	}
 	return pid;
 }

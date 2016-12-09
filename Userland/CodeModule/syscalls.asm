@@ -26,6 +26,7 @@ GLOBAL getOpenedMessageQs
 GLOBAL sys_sleep
 GLOBAL ipcs_sys
 GLOBAL createMutex
+GLOBAL createCondVars
 
 %macro pushaq 0
     push rax
@@ -438,6 +439,19 @@ sys_sleep:
   ret
 
   createMutex:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x22 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+  createCondVars:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux

@@ -7,15 +7,17 @@
 
 
 typedef struct {
+    int key;
     int queue[MAX_COND_VAR_QUEUE_SIZE];
     int size;
     int index;
     int mutex;
 }cond_t;
 
+void createCondVarsK(int key); 
 void initCondVarK(cond_t * condVar);
-void waitCondVarK(cond_t * condVar, int mutex);
-void signalCondVarK(cond_t * condVar);
+void waitCondVarK(int condVar, int mutex);
+void signalCondVarK(int condVar);
 void broadcastCondVar(cond_t * condVar);
 
 #endif
