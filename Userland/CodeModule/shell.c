@@ -112,7 +112,7 @@ void ipcs()
 	while(ipcs[i] != 0){
 		printString(&names[i*21]);
 		printString(" - ");
-		if(((char *)values[i]) == "MsgQueue"){
+		if(strcmp((char *) values[i], "msqQueue")){
 			printString(values[i]);
 		}else{
 			printDec(values[i]);
