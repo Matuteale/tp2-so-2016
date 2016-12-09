@@ -40,7 +40,7 @@ void mainProdCons() {
 	createCondVars(fill);
 	openMessageQ("pcMQ");
 	mutexLock(mutexp);
-	sys_addProcess("producer", producer, 1);
+	sys_addProcess("producer", producer, 0);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
 	sys_addProcess("consumer", consumer, 1);
