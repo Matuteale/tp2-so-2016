@@ -49,6 +49,7 @@ void mainProdCons() {
 	while(1){
 		//control();
 		receiveMessageQ("pcMQ", msgBuffer);
+		printString(msgBuffer);
 		//control();
 	}
 }
