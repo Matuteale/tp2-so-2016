@@ -35,7 +35,7 @@ int mutexp;
 
 void mainProdCons() {
 	mutexp = PCMUTEX;
-	createMutex(PCMUTEX); 
+	createMutex(PCMUTEX);
 	createCondVars(empty);
 	createCondVars(fill);
 	openMessageQ("pcMQ");
@@ -45,11 +45,11 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	sys_addProcess("consumer", consumer, 0);
 	mutexLock(mutexp);
+	printString("Press e to exit\n");
 	while(1){
-		// printString("Press e to exit\n");
-		// control();
-		// receiveMessageQ("pcMQ", msgBuffer);
-		// control();
+		//control();
+		receiveMessageQ("pcMQ", msgBuffer);
+		//control();
 	}
 }
 
