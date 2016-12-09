@@ -42,7 +42,7 @@ void openMessageQ(char * name, MessageQ * msgQ){
 
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(msgQNames[i] == 0){
-      MessageQ * auxQueue = alloc();
+      MessageQ * auxQueue = myMalloc(sizeof(MessageQ));
       auxQueue->id = i;
       auxQueue->name = name;
       auxQueue->dead = 0;
@@ -82,7 +82,7 @@ void receiveMessageQ(MessageQ * msgQ, char * ret){
 }
 
 void sendMessageQ(MessageQ * msgQ, char msg){
-  Msg * newMsg = alloc();
+  Msg * newMsg = myMalloc(sizeof(Msg));
 
   newMsg->msg = msg;
   newMsg->next = 0;
