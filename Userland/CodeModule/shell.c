@@ -99,12 +99,12 @@ void ps()
 void ipcs()
 {
 	int values[32];
-	char ipcs[32][21];
+	char * ipcs[32];
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
-	printf("%s", ipcs[0][4]);
-	printf("%s", ipcs);
+	printf("%s", ipcs[0]);
+	printf("%s", ipcs[1]);
 	// while(ipcs[i][0] != 0){
 	// 	printString(ipcs[i]);
 	// 	printString(" - ");
