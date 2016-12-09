@@ -22,14 +22,14 @@ void waitCondVarK(cond_t * condVar, int mutex){
     condVar->mutex = mutex;
     addToCondVarQueueK(condVar,getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked
-    mutexUnlockK(&mutex);
+    mutexUnlockK(mutex);
     // ncPrint("MUTEX: ");
     // ncPrintDec(mutex);
     unpauseScheduler();
     // ncPrint(" VA A YIELDEAR");
     yield();
     // ncPrint(" yieldio");
-    mutexLockK(&mutex);
+    mutexLockK(mutex);
 }
 
 void signalCondVarK(cond_t * condVar) {

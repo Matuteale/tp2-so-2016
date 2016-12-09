@@ -3,19 +3,71 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <scheduler.h>
 #include <naiveConsole.h>
+#include <mutex.h>
 
+mutex_t mutexes[10];
+int mutexes_counter;
 
-int mutexLockK(uint8_t * mutexLock) {
-	// ncPrint("ENTRO MIERDA");
-	while(enterCritRegion(mutexLock)) {
-		// ncPrint("LOCKEADO MAQUILINCE");
-		yield();
+int createMutexK(int key) {
+	int id;
+	if(key < 1) {
+		return -3;
 	}
-	// ncPrint("ENTRO");
-	// ncPrint("ENTRO");
+	for(id = 0 ; id < 10 ; id++) {
+		if(mutexes[id].key == key) {
+			return -1;	// key already being used
+		}
+	}
+	for(id = 0 ; id < 10 ; id++) {
+		if(mutexes[id].key == 0) {
+			mutexes[id].key = key;
+			mutexes[id].taken = 0;
+			mutexes_counter++;
+			return id;	// returns mutex id
+		}
+	}
+	return -2; // no mutexes available
 }
 
-void mutexUnlockK(uint8_t * mutex) {
-	*mutex = 0;
+uint8_t getMutex(int key) {
+	for(int id = 0 ; id < 10 ; id++) {
+		if(mutexes[id].key == key) {
+			return mutexes[id].taken;	// key already being used
+		}
+	}
+}
+
+int mutexLockK(int key) {
+	uint8_t mutexLock = getMutex(key);
+	// ncPrint("ENTRO MIERDA ");
+	// ncPrint("MUTEX: ");
+    // ncPrintHex(&mutexLock);
+    // ncPrint(" valor ");
+     // ncPrintDec(mutexLock);
+	while(enterCritRegion(&mutexLock)) {
+		// ncPrint(" LOCKEADO MAQUILINCE ");
+		// ncPrintDec(getCurrentPID());
+		yield();
+	}
+	// ncPrint(" Lo agarro ");
+	// ncPrintDec(getCurrentPID());
+	// ncPrint(" ");
+}
+
+void mutexUnlockK(int key) {
+	for(int id = 0 ; id < 10 ; id++) {
+		if(mutexes[id].key == key) {
+			mutexes[id].taken = 0;	// key already being used
+		}
+	// ncPrint("libero");
+	// ncPrint("MUTEX: ");
+ //    ncPrintHex(mutex);
+ //    ncPrint(" ");
+ //    ncPrintDec(*mutex);
+ //    ncPrint( "liberado por ");
+ //    ncPrintDec(getCurrentPID());
+ //        ncPrint(" // ");
+	}
 }
