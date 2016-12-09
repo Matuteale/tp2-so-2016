@@ -20,7 +20,7 @@ void openMessageQ(char * name);
 void closeMessageQ(char * name);
 void sendMessageQ(char * name, char * msg);
 void receiveMessageQ(char * name, char * ret);
-int getOpenedMessageQs(char ** openedQueues);
+int getOpenedMessageQs(char * names);
 MessageQ * findMessageQ(char * name);
 
 #endif
