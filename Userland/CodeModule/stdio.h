@@ -20,7 +20,7 @@ void getString(char *buffer, const int size);
 
 void sleep(int ticks);
 
-void printString(const char * str);
+void printString(char * str);
 
 int getInt(int * num, const int size);
 
