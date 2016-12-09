@@ -105,7 +105,7 @@ void ipcs()
 	names[0] = 'a';
 	names[1] = 0;
 	while(i < 32){
-		ipcs[0] = names[i*21];
+		ipcs[0] = &(names[i*21]);
 		i++;
 	}
 	char * aux = ipcs[0];
