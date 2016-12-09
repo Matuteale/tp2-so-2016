@@ -12,6 +12,8 @@ static char * msgQNames[MAX_QUEUES];
 void destroyMessageQ(MessageQ * msgQ);
 
 int getOpenedMessageQs(char ** openedQueues){
+  openMessageQ("hola");
+  openMessageQ("chau");
   int j = 0;
   for (int i = 0; i < MAX_QUEUES; ++i)
   {
