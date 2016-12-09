@@ -21,7 +21,6 @@ int getOpenedMessageQs(char ** openedQueues){
       int size = 0;
       while(msgQNames[i][size++] != 0);
       memcpy(openedQueues[j], msgQNames[i], size + 1);
-      ncPrint(openedQueues[j]);
       j++;
     }
   }
@@ -29,6 +28,8 @@ int getOpenedMessageQs(char ** openedQueues){
 }
 
 void openMessageQ(char * name){
+  while(msgQNames[i][size++] != 0);
+  if(size > 20) return;
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name)){
       return;
