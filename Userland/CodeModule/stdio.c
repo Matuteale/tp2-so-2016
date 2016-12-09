@@ -29,7 +29,7 @@ void putChar(char c)
 }
 
 /* imprime un string mediante system call write */
-void printString(const char * str)
+void printString(char * str)
 {
 	write(strlen(str), (void *)str); // system call
 }
@@ -263,7 +263,7 @@ int scanf(const char *fmt, ...)
 
 void sleep (int ticks) {
 	int c = 1, d = 1;
- 
+
    for ( c = 1 ; c <= 32767 ; c++ )
        for ( d = 1 ; d <= 1 ; d++ )
        {}
