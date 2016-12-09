@@ -100,11 +100,11 @@ void ipcs()
 {
 	int values[32];
 	char * ipcs[32];
+	char names[672];
 	int i = 0;
-	char name[21];
-	char name2[21];
-	ipcs[0] = name;
-	ipcs[1] = name2;
+	while(i < 32){
+		ipcs[i] = names[i*21];
+	}
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	printf("%s", ipcs[0]);
