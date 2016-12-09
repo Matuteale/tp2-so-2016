@@ -69,11 +69,11 @@ void * producer(void *arg) {
 		put(i);
 		char msg[15];
 		char strInt[10];
-		iToStr(strInt, i);
-		reverse(strInt);
+		iToStr(&strInt, i);
+		reverse(&strInt);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
-		strcpy(&(msg[9]), strInt);
+		strcpy(&(msg[9]), &strInt);
 		sendMessageQ("pcMQ", &msg);
 		printString("Produce: ");
 		printDec(i++);
