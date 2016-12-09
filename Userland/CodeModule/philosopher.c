@@ -35,7 +35,7 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 void diningPhilosophers() {
 	int a = 1;
 	mutex = MUTEXKEY;
-	createMutex(MUTEXKEY); 
+	createMutex(MUTEXKEY);
 	if(philosopherInit() == -1) {
 	 	return;
  	}
@@ -48,13 +48,13 @@ void diningPhilosophers() {
 	 	render();
 	 	printDec(a++);
 
-	 	char c = getChar();
-	 	switch(c) {
-	 		case 'q': killPhilosophers(); return; break;
-	 		case 'w': addPhilosopher(); break;
-	 		case 's': removePhilosopher(); break;
-	 		case 'p': printPIDs(); break;
-	 	}
+	 	// char c = getChar();
+	 	// switch(c) {
+	 	// 	case 'q': killPhilosophers(); return; break;
+	 	// 	case 'w': addPhilosopher(); break;
+	 	// 	case 's': removePhilosopher(); break;
+	 	// 	case 'p': printPIDs(); break;
+	 	// }
 	 	// clearscreen();
 	 }
 }
