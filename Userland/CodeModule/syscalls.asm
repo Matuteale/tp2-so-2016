@@ -455,7 +455,7 @@ sys_sleep:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
-  mov rax, 0x22 ;Se hace la llamada para crear un proceso
+  mov rax, 0x23 ;Se hace la llamada para crear un proceso
   mov rdx, rdi
   mov rcx, rsi
   int 0x80

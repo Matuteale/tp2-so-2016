@@ -6,9 +6,11 @@
 #include "shell.h"
 
 #define BUFFER_SIZE 10
+#define PCMUTEX 2
+
 
 void * pcMQ;
-char msgBuffer = 0;
+char msgBuffer [21];
 int buffer[BUFFER_SIZE];
 int fill_ptr = 0;
 int use_ptr = 0;
@@ -28,62 +30,85 @@ int get() {
 	return tmp;
 }
 
-int empty, fill;
+int empty = 1, fill = 2;
 int mutexp;
 
 void mainProdCons() {
-	openMessageQ("pcMQ", pcMQ);
-	sys_addProcess("producer", producer, 1);
-	sys_addProcess("consumer", consumer, 1);
+	mutexp = PCMUTEX;
+	createMutex(PCMUTEX); 
+	createCondVars(empty);
+	createCondVars(fill);
+	openMessageQ("pcMQ");
+	mutexLock(mutexp);
+	sys_addProcess("producer", producer, 0);
+	mutexUnlock(mutexp);
+	mutexLock(mutexp);
+	sys_addProcess("consumer", consumer, 0);
+	mutexLock(mutexp);
 	while(1){
 		// printString("Press e to exit\n");
-		receiveMessageQ(pcMQ, &msgBuffer);
-		printString("hola");
-		printString(&msgBuffer);
-		printString("\n");
-		control();
+		// control();
+		// receiveMessageQ("pcMQ", msgBuffer);
+		// control();
 	}
 }
 
 void * producer(void *arg) {
 	int i;
-	for(i = 0; i < loops; i++) {
-		mutexLock(&mutexp);
+	while (1) {
+		mutexLock(mutexp);
 		while(count == BUFFER_SIZE) {
-			waitCondVar(&empty, mutexp);
+			// printString(" Queue llena ");
+			waitCondVar(empty, mutexp);
 		}
 		put(i);
-		printString("Produce ");
-		printDec(i);
+		sendMessageQ("pcMQ", "Produce ");
+		printString("Produce: ");
+		printDec(i++);
 		printString("\n");
-		sendMessageQ(pcMQ, 'g');
-		signalCondVar(&fill);
-		mutexUnlock(&mutexp);
+		// sendMessageQ(pcMQ, 'g');
+		signalCondVar(fill);
+		// printString("P");
+		// signalCondVar(fill);
+		// waitCondVar(empty, mutexp);
+		// mutexUnlock(mutexp);
 	}
 	return arg;
 }
 
 void * consumer(void * arg) {
 	int i;
-	for(i = 0; i < loops; i++) {
-		mutexLock(&mutexp);
+	// printString(" A ");
+	while(1) {
+		// printString(" B ");
+		mutexLock(mutexp);
+		// printString("C");
+		// signalCondVar(empty);
+		// waitCondVar(fill, mutexp);
+		// printString(" C ");
 		while(count == 0) {
-			waitCondVar(&fill, mutexp);
+			waitCondVar(fill, mutexp);
 		}
+		// printString(" D ");
 		int tmp = get();
+		// printString(" E ");
 		printf("Consume ");
+		// printString(" F ");
 		printDec(tmp);
+		// printString(" G ");
 		printString("\n");
-		sendMessageQ(pcMQ, 'c');
-		signalCondVar(&empty);
-		mutexUnlock(&mutexp);
+		// printString(" R ");
+		// sendMessageQ("pcMQ", "caca");
+		signalCondVar(empty);
+		// printString(" Z ");
+		mutexUnlock(mutexp);
 	}
 	return arg;
 }
 
  void control() {
  	int end = 0;
- 	printString("Press q to quit");
+ 	// printString("Press q to quit");
  	while(!end) {
  		char c = getChar();
  		printString(c);
@@ -105,7 +130,7 @@ void * consumer(void * arg) {
 // 			break;
 
  			case 'q':
- 				printString("AA");
+ 				// printString("AA");
  				end = 1;
  			break;
  			default: end = 1; break;

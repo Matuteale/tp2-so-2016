@@ -120,7 +120,7 @@ void ipcs()
 }
 
 void run_ps(){
-	sys_addProcess("PS", ps, 1);
+	sys_addProcess("PS", ps, 0);
 }
 
 void run_ipcs(){
@@ -175,7 +175,7 @@ void philosophers()
 
 void prodCons()
 {
-	sys_addProcess("mainPC", mainProdCons, 0);
+	sys_addProcess("mainPC", mainProdCons, 1);
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */

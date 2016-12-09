@@ -16,6 +16,7 @@ void initalizeCVs() {
     for(int id = 0 ; id < 30 ; id++) {
         initCondVarK(&condVars[id]);
         condVars[id].key = 0;
+        ncPrint("arranca");
     }
 }
 
@@ -38,6 +39,8 @@ void createCondVarsK(int key) {
         if(condVars[id].key == 0) {
             condVars[id].key = key;
             condVars_counter++;
+            // ncPrint("Se creo la key = ");
+            // ncPrintDec(condVars[id].key);
             return id;  // returns mutex id
         }
     }
@@ -54,26 +57,31 @@ cond_t * getCV(int key) {
 
 void waitCondVarK(int condVar, int mutex){
     cond_t * cv = getCV(condVar);
-    // mutex_t m = getMutex(mutex);
-    // ncPrint("ESPERA   -   ");
-    // ncPrintHex(condVar);
+    // ncPrintDec(condVar);
+    // ncPrint(" Key ");
+    // ncPrintDec(cv->key);
     pauseScheduler();
     cv->mutex = mutex;
     addToCondVarQueueK(cv,getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked
     mutexUnlockK(mutex);
-    // ncPrint("MUTEX: ");
-    // ncPrintDec(mutex);
     unpauseScheduler();
     // ncPrint(" VA A YIELDEAR");
     yield();
-    // ncPrint(" yieldio");
+    // ncPrint(" yieldio ");
     mutexLockK(mutex);
 }
 
 void signalCondVarK(int condVar) {
-	int pid = removeFromCondVarQueue(condVar);
-    if(pid != -1) changeProcessState(pid,2);	//ready
+    // ncPrint(" SIGNAL ");
+    cond_t * cv = getCV(condVar);
+	int pid = removeFromCondVarQueue(cv);
+    // ncPrintDec(pid);
+    if(pid != -1) {
+      changeProcessState(pid,2);    //ready
+      // ncPrint(" READY FREDDY");  
+    }
+    // ncPrint(" OMG "); 
 }
 
 
@@ -84,6 +92,8 @@ void addToCondVarQueueK(cond_t * condVar, int pid){
     int index = (condVar->index + condVar->size)%MAX_COND_VAR_QUEUE_SIZE;
     condVar->queue[index] = pid;
     condVar->size ++;
+    // ncPrint(" KEY: ");
+    // ncPrintDec(condVar->key);
 }
 
 int removeFromCondVarQueue(cond_t * condVar){
