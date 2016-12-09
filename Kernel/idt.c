@@ -215,7 +215,7 @@ void listIPCs(char ** ipcs, int * values)
   // ipcs[i] = "Mutex";
   // values[i] = 1;
   // i++;
-  ipcs[i][0] = 0;
+  //ipcs[i][0] = 0;
 }
 
 /* maneja los system calls */
