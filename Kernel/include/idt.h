@@ -70,7 +70,7 @@ void sleepProcess(long milis);
 
 char * defineStringState();
 
-void listIPCs(char ** ipcs, int * values);
+void listIPCs(char ** ipcs, char * names, int * values);
 
 extern int timertick;
 

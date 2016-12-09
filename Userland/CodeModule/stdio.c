@@ -263,7 +263,7 @@ int scanf(const char *fmt, ...)
 
 void sleep (int ticks) {
 	int c = 1, d = 1;
- 
+
    for ( c = 1 ; c <= 32767 ; c++ )
        for ( d = 1 ; d <= 1 ; d++ )
        {}

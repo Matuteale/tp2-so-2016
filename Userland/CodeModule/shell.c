@@ -99,16 +99,24 @@ void ps()
 void ipcs()
 {
 	int values[32];
-	char ipcs[32][21];
-	printString("IPC | Value \n");
-	ipcs_sys(ipcs, values);
+	char * ipcs[32];
+	char names[672];
 	int i = 0;
-	printString(&(ipcs[0]));
-	printString(&(ipcs[1]));
-	while(ipcs[i][0] != 0){
-		printString(ipcs[i]);
+	while(i < 32){
+		ipcs[i] = &(names[i*21]);
+		i++;
+	}
+	printString("IPC | Value \n");
+	ipcs_sys(ipcs, names, values);
+	i = 0;
+	while(ipcs[i] != 0){
+		printString(&names[i*21]);
 		printString(" - ");
-		printDec(values[i]);
+		if(strcmp((char *) values[i], "msqQueue")){
+			printString(values[i]);
+		}else{
+			printDec(values[i]);
+		}
 		printString("\n");
 		i++;
 	}
