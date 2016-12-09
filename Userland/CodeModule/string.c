@@ -100,7 +100,7 @@ void reverse(char * str)
 	int j = 0;
 	char auxStr[i+1];
 	while(str != 0){
-		auxStr[i+1] = str[j]
+		auxStr[i+1] = str[j];
 		j++;
 		i--;
 	}
