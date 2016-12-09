@@ -61,7 +61,7 @@ void shell()
 			printString(TYPEHELP);
 		}
 		while(msg == 'j'){
-			receiveMessageQ(msgQ, &msg);
+			receiveMessageQ(&msgQ, &msg);
 		}
 		printString(&msg);
 
@@ -81,8 +81,8 @@ void killProcess(){
 void ps()
 {
 	void * msgQ;
-	getMessageQ("shell", msgQ);
-	sendMessageQ(msgQ, 'h');
+	getMessageQ("shell", &msgQ);
+	sendMessageQ(&msgQ, 'h');
 	unsigned int processPID[16];
 	char * names[16];
 	char * states[16];
