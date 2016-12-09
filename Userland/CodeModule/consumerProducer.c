@@ -71,7 +71,7 @@ void * producer(void *arg) {
 		char strInt[10];
 		iToStr(strInt, i);
 		reverse(strInt);
-		strcpy(msg, "Produce: ");
+		msg = "Produce: ";
 		strcpy(&(msg[9]), strInt);
 		sendMessageQ("pcMQ", msg);
 		printString("Produce: ");
