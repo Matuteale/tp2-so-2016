@@ -108,7 +108,7 @@ void ipcs()
 	while(i++ < 32){
 		ipcs[i] = hola;
 	}
-	printString(hola);
+	printString((char *) ipcs[0]);
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
 	i = 0;
