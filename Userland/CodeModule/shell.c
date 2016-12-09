@@ -31,7 +31,7 @@ void shell()
 {
 	int i;
 	void * msgQ;
-	char msg;
+	char msg = 0;
 	openMessageQ("shell", msgQ);
 
 	while(1)
