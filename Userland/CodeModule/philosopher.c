@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "philosopher.h"
 #define MAX_PHILOSPHERS 8
-#define INITIALNUMBER 4
+#define INITIALNUMBER 5
 #define MUTEXKEY 9
 int left(int i);
 int right(int i);
@@ -61,7 +61,7 @@ void diningPhilosophers() {
 
 void printPIDs() {
 	clearscreen();
-	for(int i = 0; i < MAX_PHILOSPHERS; i++) {
+	for(int i = 0; i < philosopherCount; i++) {
 		printDec(philosopherPID[i]);
 		printString("-");
 	}

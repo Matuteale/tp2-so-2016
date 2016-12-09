@@ -429,3 +429,6 @@ int uintToBase(int value, char * buffer, int base)
 	return digits;
 }
 
+char * strcat(char * str1, char * str2) {
+	return str1;
+}

@@ -38,17 +38,18 @@ void mainProdCons() {
 	createMutex(PCMUTEX); 
 	createCondVars(empty);
 	createCondVars(fill);
-	openMessageQ("pcMQ");
-	mutexLock(mutexp);
-	sys_addProcess("producer", producer, 0);
+	// openMessageQ("pcMQ");
+	// mutexLock(mutexp);
+	sys_addProcess("producer", producer, 1);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
-	sys_addProcess("consumer", consumer, 0);
+	sys_addProcess("consumer", consumer, 1);
 	mutexLock(mutexp);
 	while(1){
 		// printString("Press e to exit\n");
 		// control();
-		// receiveMessageQ("pcMQ", msgBuffer);
+		receiveMessageQ("pcMQ", msgBuffer);
+		printString(msgBuffer);
 		// control();
 	}
 }
@@ -66,7 +67,7 @@ void * producer(void *arg) {
 		printString("Produce: ");
 		printDec(i++);
 		printString("\n");
-		// sendMessageQ(pcMQ, 'g');
+		sendMessageQ(pcMQ, "P");
 		signalCondVar(fill);
 		// printString("P");
 		// signalCondVar(fill);
@@ -98,7 +99,7 @@ void * consumer(void * arg) {
 		// printString(" G ");
 		printString("\n");
 		// printString(" R ");
-		// sendMessageQ("pcMQ", "caca");
+		sendMessageQ("pcMQ", "C");
 		signalCondVar(empty);
 		// printString(" Z ");
 		mutexUnlock(mutexp);
