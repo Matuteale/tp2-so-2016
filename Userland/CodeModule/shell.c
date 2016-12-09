@@ -98,7 +98,7 @@ void ps()
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-	int * values[32];
+	int values[32];
 	char * ipcs[32];
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
