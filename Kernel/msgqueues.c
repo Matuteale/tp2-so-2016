@@ -24,14 +24,15 @@ char ** getOpenedMessageQs(){
   return openedMsgQs;
 }
 
-void getMessageQ(char * name){
+void getMessageQ(char * name, MessageQ * msgQ){
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name)){
       ncPrint(queue[i]->name);
-      return queue[i];
+      memcpy(msgQ, queue[i], sizeof(MessageQ));
+      return;
     }
   }
-  return 0;
+  msqQ = 0;
 }
 
 void openMessageQ(char * name, MessageQ * msgQ){

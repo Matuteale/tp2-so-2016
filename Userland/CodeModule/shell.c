@@ -78,8 +78,8 @@ void killProcess(){
 /*Lista de procesos*/
 void ps()
 {
-	//void * msgQ;
-	//getMessageQ("shell", msgQ);
+	void * msgQ;
+	getMessageQ("shell", msgQ);
 	sendMessageQ(msgQ, 'M');
 	unsigned int processPID[16];
 	char * names[16];
