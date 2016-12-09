@@ -16,11 +16,11 @@ typedef struct MessageQ {
   Msg* last;
 } MessageQ;
 
-void openMessageQ(char * name, MessageQ * msgQ);
-void getMessageQ(char * name, MessageQ * msgQ);
+void openMessageQ(char * name);
 void closeMessageQ(MessageQ * msgQ);
-void sendMessageQ(MessageQ * msgQ, char msg);
-void receiveMessageQ(MessageQ * msgQ, char * ret);
+void sendMessageQ(char * name, char msg);
+void receiveMessageQ(char * name, char * ret);
 char ** getOpenedMessageQs();
+MessageQ * findMessageQ(char * name);
 
 #endif

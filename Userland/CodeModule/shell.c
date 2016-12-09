@@ -24,7 +24,6 @@ fptr shell_functions[] = {print_system_time, change_system_time,
 int command;
 char input_char;
 char command_buffer[BUFFERLENGTH] = {0};
-void * msgQ;
 
 
 /* funcion del shell */
@@ -32,7 +31,7 @@ void shell()
 {
 	int i;
 	char * msg = {0, 0};
-	openMessageQ("shell", msgQ);
+	openMessageQ("shell");
 
 	while(1)
 	{
@@ -60,7 +59,7 @@ void shell()
 		{
 			printString(TYPEHELP);
 		}
-		receiveMessageQ(msgQ, msg);
+		receiveMessageQ("shell", msg);
 		printString(msg);
 
 	}
@@ -78,9 +77,7 @@ void killProcess(){
 /*Lista de procesos*/
 void ps()
 {
-	void * msgQ;
-	getMessageQ("shell", msgQ);
-	sendMessageQ(msgQ, 'M');
+	sendMessageQ("shell", 'M');
 	unsigned int processPID[16];
 	char * names[16];
 	char * states[16];

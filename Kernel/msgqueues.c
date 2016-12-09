@@ -24,21 +24,9 @@ char ** getOpenedMessageQs(){
   return openedMsgQs;
 }
 
-void getMessageQ(char * name, MessageQ * msgQ){
+void openMessageQ(char * name){
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name)){
-      ncPrint(queue[i]->name);
-      msgQ = queue[i];
-      return;
-    }
-  }
-  msgQ = 0;
-}
-
-void openMessageQ(char * name, MessageQ * msgQ){
-  for (int i = 0; i < MAX_QUEUES; ++i){
-    if(strcmp(msgQNames[i], name)){
-      msgQ = queue[i];
       return;
     }
   }
@@ -53,7 +41,6 @@ void openMessageQ(char * name, MessageQ * msgQ){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      msgQ = auxQueue;
       return;
     }
   }
@@ -68,21 +55,35 @@ void destroyMessageQ(MessageQ * msgQ){
   msgQNames[msgQ->id] = 0;
 }
 
-void receiveMessageQ(MessageQ * msgQ, char * ret){
-    if(msgQ->first != 0){
-      Msg * node = msgQ->first;
-      msgQ->first = msgQ->first->next;
-      if(msgQ->dead == 1 && msgQ->first == 0){
-        destroyMessageQ(msgQ);
-      }
-      ret[0] = node->msg;
-      ncPrint("received");
-      return;
+void receiveMessageQ(char * name, char * ret){
+  MessageQ * msgQ = findMessageQ(name);
+
+  if(msgQ != 0 && msgQ->first != 0){
+    Msg * node = msgQ->first;
+    msgQ->first = msgQ->first->next;
+    if(msgQ->dead == 1 && msgQ->first == 0){
+      destroyMessageQ(msgQ);
     }
+    ret[0] = node->msg;
+    ncPrint("received");
+    return;
+  }
   return;
 }
 
-void sendMessageQ(MessageQ * msgQ, char msg){
+MessageQ * findMessageQ(char * name){
+  for (int i = 0; i < MAX_QUEUES; ++i){
+    if(strcmp(msgQNames[i], name)){
+      return queue[i];
+    }
+  }
+  return 0;
+}
+
+void sendMessageQ(char * name, char msg){
+  MessageQ * msgQ = findMessageQ(name);
+  if(msgQ == 0) return;
+
   Msg * newMsg = myMalloc(sizeof(Msg));
 
   newMsg->msg = msg;
