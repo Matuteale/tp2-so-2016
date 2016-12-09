@@ -74,7 +74,7 @@ void * producer(void *arg) {
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), strInt);
-		sendMessageQ("pcMQ", msg);
+		sendMessageQ("pcMQ", &msg);
 		printString("Produce: ");
 		printDec(i++);
 		printString("\n");
