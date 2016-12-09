@@ -17,7 +17,7 @@ int getOpenedMessageQs(char ** openedQueues){
   {
     if(msgQNames[i] != 0){
       int size = 0;
-      while(msgQNames[i][size] != 0){size++;}
+      while(msgQNames[i][size++] != 0);
       memcpy(openedQueues[j], msgQNames[i], size + 1);
       j++;
     }
@@ -66,7 +66,7 @@ void receiveMessageQ(char * name, char * ret){
       destroyMessageQ(msgQ);
     }
     int size = 0;
-    while((node->msg)[size] != 0){size++;}
+    while((node->msg)[size++] != 0);
     memcpy(ret, node->msg, size + 1);
     ncPrint("received");
     return;
