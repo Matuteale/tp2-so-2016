@@ -80,6 +80,34 @@ void trim(char* s)
 		s[j]=s[i];
 }
 
+void iToStr(char * str, int i)
+{
+	int x = i;
+	int n = i;
+	int j = 0;
+	while(x != 0){
+		n = x % 10;
+		x = x/10;
+		str[j] = n + '0';
+		j++;
+	}
+	str[j] = 0;
+}
+
+void reverse(char * str)
+{
+	int i = strlen(str);
+	int j = 0;
+	char auxStr[i+1];
+	while(str != 0){
+		auxStr[i+1] = str[j]
+		j++;
+		i--;
+	}
+	auxStr[j] = 0;
+	strcpy(str, auxStr);
+}
+
 /* devuelve el valor ascii lower case de una letra */
 unsigned char tolower(unsigned char c)
 {

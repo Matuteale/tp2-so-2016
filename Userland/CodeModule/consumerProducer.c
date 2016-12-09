@@ -67,7 +67,13 @@ void * producer(void *arg) {
 			waitCondVar(empty, mutexp);
 		}
 		put(i);
-		sendMessageQ("pcMQ", "Produce ");
+		char msg[15];
+		char strInt[10];
+		iToStr(strInt, i);
+		reverse(strInt);
+		strcpy(msg, "Produce: ");
+		strcpy(&(msg[9]), strInt);
+		sendMessageQ("pcMQ", msg);
 		printString("Produce: ");
 		printDec(i++);
 		printString("\n");
