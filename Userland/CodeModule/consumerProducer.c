@@ -40,10 +40,10 @@ void mainProdCons() {
 	createCondVars(fill);
 	openMessageQ("pcMQ");
 	mutexLock(mutexp);
-	sys_addProcess("producer", producer, 0);
+	sys_addProcess("producer", producer, 1);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
-	sys_addProcess("consumer", consumer, 0);
+	sys_addProcess("consumer", consumer, 1);
 	mutexLock(mutexp);
 	printString("Press e to exit\n");
 	while(1){
