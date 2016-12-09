@@ -113,13 +113,13 @@ void ipcs()
 	i = 0;
 	char * aux = &ipcs[i];
 	printString(aux);
-	while(aux != 0){
-		printString(&names[0]);
-		printString(" - ");
-		printDec(values[i]);
-		printString("\n");
-		i++;
-	}
+	// while(aux != 0){
+	// 	printString(&names[0]);
+	// 	printString(" - ");
+	// 	printDec(values[i]);
+	// 	printString("\n");
+	// 	i++;
+	// }
 	int activePID;
 	sys_getActivePID(&activePID);
 	sys_killProcess(activePID);
