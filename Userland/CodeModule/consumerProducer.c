@@ -69,8 +69,8 @@ void * producer(void *arg) {
 		put(i);
 		char msg[15];
 		char strInt[10];
-		iToStr(&strInt, i);
-		reverse(&strInt);
+		sprintf(strInt, "%d", i);
+		reverse(strInt);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), &strInt);

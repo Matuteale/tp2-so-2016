@@ -97,16 +97,35 @@ void iToStr(char * str, int i)
 
 void reverse(char * str)
 {
-	int i = strlen(str);
-	int j = 0;
-	char auxStr[i+1];
-	while(str != 0){
-		auxStr[i+1] = str[j];
-		j++;
-		i--;
-	}
-	auxStr[j] = 0;
-	strcpy(str, auxStr);
+    /* skip null */
+    if (str == 0)
+    {
+        return;
+    }
+
+    /* skip empty string */
+    if (*str == 0)
+    {
+        return;
+    }
+
+    /* get range */
+    char *start = str;
+    char *end = start + strlen(str) - 1; /* -1 for \0 */
+    char temp;
+
+    /* reverse */
+    while (end > start)
+    {
+        /* swap */
+        temp = *start;
+        *start = *end;
+        *end = temp;
+
+        /* move */
+        ++start;
+        --end;
+    }
 }
 
 /* devuelve el valor ascii lower case de una letra */
