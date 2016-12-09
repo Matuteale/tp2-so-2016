@@ -30,7 +30,7 @@ char command_buffer[BUFFERLENGTH] = {0};
 void shell()
 {
 	int i;
-	char * msg = {0, 0};
+	char msg[21];
 	openMessageQ("shell");
 
 	while(1)
@@ -77,7 +77,7 @@ void killProcess(){
 /*Lista de procesos*/
 void ps()
 {
-	sendMessageQ("shell", 'M');
+	sendMessageQ("shell", "Hola papu");
 	unsigned int processPID[16];
 	char * names[16];
 	char * states[16];

@@ -64,7 +64,7 @@ void receiveMessageQ(char * name, char * ret){
     if(msgQ->dead == 1 && msgQ->first == 0){
       destroyMessageQ(msgQ);
     }
-    ret[0] = node->msg;
+    memcpy(ret, node->msg, 21);
     ncPrint("received");
     return;
   }
@@ -80,13 +80,14 @@ MessageQ * findMessageQ(char * name){
   return 0;
 }
 
-void sendMessageQ(char * name, char msg){
+void sendMessageQ(char * name, char * msg){
   MessageQ * msgQ = findMessageQ(name);
   if(msgQ == 0) return;
 
   Msg * newMsg = myMalloc(sizeof(Msg));
 
-  newMsg->msg = msg;
+  memcpy(newMsg->msg, msg, 20);
+  (newMsg->msg)[20] = 0;
   newMsg->next = 0;
   if(msgQ->first == 0){
     msgQ->first = newMsg;

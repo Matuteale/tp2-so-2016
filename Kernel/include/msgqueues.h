@@ -4,7 +4,7 @@
 
 typedef struct MsgAux Msg;
 struct MsgAux{
-  char msg;
+  char msg[20];
   Msg * next;
 };
 
