@@ -31,7 +31,7 @@ void * msgQ;
 void shell()
 {
 	int i;
-	char msg = 0;
+	char * msg = {0, 0};
 	openMessageQ("shell", msgQ);
 
 	while(1)
@@ -60,8 +60,8 @@ void shell()
 		{
 			printString(TYPEHELP);
 		}
-		receiveMessageQ(msgQ, &msg);
-		printString(&msg);
+		receiveMessageQ(msgQ, msg);
+		printString(msg);
 
 	}
 }
