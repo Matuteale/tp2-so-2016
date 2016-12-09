@@ -100,6 +100,7 @@ void ipcs()
 {
 	int values[32];
 	char ** ipcs;
+	char * hola = 0;
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
