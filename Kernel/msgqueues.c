@@ -66,7 +66,7 @@ void destroyMessageQ(MessageQ * msgQ){
 }
 
 void receiveMessageQ(MessageQ * msgQ, char * ret){
-    ncPrint(msgQ->first);
+    ncPrintDec(msgQ->first);
     if(msgQ->first != 0){
       Msg * node = msgQ->first;
       msgQ->first = msgQ->first->next;
