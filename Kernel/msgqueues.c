@@ -32,7 +32,7 @@ void getMessageQ(char * name, MessageQ * msgQ){
       return;
     }
   }
-  msqQ = 0;
+  msgQ = 0;
 }
 
 void openMessageQ(char * name, MessageQ * msgQ){
