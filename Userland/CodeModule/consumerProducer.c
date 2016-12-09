@@ -73,7 +73,7 @@ void * producer(void *arg) {
 		reverse(strIntAux);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
-		strcpy(&(msg[9]), &strInt);
+		strcpy(&(msg[9]), &strIntAux);
 		sendMessageQ("pcMQ", &msg);
 		printString("Produce: ");
 		printDec(i++);
