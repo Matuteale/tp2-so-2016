@@ -114,13 +114,13 @@ void ipcs()
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
 	i = 0;
-	while(ipcs[i] != 0){
-		printString(&names[0]);
-		printString(" - ");
-		printDec(values[i]);
-		printString("\n");
-		i++;
-	}
+	// while(ipcs[i] != 0){
+	// 	printString(&names[0]);
+	// 	printString(" - ");
+	// 	printDec(values[i]);
+	// 	printString("\n");
+	// 	i++;
+	// }
 	int activePID;
 	sys_getActivePID(&activePID);
 	sys_killProcess(activePID);
