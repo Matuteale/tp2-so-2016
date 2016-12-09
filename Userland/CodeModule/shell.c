@@ -60,7 +60,7 @@ void shell()
 		{
 			printString(TYPEHELP);
 		}
-		while(msg != 'j'){
+		while(msg == 'j'){
 			receiveMessageQ(msgQ, &msg);
 		}
 		printString(&msg);
