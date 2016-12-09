@@ -104,8 +104,9 @@ void ipcs()
 	int i = 0;
 	names[0] = 'a';
 	names[1] = 0;
+	char * hola = "ppp";
 	while(i++ < 32){
-		ipcs[i] = &(names[i*21]);
+		ipcs[i] = hola;
 	}
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
