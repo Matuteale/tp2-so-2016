@@ -108,10 +108,9 @@ void ipcs()
 		ipcs[i] = &(names[i*21]);
 		i++;
 	}
-	char * aux = ipcs[0];
-	printString(ipcs[0]);
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
+	printString(ipcs[0]);
 	i=0;
 	// while(aux != 0){
 	// 	printString(&names[0]);
