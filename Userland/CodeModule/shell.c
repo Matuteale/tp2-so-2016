@@ -60,10 +60,10 @@ void shell()
 		{
 			printString(TYPEHELP);
 		}
-		while(msg == 'j'){
-			receiveMessageQ(msgQ, &msg);
+		receiveMessageQ(msgQ, &msg);
+		if(msg != 'j'){
+					printString(&msg);
 		}
-		printString(&msg);
 
 	}
 }
