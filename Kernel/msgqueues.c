@@ -76,6 +76,7 @@ void receiveMessageQ(MessageQ * msgQ, char * ret){
       ncPrint("received");
       return;
     }
+    ncPrint("receivedRet");
   return;
 }
 
