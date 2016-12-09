@@ -99,8 +99,7 @@ void ps()
 void ipcs()
 {
 	int values[32];
-	char * ipcs[32];
-	ipcs[0] = "Primero";
+	char * ipcs[32] = 0;
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
