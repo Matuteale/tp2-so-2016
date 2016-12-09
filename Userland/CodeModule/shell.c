@@ -102,7 +102,7 @@ void ipcs()
 	char * ipcs[32];
 	char names[672];
 	int i = 0;
-	while(i < 32){
+	while(i++ < 32){
 		ipcs[i] = names[i*21];
 	}
 	printString("IPC | Value \n");
