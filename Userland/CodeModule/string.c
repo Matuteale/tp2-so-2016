@@ -89,9 +89,9 @@ void iToStr(char * str, int i)
 		n = x % 10;
 		x = x/10;
 		str[j] = n + '0';
+		printf("%s", str);
 		j++;
 	}
-	printf("%s", str);
 	str[j] = 0;
 }
 
