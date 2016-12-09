@@ -34,7 +34,7 @@ void waitCondVarK(cond_t * condVar, int mutex){
 
 void signalCondVarK(cond_t * condVar) {
 	int pid = removeFromCondVarQueue(condVar);
-    if(pid != -1) changeProcessState(pid,0);	//ready
+    if(pid != -1) changeProcessState(pid,2);	//ready
 }
 
 
