@@ -126,7 +126,7 @@ void ipcs()
 }
 
 void run_ps(){
-	sys_addProcess("PS", ps, 0);
+	sys_addProcess("PS", ps, 1);
 }
 
 void run_ipcs(){
