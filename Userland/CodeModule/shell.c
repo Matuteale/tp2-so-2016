@@ -108,6 +108,7 @@ void ipcs()
 		ipcs[0] = &(names[i*21]);
 		i++;
 	}
+	ipcs[0] = &(names[0]);
 	char * aux = ipcs[0];
 	printString(aux);
 	printString("IPC | Value \n");
