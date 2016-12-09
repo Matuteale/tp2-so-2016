@@ -28,7 +28,7 @@ void getMessageQ(char * name, MessageQ * msgQ){
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name)){
       ncPrint(queue[i]->name);
-      memcpy(msgQ, queue[i], sizeof(MessageQ));
+      msgQ = queue[i];
       return;
     }
   }
@@ -37,8 +37,10 @@ void getMessageQ(char * name, MessageQ * msgQ){
 
 void openMessageQ(char * name, MessageQ * msgQ){
   for (int i = 0; i < MAX_QUEUES; ++i){
-    if(strcmp(msgQNames[i], name))
-      return queue[i];
+    if(strcmp(msgQNames[i], name)){
+      msgQ = queue[i];
+      return;
+    }
   }
 
   for (int i = 0; i < MAX_QUEUES; ++i){
@@ -51,7 +53,7 @@ void openMessageQ(char * name, MessageQ * msgQ){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      memcpy(msgQ, auxQueue, sizeof(MessageQ));
+      msgQ = auxQueue;
       return;
     }
   }
