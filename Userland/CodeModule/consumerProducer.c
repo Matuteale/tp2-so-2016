@@ -104,7 +104,7 @@ void * consumer(void * arg) {
 		int tmp = get();
 		// printString(" E ");
 		printf("Consume ");
-		schar msg[15];
+		char msg[15];
 		char strInt[10];
 		char * strIntAux = itoa(tmp, strInt);
 		char * aux = "Consume: ";
