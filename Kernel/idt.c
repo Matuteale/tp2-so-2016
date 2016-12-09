@@ -213,7 +213,8 @@ void listIPCs(char ** ipcs, char * names, int * values)
   int i = getOpenedMessageQs(names);
   int j = 0;
   while(j < i){
-    values[j] = "msgQueue";
+    char * val = "msgQueue"
+    values[j] = val;
     j++;
   }
   ipcs[i] = 0;
