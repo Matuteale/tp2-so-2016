@@ -91,6 +91,7 @@ void iToStr(char * str, int i)
 		str[j] = n + '0';
 		j++;
 	}
+	printf("%s", str);
 	str[j] = 0;
 }
 
