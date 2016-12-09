@@ -107,7 +107,6 @@ void ipcs()
 	ipcs[1] = name2;
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
-	int i = 0;
 	printf("%s", ipcs[0]);
 	printf("%s", ipcs[1]);
 	// while(ipcs[i][0] != 0){
