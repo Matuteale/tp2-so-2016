@@ -112,9 +112,7 @@ void ipcs()
 	printString(aux);
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
-	i = 0;
-	char * aux = &(*(ipcs[0]));
-	printString(aux);
+	i=0;
 	// while(aux != 0){
 	// 	printString(&names[0]);
 	// 	printString(" - ");
