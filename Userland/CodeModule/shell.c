@@ -30,8 +30,6 @@ char command_buffer[BUFFERLENGTH] = {0};
 void shell()
 {
 	int i;
-	char msg[21];
-	openMessageQ("shell");
 
 	while(1)
 	{
@@ -59,8 +57,6 @@ void shell()
 		{
 			printString(TYPEHELP);
 		}
-		receiveMessageQ("shell", msg);
-		printString(msg);
 
 	}
 }
@@ -77,7 +73,6 @@ void killProcess(){
 /*Lista de procesos*/
 void ps()
 {
-	sendMessageQ("shell", "Hola papu");
 	unsigned int processPID[16];
 	char * names[16];
 	char * states[16];
@@ -103,8 +98,8 @@ void ps()
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-	int values[16];
-	char * ipcs[16];
+	void * values[32];
+	char ** ipcs[32];
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;

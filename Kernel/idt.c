@@ -210,7 +210,8 @@ void sleepProcess(long milis){
 
 void listIPCs(char ** ipcs, int * values)
 {
-  int i = 0;
+  int i = getOpenedMessageQs(ipcs);
+  i--;
   ipcs[i] = "Mutex";
   values[i] = 1;
   i++;
@@ -248,7 +249,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x16: closeMessageQ(arg_1);break;
     case 0x17: sendMessageQ(arg_1, arg_2);break;
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
-    case 0x19: getOpenedMessageQs();break;
+    case 0x19: getOpenedMessageQs(arg_1);break;
     case 0x20: sleepProcess((long) arg_1);break;
     case 0x21: listIPCs((char **) arg_1,(int *) arg_2);break;
 	}
