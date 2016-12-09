@@ -50,7 +50,7 @@ void mainProdCons() {
 		//control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
-		msgBuffer = 0;
+		msgBuffer[0] = 0;
 		//control();
 	}
 }
