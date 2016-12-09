@@ -209,11 +209,12 @@ void sleepProcess(long milis){
 
 void listIPCs(char ** ipcs, int * values)
 {
-  int i = 0;
-  ipcs[i] = "Mutex";
-  values[i] = 1;
-  i++;
-  ipcs[i][0] = '0';
+  int i = getOpenedMessageQs(ipcs);
+
+  // ipcs[i] = "Mutex";
+  // values[i] = 1;
+  // i++;
+  ipcs[i][0] = 0;
 }
 
 /* maneja los system calls */
@@ -239,15 +240,23 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;
+<<<<<<< HEAD
     case 0x11: initCondVarK((int)arg_1);break;
     case 0x12: waitCondVarK((int) arg_1, (int) arg_2);break;
     case 0x13: signalCondVarK((int) arg_1);break;
     case 0x14: openMessageQ(arg_1, arg_2);ncPrint(((MessageQ *)arg_2)->name);break;
     case 0x15: getMessageQ(arg_1);break;
+=======
+    case 0x11: initCondVarK((cond_t*) arg_1);break;
+    case 0x12: ncPrintDec(((int *)arg_1)[0]); waitCondVarK((cond_t*) arg_1, (int *)arg_2);break;
+    case 0x13: signalCondVarK((cond_t*) arg_1);break;
+    case 0x14: openMessageQ(arg_1);break;
+    case 0x15: break;//getMessageQ(arg_1);break;
+>>>>>>> 3833294c1f8b059dd22c5210e5a702bb6d5f100e
     case 0x16: closeMessageQ(arg_1);break;
     case 0x17: sendMessageQ(arg_1, arg_2);break;
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
-    case 0x19: getOpenedMessageQs();break;
+    case 0x19: getOpenedMessageQs(arg_1);break;
     case 0x20: sleepProcess((long) arg_1);break;
     case 0x21: listIPCs((char **) arg_1,(int *) arg_2);break;
     case 0x22: createMutexK((int)arg_1);break;

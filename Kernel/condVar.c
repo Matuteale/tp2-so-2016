@@ -73,10 +73,7 @@ void waitCondVarK(int condVar, int mutex){
 
 void signalCondVarK(int condVar) {
 	int pid = removeFromCondVarQueue(condVar);
-    if(pid != -1) {
-    // ncPrint("\nAWAKEN MY MASTES\n");
-    changeProcessState(pid,0);	//ready
-    }
+    if(pid != -1) changeProcessState(pid,2);	//ready
 }
 
 

@@ -44,16 +44,17 @@ void diningPhilosophers() {
 	 	// printString("a");
 		 // render();
 	 	// sleep(1 	);
-	 	// clearscreen();
-	 	// render();
+	 	clearscreen();
+	 	render();
 	 	printDec(a++);
-	 	char c = getChar();
-	 	switch(c) {
-	 		case 'q': killPhilosophers(); return; break;
-	 		case 'w': addPhilosopher(); break;
-	 		case 's': removePhilosopher(); break;
-	 		case 'p': printPIDs(); break;
-	 	}
+
+	 	//char c = getChar();
+	 	// switch(c) {
+	 		// case 'q': killPhilosophers(); return; break;
+	 		// case 'w': addPhilosopher(); break;
+	 		// case 's': removePhilosopher(); break;
+	 		// case 'p': printPIDs(); break;
+	 	// }
 	 	// clearscreen();
 	 }
 }

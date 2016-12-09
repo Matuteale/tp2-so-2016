@@ -4,7 +4,7 @@
 
 typedef struct MsgAux Msg;
 struct MsgAux{
-  char msg;
+  char msg[20];
   Msg * next;
 };
 
@@ -16,11 +16,11 @@ typedef struct MessageQ {
   Msg* last;
 } MessageQ;
 
-void openMessageQ(char * name, MessageQ * msgQ);
-void getMessageQ(char * name);
-void closeMessageQ(MessageQ * msgQ);
-void sendMessageQ(MessageQ * msgQ, char msg);
-void receiveMessageQ(MessageQ * msgQ, char * ret);
-char ** getOpenedMessageQs();
+void openMessageQ(char * name);
+void closeMessageQ(char * name);
+void sendMessageQ(char * name, char * msg);
+void receiveMessageQ(char * name, char * ret);
+int getOpenedMessageQs(char ** openedQueues);
+MessageQ * findMessageQ(char * name);
 
 #endif

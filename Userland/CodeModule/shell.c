@@ -98,12 +98,14 @@ void ps()
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-	int values[16];
-	char * ipcs[16];
+	int values[32];
+	char ipcs[32][21];
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, values);
 	int i = 0;
-	while(ipcs[i][0] != '0'){
+	printString(ipcs[0][0]);
+	printString(ipcs[1][0]);
+	while(ipcs[i][0] != 0){
 		printString(ipcs[i]);
 		printString(" - ");
 		printDec(values[i]);
@@ -118,7 +120,7 @@ void ipcs()
 }
 
 void run_ps(){
-	sys_addProcess("PS", ps, 0);
+	sys_addProcess("PS", ps, 1);
 }
 
 void run_ipcs(){
