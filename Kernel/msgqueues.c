@@ -28,7 +28,8 @@ int getOpenedMessageQs(char ** openedQueues){
 }
 
 void openMessageQ(char * name){
-  while(msgQNames[i][size++] != 0);
+  int size = 0;
+  while(name[size++] != 0);
   if(size > 20) return;
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(strcmp(msgQNames[i], name)){
