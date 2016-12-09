@@ -50,6 +50,7 @@ void mainProdCons() {
 		//control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
+		printString("\n");
 		msgBuffer[0] = 0;
 		//control();
 	}
@@ -95,6 +96,7 @@ void * consumer(void * arg) {
 		int tmp = get();
 		// printString(" E ");
 		printf("Consume ");
+		sendMessageQ("pcMQ", "Consume ");
 		// printString(" F ");
 		printDec(tmp);
 		// printString(" G ");
