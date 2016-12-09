@@ -18,7 +18,7 @@ typedef struct MessageQ {
 
 void openMessageQ(char * name);
 void closeMessageQ(char * name);
-void sendMessageQ(char * name, char msg);
+void sendMessageQ(char * name, char * msg);
 void receiveMessageQ(char * name, char * ret);
 char ** getOpenedMessageQs();
 MessageQ * findMessageQ(char * name);
