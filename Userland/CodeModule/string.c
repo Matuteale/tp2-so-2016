@@ -80,7 +80,7 @@ void trim(char* s)
 		s[j]=s[i];
 }
 
-void iToStr(const char * str, int i)
+void iToStr(char * str, int i)
 {
 	int x = i;
 	int n = i;
@@ -95,7 +95,7 @@ void iToStr(const char * str, int i)
 	str[j] = 0;
 }
 
-void reverse(const char * str)
+void reverse(char * str)
 {
 	int i = strlen(str);
 	int j = 0;
