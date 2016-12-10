@@ -28,6 +28,7 @@ volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
 int philosopherCount;
 int auxCounter;
+char commandControl = 0;
 
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
@@ -48,8 +49,10 @@ void diningPhilosophers() {
 	 	render();
 	 	printDec(a++);
 
-	 	char c = getChar();
-	 	switch(c) {
+	 	get_input(&commandControl);
+
+		printString(&commandControl);
+	 	switch(commandControl) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
