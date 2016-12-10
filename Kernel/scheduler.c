@@ -323,6 +323,9 @@ void freeProcess(pid_t pid) {
 	ncPrint("saco el: ");
 	ncPrintDec(pid);
 	ncNewline();
+	ncPrint("El current es: ");
+	ncPrint(currentProcess->name);
+	ncPrintDec(currentProcess->state);
 	Process * prevProcess = currentProcess;
 	Process * processToRemove;
 	while(prevProcess->next->PID != pid) {
@@ -374,8 +377,6 @@ int removeProcess(pid_t pid) {
 		process->foreground = 0;
 	}
 	//clearscreen();
-	ncPrint("El current es: ");
-	ncPrintDec(currentProcess->state);
 	return processAux->PID;
 }
 
