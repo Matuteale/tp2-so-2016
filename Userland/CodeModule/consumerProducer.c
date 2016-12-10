@@ -18,6 +18,7 @@ int loops = 30;
 char commandControl = 0;
 int consumerPID;
 int producerPID;
+int currentPID;
 
 void put(int value) {
 	buffer[fill_ptr] = value;
@@ -139,7 +140,7 @@ void * consumer(void * arg) {
 
 		//case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
-		case 'q': int i; sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&i); sys_killProcess(i); break;
+		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); sys_killProcess(currentPID); break;
 
 		default: break;
  	}
