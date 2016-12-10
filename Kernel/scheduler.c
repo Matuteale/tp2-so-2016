@@ -369,7 +369,7 @@ int removeProcess(pid_t pid) {
 		process->state = DYING;
 		process->foreground = 0;
 	}
-	//clearscreen();
+	clearscreen();
 	return processAux->PID;
 }
 
