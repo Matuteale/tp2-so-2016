@@ -283,6 +283,9 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			// ncPrint("nobackground");
 			// ncNewline();
 			currentProcess->foreground = 0;
+			if(currentProcess->PID == shellProcess->PID){
+				currentProcess->state = BLOQUED;
+			}
 			new_process->state = READY;
 			new_process->foreground = 1;
 		}else{
@@ -362,8 +365,9 @@ int removeProcess(pid_t pid) {
 				process = process->next;
 			} while(process->PID != processAux->PID && process->state != READY);
 		}
-		if(process->state == READY){
+		if(pid != process->PID && (process->state == BLOQUED || process->state == READY)){
 			process->foreground = 1;
+			process->state = READY;
 		}
 	}else{
 		process->state = DYING;
