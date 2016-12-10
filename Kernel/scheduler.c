@@ -325,7 +325,7 @@ void freeProcess(pid_t pid) {
 	ncPrint("El current es: ");
 	ncPrint(currentProcess->name);
 	ncPrintDec(currentProcess->state);
-	cPrintDec(currentProcess->PID);
+	ncPrintDec(currentProcess->PID);
 	Process * prevProcess = currentProcess;
 	Process * processToRemove;
 	while(prevProcess->next->PID != pid) {
