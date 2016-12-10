@@ -343,8 +343,8 @@ Process * getCurrentProcess()
 
 int removeProcess(pid_t pid) {
 	// resetTarget();
-	ncPrint("Process to remove ");
-	ncPrintDec(pid);
+	// ncPrint("Process to remove ");
+	// ncPrintDec(pid);
 	if(pid == nilProcess->PID || pid == shellProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
