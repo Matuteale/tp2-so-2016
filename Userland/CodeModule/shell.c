@@ -53,6 +53,8 @@ void shell()
 			{
 				command = VALID;
 				(*(shell_functions[i]))();
+				printString(PROMPT2);
+				in_special_command = 0;
 			}
 		}
 		if(command == NOT_VALID)
