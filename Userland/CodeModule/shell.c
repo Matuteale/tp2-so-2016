@@ -74,10 +74,12 @@ void killProcess(){
 
 void run_ps(){
 	sys_addProcess("PS", ps, 0);
+	in_special_command = 1;
 }
 
 void run_ipcs(){
 	sys_addProcess("IPCS", ipcs, 0);
+	in_special_command = 1;
 }
 
 /* interpreta el comando ingresado */
@@ -124,11 +126,13 @@ void philosophers()
 	if(getInt(&background, 1) == INPUTERROR)
 		INPUT_ERROR_EXIT;
 	sys_addProcess("Philosophers", diningPhilosophers, background);
+	in_special_command = 1;
 }
 
 void prodCons()
 {
 	sys_addProcess("mainPC", mainProdCons, 0);
+	in_special_command = 1;
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
