@@ -126,7 +126,8 @@ void * consumer(void * arg) {
 
  void control() {
 	getString(&command, 1);
-	printString(command);
+
+	printString(&command);
 	switch(command) {
 		//case 'a': prodSleepTime++; break;
 
