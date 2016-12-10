@@ -52,7 +52,7 @@ void diningPhilosophers() {
 	 	get_input(&commandPhil);
 
 		printString(&commandPhil);
-	 	switch(commandControl) {
+	 	switch(commandPhil) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
