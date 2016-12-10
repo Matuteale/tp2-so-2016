@@ -98,7 +98,7 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 }
 
 int checkIfSchedulerPaused() {
-	if(schedulerPaused){
+	if(!schedulerPaused){
 			ncPrint("Estoy paudado");
 	}
 	return schedulerPaused;
