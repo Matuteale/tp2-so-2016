@@ -15,7 +15,7 @@ int fill_ptr = 0;
 int use_ptr = 0;
 int count = 0;
 int loops = 30;
-char command = 0;
+char commandControls = 0;
 
 void put(int value) {
 	buffer[fill_ptr] = value;
@@ -125,10 +125,10 @@ void * consumer(void * arg) {
 }
 
  void control() {
-	getString(&command, 1);
+	getString(&commandControl, 1);
 
-	printString(&command);
-	switch(command) {
+	printString(&commandControl);
+	switch(commandControl) {
 		//case 'a': prodSleepTime++; break;
 
 		//case 'z': prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime; break;
