@@ -322,7 +322,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 void freeProcess(pid_t pid) {
 	ncPrint("saco el: ");
 	ncPrintDec(pid);
-	ncNewline();
 	ncPrint("El current es: ");
 	ncPrint(currentProcess->name);
 	ncPrintDec(currentProcess->state);
