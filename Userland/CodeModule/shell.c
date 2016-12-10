@@ -4,6 +4,8 @@
 #include "string.h"
 #include "consumerProducer.h"
 #include "philosopher.h"
+#include "ps.h"
+#include "ipcs.h"
 
 #define CANT_COMMANDS_SHELL 13
 
@@ -70,69 +72,14 @@ void killProcess(){
 	sys_killProcess(PID);
 }
 
-/*Lista de procesos*/
-void ps()
-{
-	unsigned int processPID[16];
-	char * names[16];
-	char * states[16];
-	printString("Name | PID | State \n");
-	ps_sys(names, processPID, states);
-	int i = 0;
-	while(processPID[i] != 0){
-		printString(names[i]);
-		printString(" - ");
-		printDec(processPID[i]);
-		printString(" - ");
-		printString(states[i]);
-		printString("\n");
-		i++;
-	}
-	int activePID;
-	sys_getActivePID(&activePID);
-	sys_killProcess(activePID);
-	while(1);
-	return;
-}
-
-/*Muestra una lista de estructuras creadas*/
-void ipcs()
-{
-	int values[32];
-	char * ipcs[32];
-	char names[672];
-	int i = 0;
-	while(i < 32){
-		ipcs[i] = &(names[i*21]);
-		i++;
-	}
-	printString("IPC | Value \n");
-	ipcs_sys(ipcs, names, values);
-	i = 0;
-	while(ipcs[i] != 0){
-		printString(&names[i*21]);
-		printString(" - ");
-		if(strcmp((char *) values[i], "msqQueue")){
-			printString(values[i]);
-		}else{
-			printDec(values[i]);
-		}
-		printString("\n");
-		i++;
-	}
-	int activePID;
-	sys_getActivePID(&activePID);
-	sys_killProcess(activePID);
-	while(1);
-	return;
-}
-
 void run_ps(){
 	sys_addProcess("PS", ps, 0);
+	in_special_command = 1;
 }
 
 void run_ipcs(){
 	sys_addProcess("IPCS", ipcs, 0);
+	in_special_command = 1;
 }
 
 /* interpreta el comando ingresado */
@@ -179,11 +126,13 @@ void philosophers()
 	if(getInt(&background, 1) == INPUTERROR)
 		INPUT_ERROR_EXIT;
 	sys_addProcess("Philosophers", diningPhilosophers, background);
+	in_special_command = 1;
 }
 
 void prodCons()
 {
 	sys_addProcess("mainPC", mainProdCons, 0);
+	in_special_command = 1;
 }
 
 /* modifica el tiempo de activacion del screensaver mediante system call */
