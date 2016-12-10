@@ -16,6 +16,7 @@ int fill_ptr = 0;
 int use_ptr = 0;
 int count = 0;
 int loops = 30;
+char command = 0;
 
 void put(int value) {
 	buffer[fill_ptr] = value;
@@ -47,14 +48,13 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	printString("Press e to exit\n");
 	while(1){
-		//control();
+		control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
 		if(msgBuffer[0] != 0){
 			printString("\n");
 		}
 		msgBuffer[0] = 0;
-		//control();
 	}
 }
 
@@ -126,33 +126,19 @@ void * consumer(void * arg) {
 }
 
  void control() {
- 	int end = 0;
- 	// printString("Press q to quit");
- 	while(!end) {
- 		char c = getChar();
- 		printString(c);
- 		switch(c) {
-// 			case 'a':
-// 				prodSleepTime++;
-// 			break;
+	getString(&command, 1);
+	printString(command);
+	switch(command) {
+		case 'a': prodSleepTime++; break;
 
-// 			case 'z':
-// 				prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime;
-// 			break;
+		case 'z': prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime; break;
 
-// 			case 's':
-// 				consSleepTime++;
-// 			break;
+		case 's': consSleepTime++; break;
 
-// 			case 'x':
-// 				consSleepTime = --consSleepTime < 0? 0 : consSleepTime;
-// 			break;
+		case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
- 			case 'q':
- 				// printString("AA");
- 				end = 1;
- 			break;
- 			default: end = 1; break;
- 		}
+		case 'q': break;
+
+		default: break;
  	}
- }
+}
