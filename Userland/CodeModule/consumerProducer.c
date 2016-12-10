@@ -3,7 +3,6 @@
 #include "consumerProducer.h"
 #include <pthread.h>
 #include <unistd.h>
-#include "shell.h"
 
 #define BUFFER_SIZE 10
 #define PCMUTEX 2
