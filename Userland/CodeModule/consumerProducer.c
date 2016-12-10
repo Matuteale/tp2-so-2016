@@ -15,7 +15,7 @@ int fill_ptr = 0;
 int use_ptr = 0;
 int count = 0;
 int loops = 30;
-char commandControls = 0;
+char commandControl = 0;
 
 void put(int value) {
 	buffer[fill_ptr] = value;
