@@ -140,7 +140,7 @@ void * consumer(void * arg) {
 
 		//case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
-		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); /*closeMessageQ("pcMQ")*/; sys_killProcess(currentPID); break;
+		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); sys_killProcess(currentPID); break;
 
 		default: break;
  	}

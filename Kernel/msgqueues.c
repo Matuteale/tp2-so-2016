@@ -57,9 +57,6 @@ void openMessageQ(char * name){
 }
 
 void destroyMessageQ(MessageQ * msgQ){
-  ncPrint("Destroying messageQ: ");
-  ncPrint(msgQ->name);
-  ncNewline();
   queue[msgQ->id] = 0;
   msgQNames[msgQ->id] = 0;
 }
