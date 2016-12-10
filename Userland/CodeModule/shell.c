@@ -98,19 +98,19 @@ void ps()
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-	int values[32];
-	char * ipcs[32];
-	char names[672];
+	int values[64];
+	char * ipcs[64];
+	char names[704];
 	int i = 0;
-	while(i < 32){
-		ipcs[i] = &(names[i*21]);
+	while(i < 64){
+		ipcs[i] = &(names[i*11]);
 		i++;
 	}
 	printString("IPC | Value \n");
 	ipcs_sys(ipcs, names, values);
 	i = 0;
 	while(ipcs[i] != 0){
-		printString(&names[i*21]);
+		printString(&names[i*11]);
 		printString(" - ");
 		if(strcmp((char *) values[i], "msqQueue")){
 			printString(values[i]);
