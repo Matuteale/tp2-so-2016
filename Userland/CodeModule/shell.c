@@ -45,8 +45,6 @@ void shell()
 			printString(PROMPT2);
 			in_special_command = 0;
 		}
-		printString(PROMPT2);
-		in_special_command = 0;
 		getString(command_buffer, BUFFERLENGTH);
 
 		for(i = 0 ; i < CANT_COMMANDS_SHELL && command == NOT_VALID ; i++)
