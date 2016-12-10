@@ -374,6 +374,8 @@ int removeProcess(pid_t pid) {
 		process->foreground = 0;
 	}
 	//clearscreen();
+	ncPrint("El current es: ");
+	ncPrintDec(currentProcess->state);
 	return processAux->PID;
 }
 

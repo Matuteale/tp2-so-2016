@@ -44,7 +44,7 @@ void diningPhilosophers() {
 	 while(1) {
 	 	// printString("a");
 		 // render();
-	 	sys_sleep(10000);
+	 	//sys_sleep(10000);
 	 	clearscreen();
 	 	render();
 	 	printDec(a++);
