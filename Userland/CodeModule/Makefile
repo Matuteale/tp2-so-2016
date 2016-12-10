@@ -1,7 +1,7 @@
 include ../Makefile.inc
 
 MODULE=CodeModule.bin
-SOURCES= CodeModule.c string.c stdio.c shell.c RTCuserspace.c philosopher.c consumerProducer.c
+SOURCES= CodeModule.c string.c stdio.c shell.c RTCuserspace.c philosopher.c consumerProducer.c ps.c
 OBJECTS=$(SOURCES:.c=.o)
 ASMSOURCES=$(wildcard *.asm)
 ASMOBJECTS=$(ASMSOURCES:.asm=.o)
