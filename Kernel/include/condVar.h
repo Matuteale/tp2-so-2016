@@ -14,6 +14,7 @@ typedef struct {
     int mutex;
 }cond_t;
 
+void destroyCVK(int key);
 void createCondVarsK(int key); 
 void initCondVarK(cond_t * condVar);
 void waitCondVarK(int condVar, int mutex);

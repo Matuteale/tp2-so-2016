@@ -45,6 +45,15 @@ uint8_t getMutex(int key) {
 	}
 }
 
+void destroyMutexK(int key) {
+	for(int id = 0 ; id < 10 ; id++) {
+		if(mutexes[id].key == key) {
+			mutexes[id].key = 0;
+			mutexes[id].taken = 0;	// key already being used
+		}
+	}	
+}
+
 int mutexLockK(int key) {
 	uint8_t mutexLock = getMutex(key);
 	// ncPrint("ENTRO MIERDA ");

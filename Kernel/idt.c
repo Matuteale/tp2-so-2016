@@ -255,6 +255,8 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x22: createMutexK((int)arg_1);break;
     case 0x23: createCondVarsK((int)arg_1);break;
     case 0x21: listIPCs((char **) arg_1,(char *) arg_2, (int *) arg_3);break;
+    case 0x24: destroyCVK((int)arg_1);break;
+    case 0x25: destroyMutexK((int)arg_1);break;
 	}
 	return pid;
 }

@@ -28,7 +28,7 @@ volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
 int philosopherCount;
 int auxCounter;
-
+char commandControlPhil = 0;
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 
@@ -44,12 +44,11 @@ void diningPhilosophers() {
 	 	// printString("a");
 		 // render();
 	 	// sleep(1 	);
-	 	clearscreen();
+	 	// clearscreen();
 	 	render();
-	 	printDec(a++);
 
-	 	char c = getChar();
-	 	switch(c) {
+	 	get_input(&commandControlPhil);
+	 	switch(commandControlPhil) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
@@ -75,7 +74,7 @@ void philosopher() {
 		// if(id == 3 + aux || id == 3 - aux) {
 		sys_sleep(8000);
 		takeForks(id);
-		sys_sleep(30000*id);
+		sys_sleep(30000*(id+1));
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;
@@ -140,6 +139,7 @@ int right(int id) {
 }
 
 void render() {
+	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
@@ -177,6 +177,7 @@ int removePhilosopher() {
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
+			destroyCondVars(canEat[philosopherCount]);
 			philosopherCount--;
 			mutexUnlock(mutex);
 			return 0;
@@ -267,8 +268,10 @@ void killPhilosophers() {
 	// 	printString("MUERTE");
 	for(int i = 0; i < philosopherCount; i++) {
 		sys_killProcess(philosopherPID[i]);
+		destroyCondVars(canEat[i]);
 	}
 	sys_getActivePID(&i);
+	destroyMutex(MUTEXKEY);
 	sys_killProcess(i);
 	while(1);
 }

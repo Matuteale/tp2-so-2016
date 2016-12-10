@@ -119,7 +119,7 @@ void * consumer(void * arg) {
 		// printString(" G ");
 		printString("\n");
 		// printString(" R ");
-		sendMessageQ("pcMQ", "C");
+		// sendMessageQ("pcMQ", "C");
 		signalCondVar(empty);
 		// printString(" Z ");
 		mutexUnlock(mutexp);

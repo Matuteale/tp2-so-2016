@@ -16,7 +16,6 @@ void initalizeCVs() {
     for(int id = 0 ; id < 30 ; id++) {
         initCondVarK(&condVars[id]);
         condVars[id].key = 0;
-        ncPrint("arranca");
     }
 }
 
@@ -111,4 +110,17 @@ void broadcastCondVar(cond_t * condVar){
         signalCondVarK(condVar);
     }
     if(notPreviouslyLocked) unpauseScheduler();
+}
+
+void destroyCVK(int key) {
+    for(int id = 0 ; id < 30 ; id++) {
+        if(condVars[id].key == key) {
+            condVars[id].key = 0;
+            condVars[id].size = 0;
+            condVars[id].index = 0;
+            for(int i = 0; i<MAX_COND_VAR_QUEUE_SIZE; i++) {
+                condVars[id].queue[i] = 0;
+            }
+        }
+    }
 }
