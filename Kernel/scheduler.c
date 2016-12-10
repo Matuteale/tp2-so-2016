@@ -131,6 +131,7 @@ void setNextProcess(){
 				current = current->next;
 				freeProcess(aux->PID);
 			}
+			ncPrint("A");
 			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED){
