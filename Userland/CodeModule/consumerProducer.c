@@ -45,7 +45,7 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	sys_addProcess("consumer", consumer, 1);
 	mutexLock(mutexp);
-	printString("Press e to exit\n");
+	printString("Press q to exit\n");
 	while(1){
 		control();
 		receiveMessageQ("pcMQ", msgBuffer);
@@ -125,7 +125,7 @@ void * consumer(void * arg) {
 }
 
  void control() {
-	getString(&commandControl, 1);
+	get_input(&commandControl);
 
 	printString(&commandControl);
 	switch(commandControl) {
