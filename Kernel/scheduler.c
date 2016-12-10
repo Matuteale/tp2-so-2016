@@ -122,6 +122,7 @@ void * userSchedToKernel(uint64_t * rsp){
 void setNextProcess(){
 	Process * current = currentProcess;
 	Process * auxProcess = NULL;
+	ncPrint("A");
 	if(current != NULL && current->next != NULL){
 		do {
 			auxProcess = current;
@@ -131,7 +132,6 @@ void setNextProcess(){
 				current = current->next;
 				freeProcess(aux->PID);
 			}
-			ncPrint("A");
 			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED){
