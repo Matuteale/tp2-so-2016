@@ -16,6 +16,8 @@ int use_ptr = 0;
 int count = 0;
 int loops = 30;
 char commandControl = 0;
+int consumerPID;
+int producerPID;
 
 void put(int value) {
 	buffer[fill_ptr] = value;
@@ -40,10 +42,10 @@ void mainProdCons() {
 	createCondVars(fill);
 	openMessageQ("pcMQ");
 	mutexLock(mutexp);
-	sys_addProcess("producer", producer, 1);
+	producerPID = sys_addProcess("producer", producer, 1);
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
-	sys_addProcess("consumer", consumer, 1);
+	consumerPID = sys_addProcess("consumer", consumer, 1);
 	mutexLock(mutexp);
 	printString("Press q to exit\n");
 	while(1){
@@ -137,7 +139,7 @@ void * consumer(void * arg) {
 
 		//case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
-		case 'q': printString("quitteo"); break;
+		case 'q': int i; sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&i); sys_killProcess(i); break;
 
 		default: break;
  	}
