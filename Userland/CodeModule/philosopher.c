@@ -44,7 +44,7 @@ void diningPhilosophers() {
 	 	// printString("a");
 		 // render();
 	 	//sys_sleep(10000);
-	 	clearscreen();
+	 	//clearscreen();
 	 	render();
 
 	 	get_input(&commandPhil);
