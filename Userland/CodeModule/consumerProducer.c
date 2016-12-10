@@ -129,15 +129,15 @@ void * consumer(void * arg) {
 	getString(&command, 1);
 	printString(command);
 	switch(command) {
-		case 'a': prodSleepTime++; break;
+		//case 'a': prodSleepTime++; break;
 
-		case 'z': prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime; break;
+		//case 'z': prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime; break;
 
-		case 's': consSleepTime++; break;
+		//case 's': consSleepTime++; break;
 
-		case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
+		//case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
-		case 'q': break;
+		case 'q': printString("quitteo"); break;
 
 		default: break;
  	}
