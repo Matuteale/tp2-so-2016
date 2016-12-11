@@ -67,7 +67,7 @@ void waitCondVarK(int condVar, int mutex){
     unpauseScheduler();
     // ncPrint(" VA A YIELDEAR");
     yield();
-    // ncPrint(" yieldio ");
+    ncPrint(" yieldio ");
     mutexLockK(mutex);
 }
 
@@ -78,9 +78,9 @@ void signalCondVarK(int condVar) {
     // ncPrintDec(pid);
     if(pid != -1) {
       changeProcessState(pid,2);    //ready
-      // ncPrint(" READY FREDDY");  
+      // ncPrint(" READY FREDDY");
     }
-    // ncPrint(" OMG "); 
+    // ncPrint(" OMG ");
 }
 
 
