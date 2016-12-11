@@ -40,13 +40,9 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	// printString("a");
-		 // render();
 	 	sys_sleep(500);
 	 	render();
-	 	//sys_sleep(1000000);
-	 	philControl = getChar();
-	 	//get_input(&philControl);
+	 	get_input(&philControl);
 	 	printString(&philControl);
 	 	switch(philControl) {
 	 		case 'q': killPhilosophers(); return; break;
