@@ -68,7 +68,7 @@ int mutexLockK(int key) {
 	while(enterCritRegion(&mutexLock)) {
 		// ncPrint(" LOCKEADO MAQUILINCE ");
 		// ncPrintDec(getCurrentPID());
-		ncPrint("yield");
+		ncPrint("yieldokgoggggoogoooogoogogogogogo");
 		yield();
 	}
 	// ncPrint(" Lo agarro ");

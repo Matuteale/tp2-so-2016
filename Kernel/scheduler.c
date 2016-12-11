@@ -99,7 +99,7 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 
 int checkIfSchedulerPaused() {
 	if(schedulerPaused == 0){
-			ncPrint("Estoy pausado");
+		ncPrint("Estoy pausado");
 	}else{
 		ncPrint("No estoy pausado");
 	}
