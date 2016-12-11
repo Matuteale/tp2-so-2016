@@ -121,7 +121,6 @@ void * userSchedToKernel(uint64_t * rsp){
 	}
 	// ncPrint("PID: ");
 	// ncPrintDec(currentProcess->PID);
-	ncPrint("d");
 	return kernelStack;
 }
 
