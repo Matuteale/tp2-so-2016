@@ -26,7 +26,7 @@ int canEat[MAX_PHILOSPHERS];
 volatile State philosopherState[MAX_PHILOSPHERS];
 volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
-int philosopherCount;
+int philosopherCount = 0;
 int auxCounter;
 
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
@@ -44,7 +44,6 @@ void diningPhilosophers() {
 	 	// printString("a");
 		 // render();
 	 	// sleep(1 	);
-	 	clearscreen();
 	 	render();
 	 	printDec(a++);
 
@@ -73,9 +72,9 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		//sys_sleep(8000);
+		sys_sleep(8000);
 		takeForks(id);
-		//sys_sleep(30000*id);
+		sys_sleep(30000*id);
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;
@@ -86,7 +85,7 @@ void philosopher() {
 
 void takeForks(int id) {
 	if(id == 8) printString("Se bugeo");
-	mutexLock(&mutex);
+	mutexLock(mutex);
 	philosopherState[id] = HUNGRY;
 	try(id);
 	if(philosopherState[id] == EATING) {
