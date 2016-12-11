@@ -40,7 +40,7 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	sys_sleep(100);
+	 	sys_sleep(1000);
 	 	render();
 	 	get_input(&philControl);
 	 	printString(&philControl);
@@ -136,6 +136,7 @@ int right(int id) {
 }
 
 void render() {
+	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
