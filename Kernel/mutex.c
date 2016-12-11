@@ -59,7 +59,7 @@ void destroyMutexK(int key) {
 int mutexLockK(int key) {
 	//ncPrint("lock");
 	uint8_t mutexLock = getMutex(key);
-	ncPrintDec(mutexLock);
+	//ncPrintDec(mutexLock);
 	// ncPrint("ENTRO MIERDA ");
 	// ncPrint("MUTEX: ");
     // ncPrintHex(&mutexLock);
