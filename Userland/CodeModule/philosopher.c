@@ -76,12 +76,14 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		sys_sleep(8000);
-		takeForks(id);
-		sys_sleep(8000);
-		putForks(id);
-		if(aux == 0) aux++;
-		else aux = 0;
+		if(philosopherCount > 1){
+			sys_sleep(8000);
+			takeForks(id);
+			sys_sleep(8000);
+			putForks(id);
+			if(aux == 0) aux++;
+			else aux = 0;
+		}
 		// }
 
 	}
