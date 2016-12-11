@@ -121,6 +121,7 @@ void * userSchedToKernel(uint64_t * rsp){
 	}
 	// ncPrint("PID: ");
 	// ncPrintDec(currentProcess->PID);
+	ncPrint("d");
 	return kernelStack;
 }
 
@@ -346,7 +347,7 @@ void freeProcess(pid_t pid) {
 	}
 	processToRemove = prevProcess->next;
 	prevProcess->next = processToRemove->next;
-	//freeMem(processToRemove);
+	freeMem(processToRemove);
 	freeProcesses++;
 }
 
