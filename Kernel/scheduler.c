@@ -231,7 +231,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 }
 
 void fillWaitings(){
-	for(int = 0; i < 16; i++){
+	for(int i = 0; i < 16; i++){
 		waitingProcess[i] = 666;
 		waitingMilis[i] = 0;
 		timertickFlags[i] = 7000;
