@@ -218,7 +218,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
-	if(auxProcess->PID == pid){
+	if(1){
 		auxProcess->state = state;
 	}
 }
