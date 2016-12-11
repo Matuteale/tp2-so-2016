@@ -157,6 +157,7 @@ void wakeOrContinueSleep(Process * process){
 		}
 		timertickFlags[i]--;
 		ncPrintDec(timertickFlags[i]);
+		ncPrint("-");
 		if(timertickFlags[i] == 0){
 			waitingMilis[i] = waitingMilis[i] - 1;
 			timertickFlags[i] = 7000;
