@@ -39,13 +39,13 @@ void diningPhilosophers() {
 	 	return;
  	}
  	char philControl = 0;
-
+ 	sys_sleep(1000000);
 	 while(1) {
 	 	// printString("a");
 		 // render();
 	 	// sleep(1 	);
 	 	render();
-	 	sys_sleep(1000000);
+	 	//sys_sleep(1000000);
 	 	get_input(&philControl);
 	 	printString(&philControl);
 	 	switch(philControl) {
