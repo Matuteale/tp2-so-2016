@@ -47,7 +47,7 @@ void diningPhilosophers() {
 	 	render();
 	 	printString("hola");
 
-	 	getInput(&commandPhil);
+	 	get_input(&commandPhil);
 
 		printString(&commandPhil);
 	 	switch(commandPhil) {
