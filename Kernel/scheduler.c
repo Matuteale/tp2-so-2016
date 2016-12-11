@@ -158,7 +158,7 @@ void wakeOrContinueSleep(){
 			// 	timertickFlags[i] = 1;
 			// 	ncPrint("holaaas");
 			// }
-			waitingMilis[i] = waitingMilis[i] - 1;
+			waitingMilis[i] = waitingMilis[i] - 20;
 			if(waitingMilis[i] < 0){
 				ncPrint("chaaaaaaaaau");
 				changeProcessState(waitingProcess[i], READY);
