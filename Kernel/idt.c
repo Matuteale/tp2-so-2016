@@ -192,6 +192,7 @@ void sleepProcess(long milis){
   Process * process = getCurrentProcess();
   int * waitingProcess = getWaitingProcess();
   int * waitingMilis = getWaitingMilis();
+  ncPrintDec(waitingProcess[0]);
   int flag = 0;
   int i = 0;
   for(; i < 16; i++){
@@ -199,7 +200,6 @@ void sleepProcess(long milis){
       flag = 1;
       break;
     }
-    ncPrintDec(waitingProcess[i]);
   }
   if(flag){
     waitingProcess[i] = process->PID;
