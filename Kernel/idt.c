@@ -192,7 +192,6 @@ void sleepProcess(long milis){
   Process * process = getCurrentProcess();
   int * waitingProcess = getWaitingProcess();
   int * waitingMilis = getWaitingMilis();
-  int aux = waitingProcess[10];
   ncPrintDec(&aux);
   ncPrint("hola");
   int flag = 0;

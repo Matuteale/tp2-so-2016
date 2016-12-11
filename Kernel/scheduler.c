@@ -198,6 +198,7 @@ void nullProcess()
 }
 
 int * getWaitingProcess(){
+	ncPrintDec(waitingProcess[0]);
 	return &(waitingProcess[0]);
 }
 
