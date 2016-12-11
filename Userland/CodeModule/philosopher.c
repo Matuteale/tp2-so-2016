@@ -74,7 +74,7 @@ void philosopher() {
 		// if(id == 3 + aux || id == 3 - aux) {
 		sys_sleep(8000);
 		takeForks(id);
-		sys_sleep(30000*id);
+		sys_sleep(8000);
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;

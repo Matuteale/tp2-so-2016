@@ -144,9 +144,6 @@ void setNextProcess(){
 		}
 		currentProcess = current;
 		currentProcess->state = RUNNING;
-		//ncPrint(currentProcess->name);
-		//ncPrintDec(currentProcess->st);
-		//ncPrint(currentProcess->name);
 	}
 }
 
@@ -165,6 +162,7 @@ void wakeOrContinueSleep(Process * process){
 		}
 		if(waitingMilis[i] <= 0){
 			changeProcessState(waitingProcess[i], READY);
+			timertickFlags[i] = 7000;
 			waitingProcess[i] = -1;
 		}
 	}
