@@ -199,6 +199,7 @@ void sleepProcess(long milis){
       flag = 1;
       break;
     }
+    ncPrintDec(waitingProcess[i]);
   }
   if(flag){
     waitingProcess[i] = process->PID;
