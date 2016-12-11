@@ -211,7 +211,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	// ncPrint("CAMBIO");
 	ncPrint("CAMBIO");
 	Process * auxProcess = currentProcess;
-	while(auxProcess->PID != pid) {
+	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
 	auxProcess->state = state;
