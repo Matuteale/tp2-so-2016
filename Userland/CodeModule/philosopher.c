@@ -39,7 +39,7 @@ void diningPhilosophers() {
 	 	return;
  	}
  	char philControl = 0;
- 	sys_sleep(55000);
+ 	sys_sleep(181);
 	 while(1) {
 	 	// printString("a");
 		 // render();
