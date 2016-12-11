@@ -66,7 +66,7 @@ void waitCondVarK(int condVar, int mutex){
     mutexUnlockK(mutex);
     unpauseScheduler();
     // ncPrint(" VA A YIELDEAR");
-    ncPrint("yield");
+    //ncPrint("yield");
     yield();
     mutexLockK(mutex);
 }
