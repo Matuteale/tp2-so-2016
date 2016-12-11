@@ -202,6 +202,8 @@ int addPhilosopher() {
 				return -1;
 			}
 			mutexUnlock(mutex);
+			int aux = philosopherCount;
+			while(aux == philosopherCount){}
 			return 0;
 		}
 		mutexUnlock(mutex);
@@ -245,9 +247,7 @@ int philosopherInit() {
 		// 	killPhilosophers();
 		// return -1;
 		// }
-		int aux = philosopherCount;
 		addPhilosopher();
-		while(aux == philosopherCount){}
 
 	}
 	// philosopherCount = INITIALNUMBER;
