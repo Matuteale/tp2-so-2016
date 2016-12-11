@@ -24,8 +24,8 @@ Process * getCurrentProcess();
 void nullProcess();
 void setName(Process * process, char * name);
 
-uint64_t * getWaitingProcess();
-uint64_t * getWaitingMilis();
+int * getWaitingProcess();
+int * getWaitingMilis();
 void fillWaitings();
 
 void wakeOrContinueSleep();
