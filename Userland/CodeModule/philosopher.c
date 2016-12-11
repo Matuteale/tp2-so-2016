@@ -117,19 +117,19 @@ void try(int id) {
 }
 
 int left(int id) {
-	if(id == 0){
-		return philosopherCount - 1;
-	}
-	return id - 1;
-	//return (id + philosopherCount - 1) % philosopherCount;
+	// if(id == 0){
+	// 	return philosopherCount - 1;
+	// }
+	// return id - 1;
+	return (id + philosopherCount - 1) % philosopherCount;
 }
 
 int right(int id) {
-	if(id == (philosopherCount - 1)){
-		return 0;
-	}
-	return id + 1;
-	//return (id + 1) % philosopherCount;
+	// if(id == (philosopherCount - 1)){
+	// 	return 0;
+	// }
+	// return id + 1;
+	return (id + 1) % philosopherCount;
 
 }
 
