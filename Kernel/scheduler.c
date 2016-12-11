@@ -130,7 +130,7 @@ void setNextProcess(){
 	ncPrint("A");
 	if(current != NULL && current->next != NULL){
 		do {
-			cPrint("B");
+			ncPrint("B");
 			auxProcess = current;
 			current = current->next;
 			if(current->state == DYING){
