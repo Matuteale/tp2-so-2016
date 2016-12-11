@@ -28,7 +28,7 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-int waitingProcess[16] = {-1};
+int waitingProcess[16] = {0};
 int waitingMilis[16] = {0};
 int timertickFlags[16] = {7000};
 
