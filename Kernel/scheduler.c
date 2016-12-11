@@ -215,6 +215,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 		auxProcess = auxProcess->next;
 	}
 	auxProcess->state = state;
+	ncPrint("CAMBIO3");
 }
 
 
