@@ -50,7 +50,6 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	printString("Press q to exit\n");
 	while(1){
-		sys_sleep(1000);
 		control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
