@@ -50,6 +50,7 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	printString("Press q to exit\n");
 	while(1){
+		sys_sleep(1000);
 		control();
 		receiveMessageQ("pcMQ", msgBuffer);
 		printString(msgBuffer);
@@ -132,13 +133,6 @@ void * consumer(void * arg) {
 
 	printString(&commandControl);
 	switch(commandControl) {
-		//case 'a': prodSleepTime++; break;
-
-		//case 'z': prodSleepTime = --prodSleepTime < 0? 0 : prodSleepTime; break;
-
-		//case 's': consSleepTime++; break;
-
-		//case 'x': consSleepTime = --consSleepTime < 0? 0 : consSleepTime; break;
 
 		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); sys_killProcess(currentPID); break;
 
