@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "philosopher.h"
 #define MAX_PHILOSPHERS 8
-#define INITIALNUMBER 5
+#define INITIALNUMBER 4
 #define MUTEXKEY 9
 int left(int i);
 int right(int i);
@@ -28,9 +28,8 @@ volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
 int philosopherCount;
 int auxCounter;
-char commandPhil = 0;
+
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
-int notAddingPhil = 1;
 
 
 void diningPhilosophers() {
@@ -42,25 +41,27 @@ void diningPhilosophers() {
  	}
 
 	 while(1) {
+	 	// printString("a");
+		 // render();
+	 	// sleep(1 	);
+	 	clearscreen();
 	 	render();
+	 	printDec(a++);
 
-	 	commandPhil = getChar();
-
-		printString(&commandPhil);
-	 	switch(commandPhil) {
+	 	char c = getChar();
+	 	switch(c) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
 	 		case 'p': printPIDs(); break;
-	 		default: break;
 	 	}
-	 	commandPhil = 0;
+	 	// clearscreen();
 	 }
 }
 
 void printPIDs() {
 	clearscreen();
-	for(int i = 0; i < philosopherCount; i++) {
+	for(int i = 0; i < MAX_PHILOSPHERS; i++) {
 		printDec(philosopherPID[i]);
 		printString("-");
 	}
@@ -69,25 +70,31 @@ void printPIDs() {
 
 void philosopher() {
 	int id = philosopherCount++;
+	int aux = 0;
 	while(1) {
-		if(philosopherCount > 1 && notAddingPhil){
-			//sys_sleep(8000);
-			takeForks(id);
-			//sys_sleep(8000);
-			putForks(id);
-		}
+		// if(id == 3 + aux || id == 3 - aux) {
+		sys_sleep(8000);
+		takeForks(id);
+		sys_sleep(30000*id);
+		putForks(id);
+		if(aux == 0) aux++;
+		else aux = 0;
+		// }
+
 	}
 }
 
 void takeForks(int id) {
-	if(id >= 8) printString("Se bugeo");
-	mutexLock(mutex);
+	if(id == 8) printString("Se bugeo");
+	mutexLock(&mutex);
 	philosopherState[id] = HUNGRY;
 	try(id);
 	if(philosopherState[id] == EATING) {
 		mutexUnlock(mutex);
 	} else {
 		while(philosopherState[id] != EATING) {
+			// printString("Va a esperar ");
+			// printDec(id);
 			waitCondVar(canEat[id], mutex);
 			try(id);
 			if(philosopherState[id] == EATING) {
@@ -110,32 +117,29 @@ void putForks(int id) {
 void try(int id) {
 	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
 		philosopherState[id] = EATING;
+		// render();
 		forks[left(id)] = id;
 		forks[id] = id;
+		// printString("Va a signalear   ");
+		// printDec(id);
 		signalCondVar(canEat[id]);
 	}
 
 }
 
 int left(int id) {
-	// if(id == 0){
-	// 	return philosopherCount - 1;
-	// }
-	// return id - 1;
+
 	return (id + philosopherCount - 1) % philosopherCount;
+
 }
 
 int right(int id) {
-	// if(id == (philosopherCount - 1)){
-	// 	return 0;
-	// }
-	// return id + 1;
+
 	return (id + 1) % philosopherCount;
 
 }
 
 void render() {
-	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
@@ -150,8 +154,10 @@ void render() {
 			printString("Free\n");
 		else {
 			printString("Owner ");
-			printDec(forks[forks[i]]);
-			printString("\n");
+			printDec(forks
+				[forks
+				[i]]);
+		printString("\n");
 		}
 
 	}
@@ -171,7 +177,6 @@ int removePhilosopher() {
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
-			destroyCondVars(canEat[philosopherCount - 1]);
 			philosopherCount--;
 			mutexUnlock(mutex);
 			return 0;
@@ -182,26 +187,24 @@ int removePhilosopher() {
 }
 
 int addPhilosopher() {
-	int pid, i = 0;
+	int pid, i=0;
 	if(philosopherCount == MAX_PHILOSPHERS) {
 		return -1;
 	}
-	notAddingPhil = 0;
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
+			initCondVar(&canEat[philosopherCount]);
 			pid = sys_addProcess("philo", philosopher, 1);
 			printString("PID ");
 			printDec(pid);
-			while(philosopherPID[i] != 0){i++;};
-			philosopherPID[i] = pid;
+			while(philosopherPID[philosopherCount+i] != 0) i++;
+			philosopherPID[philosopherCount+i] = pid;
 			if(pid == -1) {
 				return -1;
 			}
 			mutexUnlock(mutex);
-			int aux = philosopherCount;
-			while(aux == philosopherCount){}
-			notAddingPhil = 1;
+			// philosopherCount++;
 			return 0;
 		}
 		mutexUnlock(mutex);
@@ -216,7 +219,6 @@ int philosopherInit() {
 
 	philosopherCount = 0;
 	mutex = 0;
-	initCondVar();
 	if(mutex == -1) {
 		return -1;
 	}
@@ -240,7 +242,14 @@ int philosopherInit() {
 		}
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
+		// pid = sys_addProcess("philo", philosopher, 1);
+		// philosopherPID[i] = pid;
+		// if(pid == -1) {
+		// 	killPhilosophers();
+		// return -1;
+		// }
 		addPhilosopher();
+
 	}
 	// philosopherCount = INITIALNUMBER;
 	return 0;
@@ -248,12 +257,18 @@ int philosopherInit() {
 
 void killPhilosophers() {
 	int i = 0;
+	// while(philosopherPID[i] > 0) {
+	// 		printString("MUERTE");
+
+	// 	sys_killProcess(philosopherPID[i++]);
+	// 		printString("MUERTE");
+
+	// }
+	// 	printString("MUERTE");
 	for(int i = 0; i < philosopherCount; i++) {
 		sys_killProcess(philosopherPID[i]);
-		destroyCondVars(canEat[i]);
 	}
 	sys_getActivePID(&i);
-	destroyMutex(MUTEXKEY);
 	sys_killProcess(i);
 	while(1);
 }
