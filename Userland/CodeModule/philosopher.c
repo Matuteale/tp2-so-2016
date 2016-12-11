@@ -191,8 +191,8 @@ int addPhilosopher() {
 			pid = sys_addProcess("philo", philosopher, 1);
 			printString("PID ");
 			printDec(pid);
-			while(philosopherPID[philosopherCount+i] != 0) i++;
-			philosopherPID[philosopherCount+i] = pid;
+			while(philosopherPID[i] != 0) {i++;}
+			philosopherPID[i] = pid;
 			if(pid == -1) {
 				return -1;
 			}
