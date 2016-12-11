@@ -172,7 +172,7 @@ void * kernelSchedToUser(){
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
-	ncPrint("D");
+	ncPrintDec(currentProcess->PID);
 	return currentProcess->stack;
 }
 
