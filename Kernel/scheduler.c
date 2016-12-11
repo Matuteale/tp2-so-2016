@@ -159,9 +159,10 @@ void wakeOrContinueSleep(Process * process){
 		if(timertickFlags[i] == 0){
 			waitingMilis[i] = waitingMilis[i] - 1;
 			timertickFlags[i] = 7000;
+			ncPrint("holaaas");
 		}
-		if(waitingMilis[i] <= 0){
-			ncPrint("chau");
+		if(waitingMilis[i] < 0){
+			ncPrint("chaaaaaaaaau");
 			changeProcessState(waitingProcess[i], READY);
 			timertickFlags[i] = 7000;
 			waitingProcess[i] = 666;
@@ -211,7 +212,6 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
 	if(currentProcess->PID == pid){
 		currentProcess->state = state;
-		ncPrintDec(currentProcess->state);
 		return;
 	}
 	Process * auxProcess = currentProcess->next;
