@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "philosopher.h"
 #define MAX_PHILOSPHERS 8
-#define INITIALNUMBER 4
+#define INITIALNUMBER 5
 #define MUTEXKEY 9
 int left(int i);
 int right(int i);
