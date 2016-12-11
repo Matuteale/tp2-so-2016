@@ -27,6 +27,6 @@ void setName(Process * process, char * name);
 uint64_t * getWaitingProcess();
 uint64_t * getWaitingMilis();
 
-void wakeOrContinueSleep(Process * process);
+void wakeOrContinueSleep();
 
 #endif

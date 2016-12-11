@@ -128,6 +128,7 @@ void setNextProcess(){
 	Process * current = currentProcess;
 	Process * auxProcess = NULL;
 	if(current != NULL && current->next != NULL){
+		wakeOrContinueSleep();
 		do {
 			auxProcess = current;
 			current = current->next;
@@ -137,7 +138,6 @@ void setNextProcess(){
 				current = current->next;
 				freeProcess(aux->PID);
 			}
-			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED && currentProcess->state != SLEEPING){
 			currentProcess->state = READY;
@@ -147,27 +147,23 @@ void setNextProcess(){
 	}
 }
 
-void wakeOrContinueSleep(Process * process){
-	if(process->state == SLEEPING){
-		int i = 0;
-		for(; i < 16; i++){
-			if(waitingProcess[i] = process->PID){
-				break;
+void wakeOrContinueSleep(){
+	for(int i = 0; i < 16; i++){
+		if(waitingProcess[i] != 666){
+			timertickFlags[i]--;
+			ncPrintDec(timertickFlags[i]);
+			ncPrint("-");
+			if(timertickFlags[i] == 0){
+				waitingMilis[i] = waitingMilis[i] - 1;
+				timertickFlags[i] = 7000;
+				ncPrint("holaaas");
 			}
-		}
-		timertickFlags[i]--;
-		ncPrintDec(timertickFlags[i]);
-		ncPrint("-");
-		if(timertickFlags[i] == 0){
-			waitingMilis[i] = waitingMilis[i] - 1;
-			timertickFlags[i] = 7000;
-			ncPrint("holaaas");
-		}
-		if(waitingMilis[i] < 0){
-			ncPrint("chaaaaaaaaau");
-			changeProcessState(waitingProcess[i], READY);
-			timertickFlags[i] = 7000;
-			waitingProcess[i] = 666;
+			if(waitingMilis[i] < 0){
+				ncPrint("chaaaaaaaaau");
+				changeProcessState(waitingProcess[i], READY);
+				timertickFlags[i] = 7000;
+				waitingProcess[i] = 666;
+			}
 		}
 	}
 }
