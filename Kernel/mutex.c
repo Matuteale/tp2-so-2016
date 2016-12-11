@@ -38,7 +38,7 @@ int createMutexK(int key) {
 }
 
 uint8_t getMutex(int key) {
-	//ncPrint("get");
+	ncPrint("get");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			return mutexes[id].taken;	// key already being used
@@ -47,7 +47,7 @@ uint8_t getMutex(int key) {
 }
 
 void destroyMutexK(int key) {
-	//ncPrint("destroy");
+	ncPrint("des");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			mutexes[id].key = 0;
@@ -75,7 +75,7 @@ int mutexLockK(int key) {
 }
 
 void mutexUnlockK(int key) {
-	//ncPrint("UNLOCK");
+	ncPrint("UNLOCK");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			mutexes[id].taken = 0;	// key already being used
