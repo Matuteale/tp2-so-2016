@@ -164,6 +164,7 @@ void wakeOrContinueSleep(Process * process){
 			changeProcessState(waitingProcess[i], READY);
 			timertickFlags[i] = 7000;
 			waitingProcess[i] = 666;
+			ncPrint("chau");
 		}
 	}
 }
