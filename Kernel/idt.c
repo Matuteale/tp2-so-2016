@@ -192,11 +192,11 @@ void sleepProcess(long milis){
   Process * process = getCurrentProcess();
   int * waitingProcess = getWaitingProcess();
   int * waitingMilis = getWaitingMilis();
-  ncPrint("hola");
+  ncPrintDec(waitingProcess[0]);
   int flag = 0;
   int i = 0;
   for(; i < 16; i++){
-    if(waitingProcess[i] == -1){
+    if(waitingProcess[i] == 666){
       flag = 1;
       break;
     }

@@ -163,7 +163,7 @@ void wakeOrContinueSleep(Process * process){
 		if(waitingMilis[i] <= 0){
 			changeProcessState(waitingProcess[i], READY);
 			timertickFlags[i] = 7000;
-			waitingProcess[i] = -1;
+			waitingProcess[i] = 666;
 		}
 	}
 }
@@ -198,12 +198,11 @@ void nullProcess()
 }
 
 uint64_t * getWaitingProcess(){
-	ncPrintDec(waitingProcess[0]);
-	return &(waitingProcess[0]);
+	return waitingProcess;
 }
 
 uint64_t * getWaitingMilis(){
-	return &(waitingMilis[0]);
+	return waitingMilis;
 }
 
 
@@ -225,7 +224,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 				}
 			}
 			timertickFlags[i] = 7000;
-			waitingProcess[i] = -1;
+			waitingProcess[i] = 666;
 		}
 		auxProcess->state = state;
 	}
