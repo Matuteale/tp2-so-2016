@@ -33,27 +33,28 @@ char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
 
 void diningPhilosophers() {
-	int a = 1;
 	mutex = MUTEXKEY;
 	createMutex(MUTEXKEY);
 	if(philosopherInit() == -1) {
 	 	return;
  	}
+ 	char philControl = 0;
 
 	 while(1) {
 	 	// printString("a");
 		 // render();
 	 	// sleep(1 	);
 	 	render();
-	 	printDec(a++);
 
-	 	char c = getChar();
+	 	get_input(&philControl);
+	 	printString(&philControl);
 	 	switch(c) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
 	 		case 'p': printPIDs(); break;
 	 	}
+	 	philControl = 0;
 	 	// clearscreen();
 	 }
 }
