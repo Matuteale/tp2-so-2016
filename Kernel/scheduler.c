@@ -214,7 +214,9 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
-	auxProcess->state = state;
+	if(auxProcess->PID == pid){
+		auxProcess->state = state;
+	}
 	ncPrint("CAMBIO3");
 }
 
