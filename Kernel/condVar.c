@@ -38,8 +38,6 @@ void createCondVarsK(int key) {
         if(condVars[id].key == 0) {
             condVars[id].key = key;
             condVars_counter++;
-            // ncPrint("Se creo la key = ");
-            // ncPrintDec(condVars[id].key);
             return id;  // returns mutex id
         }
     }
@@ -77,6 +75,7 @@ void signalCondVarK(int condVar) {
 	int pid = removeFromCondVarQueue(cv);
     // ncPrintDec(pid);
     if(pid != -1) {
+        ncPrintDec(pid);
       changeProcessState(pid,2);    //ready
       // ncPrint(" READY FREDDY");
     }
