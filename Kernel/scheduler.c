@@ -217,6 +217,15 @@ void changeProcessState(pid_t pid, ProcessState state) {
 		auxProcess = auxProcess->next;
 	}
 	if(auxProcess->PID == pid){
+		if(auxProcess->state == SLEEPING && state != SLEEPING){
+			for(; i < 16; i++){
+				if(waitingProcess[i] = process->PID){
+					break;
+				}
+			}
+			timertickFlags[i] = 7000;
+			waitingProcess[i] = -1;
+		}
 		auxProcess->state = state;
 	}
 }
