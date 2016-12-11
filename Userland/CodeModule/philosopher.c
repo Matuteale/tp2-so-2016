@@ -72,7 +72,8 @@ void printPIDs() {
 }
 
 void philosopher() {
-	int id = sys_getActivePID();
+	int id;
+	sys_getActivePID(&id);
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
