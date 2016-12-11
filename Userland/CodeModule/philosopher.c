@@ -46,7 +46,7 @@ void diningPhilosophers() {
 	 	//sys_sleep(10000);
 	 	render();
 
-	 	get_input(&commandPhil);
+	 	commandPhil = getChar();
 
 		printString(&commandPhil);
 	 	switch(commandPhil) {
