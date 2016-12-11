@@ -59,12 +59,12 @@ void waitCondVarK(int condVar, int mutex){
     // ncPrintDec(condVar);
     // ncPrint(" Key ");
     // ncPrintDec(cv->key);
-    pauseScheduler();
+    //pauseScheduler();
     cv->mutex = mutex;
     addToCondVarQueueK(cv,getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked
     mutexUnlockK(mutex);
-    unpauseScheduler();
+    //unpauseScheduler();
     // ncPrint(" VA A YIELDEAR");
     //ncPrint("yield");
     yield();
