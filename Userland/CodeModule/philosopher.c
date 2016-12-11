@@ -26,7 +26,7 @@ int canEat[MAX_PHILOSPHERS];
 volatile State philosopherState[MAX_PHILOSPHERS];
 volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
-int philosopherCount = 0;
+int philosopherCount;
 int auxCounter;
 
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
@@ -154,9 +154,7 @@ void render() {
 			printString("Free\n");
 		else {
 			printString("Owner ");
-			printDec(forks
-				[forks
-				[i]]);
+			printDec(forks[forks[i]]);
 		printString("\n");
 		}
 
@@ -194,7 +192,6 @@ int addPhilosopher() {
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
-			initCondVar(&canEat[philosopherCount]);
 			pid = sys_addProcess("philo", philosopher, 1);
 			printString("PID ");
 			printDec(pid);
@@ -216,7 +213,7 @@ int philosopherInit() {
 
 	int i;
 	int pid;
-
+	initCondVar();
 	philosopherCount = 0;
 	mutex = 0;
 	if(mutex == -1) {
