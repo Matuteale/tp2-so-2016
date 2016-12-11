@@ -242,7 +242,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0xE: getActivePID((int *) arg_1);break;
     case 0xF: mutexLockK(arg_1);break;
     case 0x10: mutexUnlockK(arg_1);break;
-    case 0x11: initCondVarK((int)arg_1);break;
+    case 0x11: initializeCVs();break;
     case 0x12: waitCondVarK((int) arg_1, (int) arg_2);break;
     case 0x13: signalCondVarK((int) arg_1);break;
     case 0x14: openMessageQ(arg_1);ncPrint(((MessageQ *)arg_2)->name);break;
