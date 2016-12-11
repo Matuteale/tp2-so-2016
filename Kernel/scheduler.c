@@ -131,6 +131,7 @@ void setNextProcess(){
 		do {
 			auxProcess = current;
 			current = current->next;
+			ncPrintDec(current->state);
 			if(current->state == DYING){
 				Process * aux = current;
 				current = current->next;
