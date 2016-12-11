@@ -174,7 +174,7 @@ int removePhilosopher() {
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
-			destroyCondVars(canEat[philosopherCount]);
+			destroyCondVars(canEat[philosopherCount - 1]);
 			philosopherCount--;
 			mutexUnlock(mutex);
 			return 0;
