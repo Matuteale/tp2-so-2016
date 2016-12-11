@@ -30,7 +30,7 @@ int counter = 0;
 
 int waitingProcess[16];
 int waitingMilis[16];
-int timertickFlag = 7000;
+int timertickFlags[16] = {7000};
 
 extern void * kernelStack;
 
@@ -158,10 +158,10 @@ void wakeOrContinueSleep(Process * process){
 				break;
 			}
 		}
-		timertickFlag--;
-		if(timertickFlag == 0){
+		timertickFlag[i]--;
+		if(timertickFlag[i] == 0){
 			waitingMilis[i] = waitingMilis[i] - 1;
-			timertickFlag = 7000;
+			timertickFlag[i] = 7000;
 		}
 		if(waitingMilis[i] <= 0){
 			changeProcessState(waitingProcess[i], READY);
