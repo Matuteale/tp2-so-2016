@@ -28,9 +28,9 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-int waitingProcess[16] = {1};
-int waitingMilis[16] = {1};
-int timertickFlags[16] = {7000};
+uint64_t waitingProcess[16] = {666};
+uint64_t waitingMilis[16] = {0};
+uint64_t timertickFlags[16] = {7000};
 
 extern void * kernelStack;
 
@@ -197,12 +197,12 @@ void nullProcess()
 	};
 }
 
-int * getWaitingProcess(){
+uint64_t * getWaitingProcess(){
 	ncPrintDec(waitingProcess[0]);
 	return &(waitingProcess[0]);
 }
 
-int * getWaitingMilis(){
+uint64_t * getWaitingMilis(){
 	return &(waitingMilis[0]);
 }
 
@@ -234,8 +234,6 @@ void changeProcessState(pid_t pid, ProcessState state) {
 
 void initializeScheduler() {
 
-	fillWaitings();
-
 	addProcess(nullProcess, "Null", 1);
 
 	addProcess(codeModuleAddress, "Shell", 0);
@@ -244,14 +242,6 @@ void initializeScheduler() {
 
 	scheduleNow();
 }
-
-void fillWaitings(){
-	for(int i = 0; i < 16; i++){
-		waitingProcess[i] = -1;
-		waitingMilis[i] = -1;
-	}
-}
-
 
 
 pid_t addProcess(void * entry_point, char * name, int isBackground) {
