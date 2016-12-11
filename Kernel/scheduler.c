@@ -158,7 +158,7 @@ void wakeOrContinueSleep(Process * process){
 				break;
 			}
 		}
-		timertickFlags[i] = ;
+		timertickFlags[i]--;
 		if(timertickFlags[i] == 0){
 			waitingMilis[i] = waitingMilis[i] - 1;
 			timertickFlags[i] = 7000;
