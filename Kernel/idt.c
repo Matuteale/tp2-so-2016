@@ -205,6 +205,7 @@ void sleepProcess(long milis){
     waitingMilis[i] = milis;
     changeProcessState(waitingProcess[i], SLEEPING);
   }
+  ncPrint("Sleeping");
 }
 
 void listIPCs(char ** ipcs, char * names, int * values)
