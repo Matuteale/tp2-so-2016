@@ -48,7 +48,7 @@ void diningPhilosophers() {
 
 	 	get_input(&philControl);
 	 	printString(&philControl);
-	 	switch(c) {
+	 	switch(philControl) {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
