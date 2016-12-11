@@ -154,14 +154,14 @@ void wakeOrContinueSleep(){
 			ncPrintDec(timertickFlags[i]);
 			ncPrint("-");
 			if(timertickFlags[i] == 0){
-				waitingMilis[i] = waitingMilis[i] - 1;
-				timertickFlags[i] = 7000;
+				waitingMilis[i] = waitingMilis[i] - 55;
+				timertickFlags[i] = 1;
 				ncPrint("holaaas");
 			}
 			if(waitingMilis[i] < 0){
 				ncPrint("chaaaaaaaaau");
 				changeProcessState(waitingProcess[i], READY);
-				timertickFlags[i] = 7000;
+				timertickFlags[i] = 1;
 				waitingProcess[i] = 666;
 			}
 		}
@@ -223,7 +223,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 					break;
 				}
 			}
-			timertickFlags[i] = 7000;
+			timertickFlags[i] = 1;
 			waitingProcess[i] = 666;
 		}
 		auxProcess->state = state;
@@ -234,7 +234,7 @@ void fillWaitings(){
 	for(int i = 0; i < 16; i++){
 		waitingProcess[i] = 666;
 		waitingMilis[i] = 0;
-		timertickFlags[i] = 7000;
+		timertickFlags[i] = 1;
 	}
 }
 
