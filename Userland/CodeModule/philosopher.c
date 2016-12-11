@@ -41,9 +41,6 @@ void diningPhilosophers() {
  	}
 
 	 while(1) {
-	 	// printString("a");
-		 // render();
-	 	//sys_sleep(10000);
 	 	render();
 
 	 	commandPhil = getChar();
@@ -57,7 +54,6 @@ void diningPhilosophers() {
 	 		default: break;
 	 	}
 	 	commandPhil = 0;
-	 	// clearscreen();
 	 }
 }
 
@@ -241,14 +237,7 @@ int philosopherInit() {
 		}
 	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
-		// pid = sys_addProcess("philo", philosopher, 1);
-		// philosopherPID[i] = pid;
-		// if(pid == -1) {
-		// 	killPhilosophers();
-		// return -1;
-		// }
 		addPhilosopher();
-
 	}
 	// philosopherCount = INITIALNUMBER;
 	return 0;
@@ -256,14 +245,6 @@ int philosopherInit() {
 
 void killPhilosophers() {
 	int i = 0;
-	// while(philosopherPID[i] > 0) {
-	// 		printString("MUERTE");
-
-	// 	sys_killProcess(philosopherPID[i++]);
-	// 		printString("MUERTE");
-
-	// }
-	// 	printString("MUERTE");
 	for(int i = 0; i < philosopherCount; i++) {
 		sys_killProcess(philosopherPID[i]);
 		destroyCondVars(canEat[i]);
