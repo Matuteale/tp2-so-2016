@@ -137,7 +137,9 @@ void render() {
 	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
+
 	for(int i = 0; i < philosopherCount; i++) {
+		printDec(canEat[i]);
 		printString("Philosopher ");
 		printDec(i);
 		printString(": ");
