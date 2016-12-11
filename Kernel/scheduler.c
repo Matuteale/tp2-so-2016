@@ -210,11 +210,6 @@ int * getWaitingMilis(){
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
-	// ncPrint("CAMBIO");
-	if(currentProcess->state == DYING){
-		ncPrint("muriendo");
-	}
-	ncPrint("CAMBIO");
 	Process * auxProcess = currentProcess;
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
@@ -222,7 +217,6 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	if(auxProcess->PID == pid){
 		auxProcess->state = state;
 	}
-	ncPrint("CAMBIO3");
 }
 
 
