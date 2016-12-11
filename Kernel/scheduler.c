@@ -198,11 +198,11 @@ void nullProcess()
 }
 
 int * getWaitingProcess(){
-	return waitingProcess;
+	return &waitingProcess;
 }
 
 int * getWaitingMilis(){
-	return waitingMilis;
+	return &waitingMilis;
 }
 
 
