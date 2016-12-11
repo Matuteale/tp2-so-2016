@@ -46,6 +46,7 @@ void diningPhilosophers() {
 	 	//sys_sleep(10000);
 	 	clearscreen();
 	 	render();
+	 	printString("hola");
 
 	 	get_input(&commandPhil);
 
@@ -56,7 +57,7 @@ void diningPhilosophers() {
 	 		case 's': removePhilosopher(); break;
 	 		case 'p': printPIDs(); break;
 	 	}
-	 	commandPhil = 'a';
+	 	commandPhil = 0;
 	 	// clearscreen();
 	 }
 }
