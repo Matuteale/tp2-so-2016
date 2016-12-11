@@ -8,7 +8,7 @@
 #include <mutex.h>
 
 mutex_t mutexes[10];
-int mutexes_counter;
+int mutexes_counter = 0;
 
 void initializeMutexes() {
 	for(int id = 0 ; id < 10 ; id++) {
@@ -68,7 +68,6 @@ int mutexLockK(int key) {
 	while(enterCritRegion(&mutexLock)) {
 		// ncPrint(" LOCKEADO MAQUILINCE ");
 		// ncPrintDec(getCurrentPID());
-		ncPrint("yieldokgoggggoogoooogoogogogogogo");
 		yield();
 	}
 	// ncPrint(" Lo agarro ");
