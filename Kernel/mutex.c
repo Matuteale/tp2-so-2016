@@ -59,6 +59,7 @@ void destroyMutexK(int key) {
 int mutexLockK(int key) {
 	ncPrint("lock");
 	uint8_t mutexLock = getMutex(key);
+	ncPrintDec(mutexLock);
 	// ncPrint("ENTRO MIERDA ");
 	// ncPrint("MUTEX: ");
     // ncPrintHex(&mutexLock);
@@ -70,7 +71,6 @@ int mutexLockK(int key) {
 		ncPrint("yield");
 		yield();
 	}
-	ncPrint("yield2");
 	// ncPrint(" Lo agarro ");
 	// ncPrintDec(getCurrentPID());
 	// ncPrint(" ");
