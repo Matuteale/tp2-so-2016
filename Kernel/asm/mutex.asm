@@ -4,13 +4,13 @@ GLOBAL leaveCritRegion
 	enterCritRegion:
 		mov al,1
 		XCHG al,[rdi]
-		CMP al,0
-		JNE enterCritRegionRejected
-		RET
+		cmp al,0
+		jne enterCritRegionRejected
+		ret
 	leaveCritRegion:
 		mov [rdi], BYTE 0
-		RET
+		ret
 
 	enterCritRegionRejected:
 		mov rax, 1
-		RET
+		ret
