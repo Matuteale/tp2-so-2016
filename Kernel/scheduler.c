@@ -28,9 +28,9 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-uint64_t waitingProcess[16] = {666};
-uint64_t waitingMilis[16] = {0};
-uint64_t timertickFlags[16] = {7000};
+uint64_t waitingProcess[16];
+uint64_t waitingMilis[16];
+uint64_t timertickFlags[16];
 
 extern void * kernelStack;
 
@@ -149,8 +149,7 @@ void setNextProcess(){
 
 void wakeOrContinueSleep(){
 	for(int i = 0; i < 16; i++){
-		ncPrintDec(waitingProcess[i]);
-		if(0){
+		if(waitingProcess[i] != 666){
 			timertickFlags[i]--;
 			ncPrintDec(timertickFlags[i]);
 			ncPrint("-");
@@ -231,8 +230,18 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	}
 }
 
+void fillWaitings(){
+	for(int = 0; i < 16; i++){
+		waitingProcess[i] = 666;
+		waitingMilis[i] = 0;
+		timertickFlags[i] = 7000;
+	}
+}
+
 
 void initializeScheduler() {
+
+	fillWaitings();
 
 	addProcess(nullProcess, "Null", 1);
 
