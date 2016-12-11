@@ -139,7 +139,7 @@ void setNextProcess(){
 			}
 			wakeOrContinueSleep(current);
 		} while(current->state != RUNNING && current->state != READY);
-		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED){
+		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED && currentProcess->state != SLEEPING){
 			currentProcess->state = READY;
 		}
 		currentProcess = current;
