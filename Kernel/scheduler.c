@@ -210,7 +210,11 @@ int * getWaitingMilis(){
 
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
-	Process * auxProcess = currentProcess;
+	if(currentProcess->PID == pid){
+		currentProcess->state = state;
+		return;
+	}
+	Process * auxProcess = currentProcess->next;
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
