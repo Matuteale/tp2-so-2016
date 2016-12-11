@@ -45,7 +45,7 @@ void diningPhilosophers() {
 		 // render();
 	 	// sleep(1 	);
 	 	render();
-
+	 	sys_sleep(1000);
 	 	get_input(&philControl);
 	 	printString(&philControl);
 	 	switch(philControl) {
