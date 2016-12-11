@@ -146,7 +146,7 @@ void setNextProcess(){
 		currentProcess->state = RUNNING;
 		ncPrint(currentProcess->name);
 		ncPrintDec(currentProcess->foreground);
-		//ncPrint(currentProcess->name);
+		ncPrint(currentProcess->name);
 	}
 }
 
