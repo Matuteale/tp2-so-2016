@@ -124,17 +124,13 @@ void try(int id) {
 }
 
 int left(int id) {
-	if(philosopherCount % 2){
-		return (id + philosopherCount) % philosopherCount;
-	}
+
 	return (id + philosopherCount - 1) % philosopherCount;
 
 }
 
 int right(int id) {
-	if(philosopherCount % 2){
-		return (id) % philosopherCount;
-	}
+
 	return (id + 1) % philosopherCount;
 
 }
