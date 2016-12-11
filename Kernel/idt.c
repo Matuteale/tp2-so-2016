@@ -204,7 +204,6 @@ void sleepProcess(long milis){
   if(flag){
     waitingProcess[i] = process->PID;
     waitingMilis[i] = milis;
-    ncPrintDec(waitingProcess[i]);
     changeProcessState(waitingProcess[i], SLEEPING);
   }
 }
