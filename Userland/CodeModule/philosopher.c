@@ -47,7 +47,7 @@ void diningPhilosophers() {
 	 	render();
 	 	printString("hola");
 
-	 	get_input(&commandPhil);
+	 	getChar(&commandPhil);
 
 		printString(&commandPhil);
 	 	switch(commandPhil) {
@@ -88,8 +88,8 @@ void philosopher() {
 }
 
 void takeForks(int id) {
-	if(id == 8) printString("Se bugeo");
-	mutexLock(&mutex);
+	if(id >= 8) printString("Se bugeo");
+	mutexLock(mutex);
 	philosopherState[id] = HUNGRY;
 	try(id);
 	if(philosopherState[id] == EATING) {
