@@ -56,6 +56,7 @@ void diningPhilosophers() {
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
 	 		case 'p': printPIDs(); break;
+	 		default: break;
 	 	}
 	 	commandPhil = 0;
 	 	// clearscreen();
