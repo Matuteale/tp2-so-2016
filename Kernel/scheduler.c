@@ -28,8 +28,8 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-int waitingProcess[16];
-int waitingMilis[16];
+int waitingProcess[16] = {-1};
+int waitingMilis[16] = {0};
 int timertickFlags[16] = {7000};
 
 extern void * kernelStack;
