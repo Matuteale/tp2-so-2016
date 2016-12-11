@@ -99,9 +99,9 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 
 int checkIfSchedulerPaused() {
 	if(schedulerPaused == 0){
-			ncPrint("Estoy pausado");
+			//ncPrint("Estoy pausado");
 	}else{
-		ncPrint("No estoy pausado");
+		//ncPrint("No estoy pausado");
 	}
 	return schedulerPaused;
 }
@@ -144,7 +144,7 @@ void setNextProcess(){
 		currentProcess = current;
 		currentProcess->state = RUNNING;
 		//ncPrint(currentProcess->name);
-		ncPrint("C");
+		//ncPrint("C");
 	}
 }
 
@@ -172,7 +172,7 @@ void * kernelSchedToUser(){
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
-	ncPrintDec(currentProcess->PID);
+	//ncPrintDec(currentProcess->PID);
 	return currentProcess->stack;
 }
 

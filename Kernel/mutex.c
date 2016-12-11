@@ -38,7 +38,7 @@ int createMutexK(int key) {
 }
 
 uint8_t getMutex(int key) {
-	ncPrint("get");
+	//ncPrint("get");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			return mutexes[id].taken;	// key already being used
@@ -57,7 +57,7 @@ void destroyMutexK(int key) {
 }
 
 int mutexLockK(int key) {
-	ncPrint("lock");
+	//ncPrint("lock");
 	uint8_t mutexLock = getMutex(key);
 	ncPrintDec(mutexLock);
 	// ncPrint("ENTRO MIERDA ");
@@ -68,7 +68,7 @@ int mutexLockK(int key) {
 	while(enterCritRegion(&mutexLock)) {
 		// ncPrint(" LOCKEADO MAQUILINCE ");
 		// ncPrintDec(getCurrentPID());
-		ncPrint("yield");
+		//ncPrint("yield");
 		yield();
 	}
 	// ncPrint(" Lo agarro ");
@@ -77,7 +77,7 @@ int mutexLockK(int key) {
 }
 
 void mutexUnlockK(int key) {
-	ncPrint("UNLOCK");
+	//ncPrint("UNLOCK");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			mutexes[id].taken = 0;	// key already being used
