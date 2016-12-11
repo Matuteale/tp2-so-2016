@@ -369,25 +369,13 @@ int removeProcess(pid_t pid) {
 	while(process->PID != pid){ //Process=processToRemove
 		process = process->next;
 	}
-	if(pid == process->PID){
-		process->state = DYING;
-		process->foreground = 0;
-		processAux = process;
-		if(shellProcess != NULL){
-			process = shellProcess;
-		}else{
-			do{
-				process = process->next;
-			} while(process->PID != processAux->PID && process->state != READY);
-		}
-		if(pid != process->PID && (process->state == BLOCKED || process->state == READY)){
-			process->foreground = 1;
-			process->state = READY;
-		}
-	}else{
-		process->state = DYING;
-		process->foreground = 0;
+	if(process->foreground){
+		shellProcess->foreground = 1;
+		shellProcess->state = READY;
 	}
+	process->state = DYING;
+	process->foreground = 0;
+
 	//clearscreen();
 	return processAux->PID;
 }
