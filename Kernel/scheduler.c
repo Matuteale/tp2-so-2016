@@ -150,18 +150,19 @@ void setNextProcess(){
 void wakeOrContinueSleep(){
 	for(int i = 0; i < 16; i++){
 		if(waitingProcess[i] != 666){
-			timertickFlags[i]--;
-			ncPrintDec(timertickFlags[i]);
+			//timertickFlags[i]--;
+			ncPrintDec(waitingMilis[i]);
 			ncPrint("-");
-			if(timertickFlags[i] == 0){
-				waitingMilis[i] = waitingMilis[i] - 55;
-				timertickFlags[i] = 1;
-				ncPrint("holaaas");
-			}
+			// if(timertickFlags[i] == 0){
+			// 	waitingMilis[i] = waitingMilis[i] - 55;
+			// 	timertickFlags[i] = 1;
+			// 	ncPrint("holaaas");
+			// }
+			waitingMilis[i] = waitingMilis[i] - 55;
 			if(waitingMilis[i] < 0){
 				ncPrint("chaaaaaaaaau");
 				changeProcessState(waitingProcess[i], READY);
-				timertickFlags[i] = 1;
+				//timertickFlags[i] = 1;
 				waitingProcess[i] = 666;
 			}
 		}
@@ -223,7 +224,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 					break;
 				}
 			}
-			timertickFlags[i] = 1;
+			//timertickFlags[i] = 1;
 			waitingProcess[i] = 666;
 		}
 		auxProcess->state = state;
@@ -234,7 +235,7 @@ void fillWaitings(){
 	for(int i = 0; i < 16; i++){
 		waitingProcess[i] = 666;
 		waitingMilis[i] = 0;
-		timertickFlags[i] = 1;
+		//timertickFlags[i] = 1;
 	}
 }
 
