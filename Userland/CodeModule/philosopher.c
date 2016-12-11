@@ -40,7 +40,7 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	sys_sleep(600);
+	 	//sys_sleep(600);
 	 	render();
 	 	get_input(&philControl);
 	 	printString(&philControl);
