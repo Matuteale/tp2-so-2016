@@ -30,6 +30,7 @@ int philosopherCount;
 int auxCounter;
 char commandPhil = 0;
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
+int notAddingPhil = 1;
 
 
 void diningPhilosophers() {
@@ -69,7 +70,7 @@ void printPIDs() {
 void philosopher() {
 	int id = philosopherCount++;
 	while(1) {
-		if(philosopherCount > 1){
+		if(philosopherCount > 1 && notAddingPhil){
 			//sys_sleep(8000);
 			takeForks(id);
 			//sys_sleep(8000);
@@ -185,6 +186,7 @@ int addPhilosopher() {
 	if(philosopherCount == MAX_PHILOSPHERS) {
 		return -1;
 	}
+	notAddingPhil = 0;
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
@@ -199,6 +201,7 @@ int addPhilosopher() {
 			mutexUnlock(mutex);
 			int aux = philosopherCount;
 			while(aux == philosopherCount){}
+			notAddingPhil = 1;
 			return 0;
 		}
 		mutexUnlock(mutex);
