@@ -69,9 +69,9 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		sys_sleep(500);
+		//sys_sleep(500);
 		takeForks(id);
-		sys_sleep(500);
+		//sys_sleep(500);
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;
