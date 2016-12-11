@@ -245,7 +245,9 @@ int philosopherInit() {
 		// 	killPhilosophers();
 		// return -1;
 		// }
+		int aux = philosopherCount;
 		addPhilosopher();
+		while(aux == philosopherCount){}
 
 	}
 	// philosopherCount = INITIALNUMBER;
