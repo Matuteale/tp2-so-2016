@@ -148,6 +148,7 @@ void setNextProcess(){
 }
 
 void wakeOrContinueSleep(Process * process){
+	ncPrint("chau");
 	if(process->state == SLEEPING){
 		int i = 0;
 		for(; i < 16; i++){
@@ -164,7 +165,6 @@ void wakeOrContinueSleep(Process * process){
 			changeProcessState(waitingProcess[i], READY);
 			timertickFlags[i] = 7000;
 			waitingProcess[i] = 666;
-			ncPrint("chau");
 		}
 	}
 }
