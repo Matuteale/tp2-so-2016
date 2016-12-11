@@ -72,7 +72,7 @@ void printPIDs() {
 }
 
 void philosopher() {
-	int id = philosopherCount++;
+	int id = sys_getActivePID();
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
@@ -206,6 +206,7 @@ int addPhilosopher() {
 			if(pid == -1) {
 				return -1;
 			}
+			philosopherCount++;
 			mutexUnlock(mutex);
 			return 0;
 		}
