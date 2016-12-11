@@ -28,9 +28,9 @@ char stackkkk[STACKKKK];
 
 int counter = 0;
 
-uint64_t waitingProcess[16];
-uint64_t waitingMilis[16];
-uint64_t timertickFlags[16];
+int waitingProcess[16];
+int waitingMilis[16];
+int timertickFlags[16];
 
 extern void * kernelStack;
 
@@ -198,11 +198,11 @@ void nullProcess()
 	};
 }
 
-uint64_t * getWaitingProcess(){
+int * getWaitingProcess(){
 	return waitingProcess;
 }
 
-uint64_t * getWaitingMilis(){
+int * getWaitingMilis(){
 	return waitingMilis;
 }
 
