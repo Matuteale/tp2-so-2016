@@ -149,7 +149,7 @@ void setNextProcess(){
 
 void wakeOrContinueSleep(){
 	for(int i = 0; i < 16; i++){
-		if(waitingProcess[i] != 666){
+		if(waitingProcess[i] == 666){
 			timertickFlags[i]--;
 			ncPrintDec(timertickFlags[i]);
 			ncPrint("-");
