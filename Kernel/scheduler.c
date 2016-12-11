@@ -131,7 +131,7 @@ void setNextProcess(){
 		do {
 			auxProcess = current;
 			current = current->next;
-			ncPrintDec(current->state);
+			//ncPrintDec(current->state);
 			if(current->state == DYING){
 				Process * aux = current;
 				current = current->next;
@@ -145,7 +145,7 @@ void setNextProcess(){
 		currentProcess = current;
 		currentProcess->state = RUNNING;
 		//ncPrint(currentProcess->name);
-		ncPrint(currentProcess->name);
+		//ncPrint(currentProcess->name);
 	}
 }
 
@@ -210,6 +210,9 @@ int * getWaitingMilis(){
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
 	// ncPrint("CAMBIO");
+	if(currentProcess->state == DYING){
+		ncPrint("muriendo");
+	}
 	ncPrint("CAMBIO");
 	Process * auxProcess = currentProcess;
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
