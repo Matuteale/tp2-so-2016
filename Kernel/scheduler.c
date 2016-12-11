@@ -30,7 +30,6 @@ int counter = 0;
 
 int waitingProcess[16];
 int waitingMilis[16];
-int timertickFlags[16];
 
 extern void * kernelStack;
 
@@ -98,11 +97,6 @@ void * fillStackFrame(void * entryPoint, void * userStack) {
 }
 
 int checkIfSchedulerPaused() {
-	if(schedulerPaused == 0){
-		//ncPrint("Estoy pausado");
-	}else{
-		//ncPrint("No estoy pausado");
-	}
 	return schedulerPaused;
 }
 
@@ -119,8 +113,6 @@ void * userSchedToKernel(uint64_t * rsp){
 	if (currentProcess != 0) { //NULL
 		currentProcess->stack = rsp;
 	}
-	// ncPrint("PID: ");
-	// ncPrintDec(currentProcess->PID);
 	return kernelStack;
 }
 
@@ -150,19 +142,9 @@ void setNextProcess(){
 void wakeOrContinueSleep(){
 	for(int i = 0; i < 16; i++){
 		if(waitingProcess[i] != 666){
-			//timertickFlags[i]--;
-			ncPrintDec(waitingMilis[i]);
-			ncPrint("-");
-			// if(timertickFlags[i] == 0){
-			// 	waitingMilis[i] = waitingMilis[i] - 55;
-			// 	timertickFlags[i] = 1;
-			// 	ncPrint("holaaas");
-			// }
 			waitingMilis[i] = waitingMilis[i] - 20;
 			if(waitingMilis[i] < 0){
-				ncPrint("chaaaaaaaaau");
 				changeProcessState(waitingProcess[i], READY);
-				//timertickFlags[i] = 1;
 				waitingProcess[i] = 666;
 			}
 		}
@@ -173,7 +155,6 @@ void * kernelSchedToUser(){
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
-	//ncPrintDec(currentProcess->PID);
 	return currentProcess->stack;
 }
 
@@ -224,7 +205,6 @@ void changeProcessState(pid_t pid, ProcessState state) {
 					break;
 				}
 			}
-			//timertickFlags[i] = 1;
 			waitingProcess[i] = 666;
 		}
 		auxProcess->state = state;
@@ -235,7 +215,6 @@ void fillWaitings(){
 	for(int i = 0; i < 16; i++){
 		waitingProcess[i] = 666;
 		waitingMilis[i] = 0;
-		//timertickFlags[i] = 1;
 	}
 }
 
