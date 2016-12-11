@@ -209,6 +209,7 @@ int * getWaitingMilis(){
 void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
 	// ncPrint("CAMBIO");
+	ncPrint("CAMBIO");
 	Process * auxProcess = currentProcess;
 	while(auxProcess->PID != pid) {
 		auxProcess = auxProcess->next;
@@ -385,7 +386,6 @@ int removeProcess(pid_t pid) {
 		process->foreground = 0;
 	}
 	//clearscreen();
-	scheduleNow();
 	return processAux->PID;
 }
 
