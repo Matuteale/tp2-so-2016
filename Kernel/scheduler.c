@@ -158,10 +158,10 @@ void wakeOrContinueSleep(Process * process){
 				break;
 			}
 		}
-		timertickFlag[i]--;
-		if(timertickFlag[i] == 0){
+		timertickFlags[i] = ;
+		if(timertickFlags[i] == 0){
 			waitingMilis[i] = waitingMilis[i] - 1;
-			timertickFlag[i] = 7000;
+			timertickFlags[i] = 7000;
 		}
 		if(waitingMilis[i] <= 0){
 			changeProcessState(waitingProcess[i], READY);
