@@ -40,7 +40,7 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	sys_sleep(1000);
+	 	sys_sleep(600);
 	 	render();
 	 	get_input(&philControl);
 	 	printString(&philControl);
@@ -69,9 +69,9 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		//sys_sleep(500);
+		sys_sleep(400);
 		takeForks(id);
-		//sys_sleep(500);
+		sys_sleep(400);
 		putForks(id);
 		if(aux == 0) aux++;
 		else aux = 0;
