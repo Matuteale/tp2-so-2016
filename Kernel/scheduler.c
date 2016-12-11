@@ -127,10 +127,8 @@ void * userSchedToKernel(uint64_t * rsp){
 void setNextProcess(){
 	Process * current = currentProcess;
 	Process * auxProcess = NULL;
-	ncPrint("A");
 	if(current != NULL && current->next != NULL){
 		do {
-			ncPrint("B");
 			auxProcess = current;
 			current = current->next;
 			if(current->state == DYING){
@@ -174,6 +172,7 @@ void * kernelSchedToUser(){
 	if(currentProcess == NULL){
 		return kernelStack;
 	}
+	ncPrint("D");
 	return currentProcess->stack;
 }
 
