@@ -143,7 +143,7 @@ int right(int id) {
 }
 
 void render() {
-	//clearscreen();
+	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
@@ -174,6 +174,7 @@ int removePhilosopher() {
 	}
 
 	while (1) {
+		printString("hola");
 		mutexLock(mutex);
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
 			forks[philosopherCount - 1] = -1;
