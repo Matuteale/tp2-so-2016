@@ -385,6 +385,7 @@ int removeProcess(pid_t pid) {
 		process->foreground = 0;
 	}
 	//clearscreen();
+	scheduleNow();
 	return processAux->PID;
 }
 
