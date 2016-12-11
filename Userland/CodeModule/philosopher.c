@@ -47,7 +47,7 @@ void diningPhilosophers() {
 	 	render();
 	 	printString("hola");
 
-	 	get_input(&commandPhil);
+	 	getChar(&commandPhil);
 
 		printString(&commandPhil);
 	 	switch(commandPhil) {
@@ -143,7 +143,7 @@ int right(int id) {
 }
 
 void render() {
-	//clearscreen();
+	clearscreen();
 	printString("Press q to quit\n");
 	printString("Press s to add a philosopher or w to remove one\n");
 	for(int i = 0; i < philosopherCount; i++) {
