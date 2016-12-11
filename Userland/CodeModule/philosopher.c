@@ -28,6 +28,7 @@ volatile int forks[MAX_PHILOSPHERS];
 pid_t philosopherPID[MAX_PHILOSPHERS];
 int philosopherCount;
 int auxCounter;
+int addingPhil = 0;
 
 char * stateStrings[3] = { "Hungry", "Thinking", "Eating" };
 
@@ -70,7 +71,7 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		if(philosopherCount > 1){
+		if(philosopherCount > 1 && !addingPhil){
 		//sys_sleep(400);
 			takeForks(id);
 		//sys_sleep(400);
@@ -181,10 +182,11 @@ int removePhilosopher() {
 }
 
 int addPhilosopher() {
-	int pid, i=0;
+	int pid, i = 0;
 	if(philosopherCount == MAX_PHILOSPHERS) {
 		return -1;
 	}
+	addingPhil = 1;
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
@@ -196,9 +198,10 @@ int addPhilosopher() {
 			if(pid == -1) {
 				return -1;
 			}
-			int aux = philosopherCount;
 			mutexUnlock(mutex);
+			int aux = philosopherCount;
 			while(philosopherCount == aux);
+			addingPhil = 0;
 			return 0;
 		}
 		mutexUnlock(mutex);
