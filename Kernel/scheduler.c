@@ -211,7 +211,7 @@ void changeProcessState(pid_t pid, ProcessState state) {
 	int i;
 	if(currentProcess->PID == pid){
 		currentProcess->state = state;
-		ncPrint(currentProcess->name);
+		ncPrintDec(currentProcess->state);
 		return;
 	}
 	Process * auxProcess = currentProcess->next;
