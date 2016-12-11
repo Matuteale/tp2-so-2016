@@ -198,6 +198,8 @@ int addPhilosopher() {
 			if(pid == -1) {
 				return -1;
 			}
+			int aux = philosopherCount;
+			while(philosopherCount == aux);
 			mutexUnlock(mutex);
 			// philosopherCount++;
 			return 0;
