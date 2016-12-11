@@ -73,19 +73,13 @@ void printPIDs() {
 
 void philosopher() {
 	int id = philosopherCount++;
-	int aux = 0;
 	while(1) {
-		// if(id == 3 + aux || id == 3 - aux) {
 		if(philosopherCount > 1){
-			sys_sleep(8000);
+			//sys_sleep(8000);
 			takeForks(id);
-			sys_sleep(8000);
+			//sys_sleep(8000);
 			putForks(id);
-			if(aux == 0) aux++;
-			else aux = 0;
 		}
-		// }
-
 	}
 }
 
@@ -98,8 +92,6 @@ void takeForks(int id) {
 		mutexUnlock(mutex);
 	} else {
 		while(philosopherState[id] != EATING) {
-			// printString("Va a esperar ");
-			// printDec(id);
 			waitCondVar(canEat[id], mutex);
 			try(id);
 			if(philosopherState[id] == EATING) {
@@ -122,11 +114,8 @@ void putForks(int id) {
 void try(int id) {
 	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
 		philosopherState[id] = EATING;
-		// render();
 		forks[left(id)] = id;
 		forks[id] = id;
-		// printString("Va a signalear   ");
-		// printDec(id);
 		signalCondVar(canEat[id]);
 	}
 
@@ -142,8 +131,9 @@ int left(int id) {
 
 int right(int id) {
 	if(id == (philosopherCount - 1)){
-		return id + 1;
+		return 0;
 	}
+	return id + 1;
 	//return (id + 1) % philosopherCount;
 
 }
@@ -203,7 +193,7 @@ int addPhilosopher() {
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
-			initCondVar(&canEat[philosopherCount]);
+			initCondVar(&(canEat[philosopherCount]));
 			pid = sys_addProcess("philo", philosopher, 1);
 			printString("PID ");
 			printDec(pid);

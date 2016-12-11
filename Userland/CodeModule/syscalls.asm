@@ -440,7 +440,7 @@ sys_sleep:
   pop rbp
   ret
 
-  createMutex:
+createMutex:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
@@ -453,7 +453,7 @@ sys_sleep:
   pop rbp
   ret
 
-  createCondVars:
+createCondVars:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
@@ -466,7 +466,7 @@ sys_sleep:
   pop rbp
   ret
 
-   destroyCondVars:
+destroyCondVars:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux
@@ -479,7 +479,7 @@ sys_sleep:
   pop rbp
   ret
 
-  destroyMutex:
+destroyMutex:
   push rbp
   mov rbp, rsp
            ;Se usa la convecion de linux

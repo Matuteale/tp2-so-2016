@@ -38,7 +38,6 @@ int createMutexK(int key) {
 }
 
 uint8_t getMutex(int key) {
-	//ncPrint("get");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			return mutexes[id].taken;	// key already being used
@@ -47,7 +46,6 @@ uint8_t getMutex(int key) {
 }
 
 void destroyMutexK(int key) {
-	ncPrint("des");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			mutexes[id].key = 0;
@@ -57,37 +55,16 @@ void destroyMutexK(int key) {
 }
 
 int mutexLockK(int key) {
-	//ncPrint("lock");
 	uint8_t mutexLock = getMutex(key);
-	//ncPrintDec(mutexLock);
-	// ncPrint("ENTRO MIERDA ");
-	// ncPrint("MUTEX: ");
-    // ncPrintHex(&mutexLock);
-    // ncPrint(" valor ");
-     // ncPrintDec(mutexLock);
 	while(enterCritRegion(&mutexLock)) {
-		// ncPrint(" LOCKEADO MAQUILINCE ");
-		// ncPrintDec(getCurrentPID());
 		yield();
 	}
-	// ncPrint(" Lo agarro ");
-	// ncPrintDec(getCurrentPID());
-	// ncPrint(" ");
 }
 
 void mutexUnlockK(int key) {
-	//ncPrint("UNLOCK");
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
 			mutexes[id].taken = 0;	// key already being used
 		}
-	// ncPrint("libero");
-	// ncPrint("MUTEX: ");
- //    ncPrintHex(mutex);
- //    ncPrint(" ");
- //    ncPrintDec(*mutex);
- //    ncPrint( "liberado por ");
- //    ncPrintDec(getCurrentPID());
- //        ncPrint(" // ");
 	}
 }
