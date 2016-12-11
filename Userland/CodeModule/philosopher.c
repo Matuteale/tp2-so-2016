@@ -75,7 +75,6 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
-		printString("Se bugeo");
 		sys_sleep(8000);
 		takeForks(id);
 		sys_sleep(30000*(id+1));
