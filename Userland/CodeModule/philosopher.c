@@ -70,14 +70,12 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		// if(id == 3 + aux || id == 3 - aux) {
+		if(philosopherCount > 1){
 		//sys_sleep(400);
-		takeForks(id);
+			takeForks(id);
 		//sys_sleep(400);
-		putForks(id);
-		if(aux == 0) aux++;
-		else aux = 0;
-		// }
-
+			putForks(id);
+		}
 	}
 }
 
@@ -199,8 +197,8 @@ int addPhilosopher() {
 				return -1;
 			}
 			int aux = philosopherCount;
-			while(philosopherCount == aux);
 			mutexUnlock(mutex);
+			while(philosopherCount == aux);
 			// philosopherCount++;
 			return 0;
 		}
