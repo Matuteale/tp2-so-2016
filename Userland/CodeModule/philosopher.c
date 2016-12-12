@@ -55,12 +55,10 @@ void diningPhilosophers() {
 }
 
 void printPIDs() {
-	clearscreen();
 	for(int i = 0; i < MAX_PHILOSPHERS; i++) {
 		printDec(philosopherPID[i]);
 		printString("-");
 	}
-	while(1);
 }
 
 void philosopher() {
