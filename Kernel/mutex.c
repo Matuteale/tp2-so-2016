@@ -23,7 +23,7 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	valAux = itoa(mutexes[i].taken, val);
   	 	while(valAux[size] != 0){size++;}
   	 	memcpy(&(values[from*11]), valAux, size);
-  	 	memcpy(&(values[from*11 + size]), &c, 1);
+  	 	memcpy(&(values[from*11 + size + 1]), &c, 1);
   		from++;
   		size = 0;
 		}
