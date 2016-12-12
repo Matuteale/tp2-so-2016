@@ -11,7 +11,6 @@ typedef struct Scheduler {
 Scheduler * newScheduler();
 
 pid_t addProcess(void * entryPoint, char * name, int isBackground);
-//void removeProcess(Process * process);
 int removeProcess(pid_t pid);
 void * mem_alloc();
 void * userSchedToKernel(uint64_t * rsp);
@@ -35,5 +34,6 @@ void pauseScheduler();
 void unpauseScheduler();
 
 void initializeScheduler();
+void freeProcess(pid_t pid);
 
 #endif
