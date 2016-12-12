@@ -246,12 +246,12 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		while(!strcmp(auxProcess->name, name) && currentProcess->PID != auxProcess->PID);
 		if(currentProcess->PID != auxProcess->PID){
 			if(isBackground){
-				return;
+				return auxProcess->PID;
 			}
 			currentProcess->foreground = 0;
 			currentProcess->state = BLOCKED;
 			auxProcess->foreground = 1;
-			return;
+			return auxProcess->PID;
 		}
 	}
 	Process * new_process = alloc();
