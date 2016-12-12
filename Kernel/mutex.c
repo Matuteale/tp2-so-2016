@@ -14,6 +14,7 @@ int mutexes_counter = 0;
 int getUsedMutexes(char * names, int * values, int from){
 	char * valAux;
 	char * mutexName = "Mutex";
+	char c = 0;
 	int size = 0;
   for (int i = 0; i < 10; ++i){
   	if(mutexes[i].key != 0){
@@ -21,7 +22,8 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	char val[11];
   	 	valAux = itoa(mutexes[i].taken, val);
   	 	while(valAux[size] != 0){size++;}
-  	 	memcpy(&(values[from*11]), valAux, size + 1);
+  	 	memcpy(&(values[from*11]), valAux, size);
+  	 	memcpy(&(values[from*11 + size]), &c, 1);
   		from++;
   		size = 0;
 		}
