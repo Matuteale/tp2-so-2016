@@ -6,7 +6,7 @@
 void * memset(void * destination, int32_t character, uint64_t length);
 void * memcpy(void * destination, const void * source, uint64_t length);
 int strcmp(const char * str1, const char * str2);
-
+char * itoa(int i, char b[]);
 char *cpuVendor(char *result);
 
 #endif

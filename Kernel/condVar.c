@@ -20,7 +20,7 @@ int getUsedCondVars(char * names, char * values, int from){
         if(condVars[i].key != 0){
             memcpy(&(names[from*11]), condVarName, 8);
             char val[11];
-            valAux = itoa(condVars[i].size, val);
+            valAux = (char *) itoa(condVars[i].size, val);
             while(valAux[size] != 0){size++;}
             memcpy(&(values[from*11]), valAux, size + 1);
             from++;
@@ -42,7 +42,7 @@ void initCondVarK(cond_t * condVar) {
 	condVar->size = 0;
 }
 
-void createCondVarsK(int key) {
+int createCondVarsK(int key) {
     int id;
     if(key < 1) {
         return -3;
