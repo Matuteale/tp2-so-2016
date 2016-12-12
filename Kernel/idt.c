@@ -227,7 +227,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x16: closeMessageQ(arg_1);break;
     case 0x17: sendMessageQ(arg_1, arg_2);break;
     case 0x18: receiveMessageQ(arg_1, arg_2);break;
-    case 0x19: getOpenedMessageQs(arg_1);break;
+    case 0x19: getOpenedMessageQs(arg_1, arg_2, arg_3);break;
     case 0x20: sleepProcess((long) arg_1);break;
     case 0x22: createMutexK((int)arg_1);break;
     case 0x23: createCondVarsK((int)arg_1);break;
