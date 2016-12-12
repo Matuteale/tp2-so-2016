@@ -5,7 +5,7 @@
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-  int values[64];
+  char values[704];
   char * ipcs[64];
   char names[704];
   int i = 0;
@@ -19,11 +19,7 @@ void ipcs()
   while(ipcs[i] != 0){
     printString(&names[i*11]);
     printString(" - ");
-    if(values[i] != 0 && values[i] != 1){
-      printString(values[i]);
-    }else{
-      printDec(values[i]);
-    }
+    printString(&values[i*11]);
     printString("\n");
     i++;
   }

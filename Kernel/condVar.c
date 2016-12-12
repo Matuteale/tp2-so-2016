@@ -12,6 +12,24 @@
 cond_t condVars[30];
 int condVars_counter;
 
+int getUsedCondVars(char * names, int * values, int from){
+    char * condVarName = "CondVar";
+    char * valAux;
+    int size = 0;
+    for (int i = 0; i < 30; ++i){
+        if(condVars[i].key != 0){
+            memcpy(&(names[from*11]), condVarName, 8);
+            char val[11];
+            valAux = itoa(condVars[i].size, val);
+            while(valAux[size] != 0){size++;}
+            memcpy(&(values[from*11]), valAux, size);
+            from++;
+            size = 0;
+        }
+    }
+  return from;
+}
+
 void initalizeCVs() {
     for(int id = 0 ; id < 30 ; id++) {
         initCondVarK(&condVars[id]);

@@ -11,18 +11,19 @@ static char * msgQNames[MAX_QUEUES];
 
 void destroyMessageQ(MessageQ * msgQ);
 
-int getOpenedMessageQs(char * names){
-  int j = 0;
+int getOpenedMessageQs(char * names, char * values, int from){
+  char * val = "msgQueue";
   for (int i = 0; i < MAX_QUEUES; ++i)
   {
     if(msgQNames[i] != 0){
       int size = 0;
       while(msgQNames[i][size++] != 0);
-      memcpy(&(names[j*11]), msgQNames[i], size);
-      j++;
+      memcpy(&(names[from*11]), msgQNames[i], size);
+      memcpy(&(values[from*11]), val, 9);
+      from++;
     }
   }
-  return j;
+  return from;
 }
 
 void openMessageQ(char * name){

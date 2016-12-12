@@ -6,17 +6,24 @@
 #include <scheduler.h>
 #include <naiveConsole.h>
 #include <mutex.h>
+#include <lib.h>
 
 mutex_t mutexes[10];
 int mutexes_counter = 0;
 
 int getUsedMutexes(char * names, int * values, int from){
+	char * valAux;
 	char * mutexName = "Mutex";
+	int size = 0;
   for (int i = 0; i < 10; ++i){
   	if(mutexes[i].key != 0){
   	 	memcpy(&(names[from*11]), mutexName, 6);
-  	 	values[from] = mutexes[i].taken;
+  	 	char val[11];
+  	 	valAux = itoa(mutexes[i].taken, val);
+  	 	while(valAux[size] != 0){size++;}
+  	 	memcpy(&(values[from*11]), valAux, size);
   		from++;
+  		size = 0;
 		}
   }
   return from;

@@ -188,16 +188,11 @@ void sleepProcess(long milis){
   }
 }
 
-void listIPCs(char ** ipcs, char * names, int * values)
+void listIPCs(char ** ipcs, char * names, char * values)
 {
-  int i = getOpenedMessageQs(names);
-  int j = 0;
-  while(j < i){
-    char * val = "msgQueue";
-    values[j] = val;
-    j++;
-  }
+  int i = getOpenedMessageQs(names, values, 0);
   i = getUsedMutexes(names, values, i);
+  i = getUsedCondVars(names, values, i);
   ipcs[i] = 0;
 }
 
@@ -236,7 +231,7 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x20: sleepProcess((long) arg_1);break;
     case 0x22: createMutexK((int)arg_1);break;
     case 0x23: createCondVarsK((int)arg_1);break;
-    case 0x21: listIPCs((char **) arg_1,(char *) arg_2, (int *) arg_3);break;
+    case 0x21: listIPCs((char **) arg_1,(char *) arg_2, (char *) arg_3);break;
     case 0x24: destroyCVK((int)arg_1);break;
     case 0x25: destroyMutexK((int)arg_1);break;
     case 0x26: minimize();break;
