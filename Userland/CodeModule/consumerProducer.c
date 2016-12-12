@@ -47,7 +47,7 @@ void mainProdCons() {
 	mutexUnlock(mutexp);
 	mutexLock(mutexp);
 	consumerPID = sys_addProcess("consumer", consumer, 1);
-	mutexLock(mutexp);
+	mutexUnLock(mutexp);
 	printString("Press q to exit\n");
 	while(1){
 		control();
