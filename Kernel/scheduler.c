@@ -314,7 +314,6 @@ void freeProcess(Process * process, Process * prevProcess) {
 	if(process->state == DYING){
 		prevProcess->next = process->next;
 		freeMem(process);
-		ncPrint("freeing");
 		freeProcesses++;
 	}
 }
