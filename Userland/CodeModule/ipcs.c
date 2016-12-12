@@ -19,7 +19,7 @@ void ipcs()
   while(ipcs[i] != 0){
     printString(&names[i*11]);
     printString(" - ");
-    printString(&values[11]);
+    printString(&values[0]);
     printString("\n");
     i++;
   }
