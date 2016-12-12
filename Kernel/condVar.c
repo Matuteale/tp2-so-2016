@@ -14,7 +14,7 @@ int condVars_counter;
 
 int getUsedCondVars(char * names, int * values, int from){
     char * condVarName = "CondVar";
-    char * valAux;
+    const char * valAux;
     int size = 0;
     for (int i = 0; i < 30; ++i){
         if(condVars[i].key != 0){
