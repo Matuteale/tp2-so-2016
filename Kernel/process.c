@@ -45,7 +45,7 @@ void initializeProcessTable(void * entryPoint) {
 
 
 Process * newProcess(void * entryPoint) {
-	Process * process;
+	Process * process = 0;
 	process->entryPoint = entryPoint;
 	process->nOfPages = 0;
 	process->stack = alloc();
