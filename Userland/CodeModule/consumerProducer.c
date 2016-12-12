@@ -70,8 +70,7 @@ void * producer(void *arg) {
 		put(i);
 		char msg[15];
 		char strInt[10];
-		char * strIntAux;
-		strIntAux = itoa(i, strInt);
+		char * strIntAux = (char *) itoa(i, strInt);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), strIntAux);
@@ -94,7 +93,7 @@ void * consumer(void * arg) {
 		printf("Consume ");
 		char msg[15];
 		char strInt[10];
-		char * strIntAux = itoa(tmp, strInt);
+		char * strIntAux = (char *) itoa(tmp, strInt);
 		char * aux = "Consume: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), strIntAux);
