@@ -117,11 +117,9 @@ void * userSchedToKernel(uint64_t * rsp){
 
 void setNextProcess(){
 	Process * current = currentProcess;
-	Process * auxProcess = NULL;
 	if(current != NULL && current->next != NULL){
 		wakeOrContinueSleep();
 		do {
-			auxProcess = current;
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
