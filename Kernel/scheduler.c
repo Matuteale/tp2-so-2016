@@ -186,32 +186,26 @@ int * getWaitingMilis(){
 
 
 void changeProcessState(pid_t pid, ProcessState state) {
+	int i = 0;
+	if(currentProcess->PID == pid){
+		currentProcess->state = state;
+		return;
+	}
 	Process * auxProcess = currentProcess->next;
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
-	auxProcess->state = state;
-
-	// int i = 0;
-	// if(currentProcess->PID == pid){
-	// 	currentProcess->state = state;
-	// 	return;
-	// }
-	// Process * auxProcess = currentProcess->next;
-	// while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
-	// 	auxProcess = auxProcess->next;
-	// }
-	// if(auxProcess->PID == pid){
-	// 	if(auxProcess->state == SLEEPING && state != SLEEPING){
-	// 		for(; i < 16; i++){
-	// 			if(waitingProcess[i] == process->PID){
-	// 				break;
-	// 			}
-	// 		}
-	// 		waitingProcess[i] = 666;
-	// 	}
-	// 	auxProcess->state = state;
-	// }
+	if(auxProcess->PID == pid){
+		if(auxProcess->state == SLEEPING && state != SLEEPING){
+			for(; i < 16; i++){
+				if(waitingProcess[i] == process->PID){
+					break;
+				}
+			}
+			waitingProcess[i] = 666;
+		}
+		auxProcess->state = state;
+	}
 }
 
 void fillWaitings(){
