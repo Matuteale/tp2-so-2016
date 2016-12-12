@@ -17,6 +17,7 @@ void killPhilosophers();
 int addPhilosopher();
 int removePhilosopher();
 void render();
+void try(int pid);
 
 
 int mutex;
