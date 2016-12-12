@@ -50,7 +50,7 @@ void diningPhilosophers() {
 	 		case 'q': killPhilosophers(); return; break;
 	 		case 'w': addPhilosopher(); break;
 	 		case 's': removePhilosopher(); break;
-	 		case 'p': printPIDs(); break;
+	 		//case 'p': printPIDs(); break;
 	 		case 'm': minimize(); break;
 	 		default: philControl = 0; break;
 	 	}
