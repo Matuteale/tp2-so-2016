@@ -52,7 +52,7 @@ int createMutexK(int key) {
 uint8_t getMutex(int key) {
 	for(int id = 0 ; id < 10 ; id++) {
 		if(mutexes[id].key == key) {
-			return &(mutexes[id].taken);	// key already being used
+			return mutexes[id].taken;	// key already being used
 		}
 	}
 }
@@ -67,8 +67,8 @@ void destroyMutexK(int key) {
 }
 
 int mutexLockK(int key) {
-	uint8_t * mutexLock = getMutex(key);
-	while(mutexLock[0]) {
+	uint8_t mutexLock = getMutex(key);
+	while(enterCritRegion(mutexLock)) {
 		yield();
 	}
 }
