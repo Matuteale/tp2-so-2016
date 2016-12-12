@@ -19,7 +19,7 @@ void ipcs()
   while(ipcs[i] != 0){
     printString(&names[i*11]);
     printString(" - ");
-    if(strcmp((char *) values[10], "msqQueue")){
+    if(values[i] != 0 && values[i] != 1){
       printString(values[i]);
     }else{
       printDec(values[i]);
