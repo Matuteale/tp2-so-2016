@@ -63,6 +63,7 @@ uint8_t getMutex(int key) {
 			return mutexes[id].taken;	// key already being used
 		}
 	}
+  return 2;
 }
 
 void destroyMutexK(int key) {
@@ -74,7 +75,7 @@ void destroyMutexK(int key) {
 	}
 }
 
-int mutexLockK(int key) {
+void mutexLockK(int key) {
 	uint8_t mutexLock = getMutex(key);
 	while(enterCritRegion(&mutexLock)) {
 		yield();
