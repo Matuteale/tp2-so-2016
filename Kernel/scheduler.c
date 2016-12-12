@@ -242,8 +242,8 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		Process * auxProcess = currentProcess;
 		do{auxProcess = auxProcess->next;}
 		while(!strcmp(auxProcess->name, name) && currentProcess->PID != auxProcess->PID);
-		ncPrint("Hola");
 		if(currentProcess->PID != auxProcess->PID && auxProcess->state != DYING){
+			ncPrint("Hola");
 			if(isBackground){
 				return auxProcess->PID;
 			}
