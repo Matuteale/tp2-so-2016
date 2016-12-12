@@ -117,14 +117,16 @@ void * userSchedToKernel(uint64_t * rsp){
 
 void setNextProcess(){
 	Process * current = currentProcess;
+	Process * auxPrev = NULL;
 	if(current != NULL && current->next != NULL){
 		wakeOrContinueSleep();
 		do {
+			auxPrev = current;
 			current = current->next;
 			if(current->state == DYING){
 				Process * aux = current;
 				current = current->next;
-				freeProcess(aux->PID);
+				freeProcess(aux, auxPrev);
 			}
 		} while(current->state != RUNNING && current->state != READY);
 		if(currentProcess->state != DYING && currentProcess->state != NIL && currentProcess->state != BLOCKED && currentProcess->state != SLEEPING){
@@ -309,15 +311,9 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 }
 
-void freeProcess(pid_t pid) {
-	Process * prevProcess = currentProcess;
-	Process * processToRemove;
-	while(prevProcess->next->PID != pid) {
-		prevProcess = prevProcess->next;
-	}
-	processToRemove = prevProcess->next;
-	prevProcess->next = processToRemove->next;
-	freeMem(processToRemove);
+void freeProcess(Process * process, Process * prevProcess) {
+	prevProcess->next = process->next;
+	freeMem(process);
 	ncPrint("freeing");
 	freeProcesses++;
 }

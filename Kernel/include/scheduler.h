@@ -34,6 +34,6 @@ void pauseScheduler();
 void unpauseScheduler();
 
 void initializeScheduler();
-void freeProcess(pid_t pid);
+void freeProcess(Process * process, Process * prevProcess);
 
 #endif
