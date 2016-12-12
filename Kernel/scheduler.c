@@ -2,6 +2,7 @@
 #include <naiveConsole.h>
 #include <stddef.h>
 #include <idt.h>
+#include <lib.h>
 
 
 #define STACKKKK 4096
