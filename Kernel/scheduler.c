@@ -254,6 +254,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			auxProcess->foreground = 1;
 			return auxProcess->PID;
 		}
+		ncPrint(auxProcess->name);
 	}
 	Process * new_process = alloc();
 
