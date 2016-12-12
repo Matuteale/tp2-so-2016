@@ -70,7 +70,8 @@ void * producer(void *arg) {
 		put(i);
 		char msg[15];
 		char strInt[10];
-		char * strIntAux = itoa(i, strInt);
+		char * strIntAux;
+		strIntAux = itoa(i, strInt);
 		char * aux = "Produce: ";
 		strcpy(msg, aux);
 		strcpy(&(msg[9]), strIntAux);
