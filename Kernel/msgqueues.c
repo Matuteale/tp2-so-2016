@@ -19,7 +19,6 @@ int getOpenedMessageQs(char * names){
       int size = 0;
       while(msgQNames[i][size++] != 0);
       memcpy(&(names[j*11]), msgQNames[i], size);
-      ncPrint(&(names[j*11]));
       j++;
     }
   }
@@ -46,7 +45,6 @@ void openMessageQ(char * name){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      ncPrint(auxQueue->name);
       return;
     }
   }
