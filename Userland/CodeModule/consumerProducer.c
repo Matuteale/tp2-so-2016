@@ -113,7 +113,7 @@ void * consumer(void * arg) {
 	printString(&commandControl);
 	switch(commandControl) {
 		case 'm': minimize(); break;
-		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); destroyCondVars(empty); destroyCondVars(fill); sys_killProcess(currentPID); break;
+		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); destroyMutex(mutexp); destroyCondVars(empty); destroyCondVars(fill); sys_killProcess(currentPID); break;
 		default: commandControl = 0; break;
  	}
 }

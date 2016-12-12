@@ -116,7 +116,7 @@ void destroyCVK(int key) {
             condVars[id].key = 0;
             condVars[id].size = 0;
             condVars[id].index = 0;
-            for(int i = 0; i<MAX_COND_VAR_QUEUE_SIZE; i++) {
+            for(int i = 0; i < MAX_COND_VAR_QUEUE_SIZE; i++) {
                 condVars[id].queue[i] = 0;
             }
         }
