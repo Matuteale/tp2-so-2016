@@ -38,7 +38,6 @@ Process * newProcess();
 void initializeProcessTable(void * entryPoint);
 void intializeProcess(void * entryPoint);
 void * toStackAddress(void * page);
-void * fillStackFrame(void * entryPoint, void * stack);
 void * OSalloc(Process * process);
 static pid_t getPID(Process * process);
 static pid_t getParentPID(Process * process);
