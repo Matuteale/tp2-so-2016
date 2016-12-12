@@ -21,7 +21,7 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	char val[11];
   	 	valAux = itoa(mutexes[i].taken, &(val[0]));
   	 	while(valAux[size] != '\0'){size++;}
-  	 	ncPrintDec(size);
+  	 	ncPrintDec(from);
   	 	memcpy(&(values[from*11]), valAux, size);
   	 	ncPrint(&(values[from*11]));
   		from++;
