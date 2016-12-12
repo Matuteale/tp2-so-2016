@@ -12,4 +12,5 @@ int mutexLockK(int key);
 void mutexUnlockK(int key);
 void destroyMutexK(int key);
 int getUsedMutexes(char * names, char * values, int from);
+int createMutexK(int key);
 #endif
