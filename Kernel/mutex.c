@@ -14,7 +14,7 @@ int mutexes_counter = 0;
 int getUsedMutexes(char * names, int * values, int from){
 	char * valAux;
 	char * mutexName = "Mutex";
-	char c = 0;
+	char c = '\0';
 	int size = 0;
   for (int i = 0; i < 10; ++i){
   	if(mutexes[i].key != 0){
