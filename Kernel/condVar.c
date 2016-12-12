@@ -75,7 +75,7 @@ void waitCondVarK(int condVar, int mutex){
     cond_t * cv = getCV(condVar);
     pauseScheduler();
     cv->mutex = mutex;
-    addToCondVarQueueK(cv,getCurrentPID());
+    addToCondVarQueueK(cv, getCurrentPID());
     changeProcessState(getCurrentPID(),1); //blocked
     mutexUnlockK(mutex);
     unpauseScheduler();

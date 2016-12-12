@@ -20,5 +20,6 @@ void initCondVarK(cond_t * condVar);
 void waitCondVarK(int condVar, int mutex);
 void signalCondVarK(int condVar);
 int getUsedCondVars(char * names, char * values, int from);
+void addToCondVarQueueK(cond_t * condVar, int pid);
 
 #endif
