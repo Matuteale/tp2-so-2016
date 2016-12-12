@@ -22,5 +22,6 @@ void signalCondVarK(int condVar);
 int getUsedCondVars(char * names, char * values, int from);
 void addToCondVarQueueK(cond_t * condVar, int pid);
 int removeFromCondVarQueue(cond_t * condVar);
+void initalizeCVs();
 
 #endif
