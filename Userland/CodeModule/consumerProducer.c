@@ -48,7 +48,7 @@ void mainProdCons() {
 	mutexLock(mutexp);
 	consumerPID = sys_addProcess("consumer", consumer, 1);
 	mutexUnlock(mutexp);
-	printString("Press q to exit\n");
+	printString("Press q to exit or m to minimize\n");
 	while(1){
 		control();
 		receiveMessageQ("pcMQ", msgBuffer);
