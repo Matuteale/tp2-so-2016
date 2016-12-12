@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <condVar.h>
 #include <mutex.h>
+#include <lib.h>
 
 cond_t condVars[30];
 int condVars_counter;
