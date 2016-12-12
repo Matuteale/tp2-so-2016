@@ -65,9 +65,9 @@ void * producer(void *arg) {
 	while (1) {
 		mutexLock(mutexp);
 		while(count == BUFFER_SIZE) {
-			// printString(" Queue llena ");
 			waitCondVar(empty, mutexp);
 		}
+		sys_sleep(800);
 		put(i);
 		char msg[15];
 		char strInt[10];
@@ -81,30 +81,19 @@ void * producer(void *arg) {
 		printString("\n");
 		sendMessageQ(pcMQ, "P");
 		signalCondVar(fill);
-		// printString("P");
-		// signalCondVar(fill);
-		// waitCondVar(empty, mutexp);
-		// mutexUnlock(mutexp);
 	}
 	return arg;
 }
 
 void * consumer(void * arg) {
 	int i;
-	// printString(" A ");
 	while(1) {
-		// printString(" B ");
 		mutexLock(mutexp);
-		// printString("C");
-		// signalCondVar(empty);
-		// waitCondVar(fill, mutexp);
-		// printString(" C ");
 		while(count == 0) {
 			waitCondVar(fill, mutexp);
 		}
-		// printString(" D ");
+		sys_sleep(800);
 		int tmp = get();
-		// printString(" E ");
 		printf("Consume ");
 		char msg[15];
 		char strInt[10];
@@ -114,14 +103,9 @@ void * consumer(void * arg) {
 		strcpy(&(msg[9]), strIntAux);
 		sendMessageQ("pcMQ", &msg);
 		printString("Produce: ");
-		// printString(" F ");
 		printDec(tmp);
-		// printString(" G ");
 		printString("\n");
-		// printString(" R ");
-		// sendMessageQ("pcMQ", "C");
 		signalCondVar(empty);
-		// printString(" Z ");
 		mutexUnlock(mutexp);
 	}
 	return arg;
