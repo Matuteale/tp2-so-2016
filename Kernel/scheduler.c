@@ -318,6 +318,7 @@ void freeProcess(pid_t pid) {
 	processToRemove = prevProcess->next;
 	prevProcess->next = processToRemove->next;
 	freeMem(processToRemove);
+	ncPrint("freeing");
 	freeProcesses++;
 }
 
