@@ -23,7 +23,7 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	while(valAux[size] != '\0'){size++;}
   	 	ncPrintDec(from);
   	 	memcpy(&(values[from*11]), val, size);
-  	 	ncPrint(&(values[from*11]));
+  	 	ncPrintDec(values[from*11]);
   		from++;
   		size = 0;
 		}
