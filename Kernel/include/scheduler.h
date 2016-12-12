@@ -31,4 +31,7 @@ void fillWaitings();
 void wakeOrContinueSleep();
 void minimize();
 
+void pauseScheduler();
+void unpauseScheduler();
+
 #endif
