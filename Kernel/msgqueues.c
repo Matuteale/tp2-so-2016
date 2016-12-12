@@ -13,14 +13,15 @@ void destroyMessageQ(MessageQ * msgQ);
 
 int getOpenedMessageQs(char * names, char * values, int from){
   char * val = "msgQueue";
+  int size = 0;
   for (int i = 0; i < MAX_QUEUES; ++i)
   {
     if(msgQNames[i] != 0){
-      int size = 0;
       while(msgQNames[i][size++] != 0);
       memcpy(&(names[from*11]), msgQNames[i], size);
       memcpy(&(values[from*11]), val, 9);
       from++;
+      size = 0;
     }
   }
   return from;
