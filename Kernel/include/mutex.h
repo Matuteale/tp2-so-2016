@@ -8,8 +8,8 @@ typedef struct {
 
 void initializeMutexes();
 uint8_t getMutex(int key);
-int mutexLock(uint8_t * mutexLock);
-void mutexUnlock(uint8_t * mutex);
+int mutexLockK(int key);
+void mutexUnlockK(int key);
 void destroyMutexK(int key);
 int getUsedMutexes(char * names, char * values, int from);
 #endif
