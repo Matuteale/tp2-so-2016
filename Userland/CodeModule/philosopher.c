@@ -18,6 +18,7 @@ int addPhilosopher();
 int removePhilosopher();
 void render();
 void try(int pid);
+void printPIDs();
 
 
 int mutex;
@@ -65,7 +66,6 @@ void printPIDs() {
 
 void philosopher() {
 	int id = philosopherCount++;
-	int aux = 0;
 	while(1) {
 		if(philosopherCount > 1 && !addingPhil){
 			sys_sleep(2000);
