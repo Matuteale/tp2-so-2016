@@ -159,6 +159,7 @@ int removePhilosopher() {
 
 	while (1) {
 		mutexLock(mutex);
+		printString("jjjjj");
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
