@@ -25,6 +25,7 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	ncPrintDec(size);
   	 	memcpy(&(values[from*11]), valAux, size);
   	 	memcpy(&(values[from*11 + size]), &c, 1);
+  	 	ncPrint(&(values[from*11]));
   		from++;
   		size = 0;
 		}
