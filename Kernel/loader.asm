@@ -1,5 +1,5 @@
-global loader
-global scheduleNow
+GLOBAL loader
+GLOBAL scheduleNow
 GLOBAL yield
 extern main
 extern initializeKernelBinary
@@ -97,7 +97,7 @@ scheduleNow:
     popa
 
     iretq
-    
+
 yield:
     int 0x20
     ret
