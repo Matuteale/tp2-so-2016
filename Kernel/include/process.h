@@ -39,7 +39,5 @@ void initializeProcessTable(void * entryPoint);
 void intializeProcess(void * entryPoint);
 void * toStackAddress(void * page);
 void * OSalloc(Process * process);
-static pid_t getPID(Process * process);
-static pid_t getParentPID(Process * process);
 
 #endif

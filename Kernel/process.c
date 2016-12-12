@@ -36,35 +36,28 @@ typedef struct StackFrame {
 }StackFrame;
 
 
-	void initializeProcessTable(void * entryPoint) {
-		ProcessTable * PTable;
-		PTable->counter = 0;
-		addProcess(entryPoint);
-	}
+void initializeProcessTable(void * entryPoint) {
+	ProcessTable * PTable;
+	PTable->counter = 0;
+	addProcess(entryPoint);
+}
 
 
 
-	Process * newProcess(void * entryPoint) {
-		Process * process;
-		process->entryPoint = entryPoint;
-		process->nOfPages = 0;
-		process->stack = alloc();
-		process->stack = fillStackFrame(entryPoint, process->stack);
-		return process;
-	}
+Process * newProcess(void * entryPoint) {
+	Process * process;
+	process->entryPoint = entryPoint;
+	process->nOfPages = 0;
+	process->stack = alloc();
+	process->stack = fillStackFrame(entryPoint, process->stack);
+	return process;
+}
 
-	void * toStackAddress(void * page) {
-		return (uint8_t*)page + PAGE_SIZE - 0x10;
-	}
+void * toStackAddress(void * page) {
+	return (uint8_t*)page + PAGE_SIZE - 0x10;
+}
 
-	static pid_t getPID(Process * process) {
-		return process->PID;
-	}
 
-	static pid_t getParentPID(Process * process) {
-		return process->ParentPID;
-	}
-
-	void * OSalloc(Process * process) {
-		return alloc();
-	}
+void * OSalloc(Process * process) {
+	return alloc();
+}
