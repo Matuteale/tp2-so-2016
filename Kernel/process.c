@@ -37,7 +37,7 @@ typedef struct StackFrame {
 
 
 void initializeProcessTable(void * entryPoint) {
-	ProcessTable * PTable;
+	ProcessTable * PTable = 0;
 	PTable->counter = 0;
 	addProcess(entryPoint);
 }
