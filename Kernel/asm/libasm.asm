@@ -15,7 +15,7 @@ GLOBAL userToKernel
 GLOBAL kernelToUser
 GLOBAL leave_int
 
-EXTERN checkIfSchedulerPaused
+extern checkIfSchedulerPaused
 extern keyboard_interrupt
 extern timer_interrupt
 extern syscall_handler
