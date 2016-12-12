@@ -68,7 +68,7 @@ void destroyMutexK(int key) {
 
 int mutexLockK(int key) {
 	uint8_t mutexLock = getMutex(key);
-	while(enterCritRegion(mutexLock)) {
+	while(enterCritRegion(&mutexLock)) {
 		yield();
 	}
 }
