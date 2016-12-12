@@ -5,9 +5,9 @@
 /*Muestra una lista de estructuras creadas*/
 void ipcs()
 {
-  char values[704];
   char * ipcs[64];
   char names[704];
+  char values[704];
   int i = 0;
   while(i < 64){
     ipcs[i] = &(names[i*11]);
