@@ -169,7 +169,7 @@ int removePhilosopher() {
 			mutexUnlock(mutex);
 			return 0;
 		}
-		mutexUnlock(mutex);
+		//mutexUnlock(mutex);
 	}
 	return 0;
 }
