@@ -67,9 +67,9 @@ void philosopher() {
 	int aux = 0;
 	while(1) {
 		if(philosopherCount > 1 && !addingPhil){
-			sys_sleep(200);
+			sys_sleep(2000);
 			takeForks(id);
-			sys_sleep(4000*(id+1));
+			sys_sleep(400*(id+1));
 			putForks(id);
 		}
 	}
