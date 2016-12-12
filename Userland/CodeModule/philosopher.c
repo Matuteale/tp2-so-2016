@@ -69,7 +69,7 @@ void philosopher() {
 		if(philosopherCount > 1 && !addingPhil){
 			sys_sleep(200);
 			takeForks(id);
-			sys_sleep(400);
+			sys_sleep(400*(id+1));
 			putForks(id);
 		}
 	}
@@ -191,10 +191,10 @@ int addPhilosopher() {
 			if(pid == -1) {
 				return -1;
 			}
-			mutexUnlock(mutex);
 			int aux = philosopherCount;
 			while(philosopherCount == aux);
 			addingPhil = 0;
+			mutexUnlock(mutex);
 			return 0;
 		}
 		mutexUnlock(mutex);
