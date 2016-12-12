@@ -36,27 +36,9 @@ typedef struct StackFrame {
 }StackFrame;
 
 
-void initializeProcessTable(void * entryPoint) {
-	ProcessTable * PTable = 0;
-	PTable->counter = 0;
-	addProcess(entryPoint);
-}
-
-
-
-Process * newProcess(void * entryPoint) {
-	Process * process = 0;
-	process->entryPoint = entryPoint;
-	process->nOfPages = 0;
-	process->stack = alloc();
-	process->stack = fillStackFrame(entryPoint, process->stack);
-	return process;
-}
-
 void * toStackAddress(void * page) {
 	return (uint8_t*)page + PAGE_SIZE - 0x10;
 }
-
 
 void * OSalloc(Process * process) {
 	return alloc();
