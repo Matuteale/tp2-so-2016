@@ -22,7 +22,7 @@ void ipcs()
     if(strcmp((char *) values[i], "msqQueue")){
       printString(values[i]);
     }else{
-      printDec(values[i]);
+      printDec(&values[i]);
     }
     printString("\n");
     i++;
