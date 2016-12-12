@@ -6,9 +6,10 @@ typedef struct {
 	int taken;
 } mutex_t;
 
-void initializeMutexes(); 
+void initializeMutexes();
 uint8_t getMutex(int key);
 int mutexLock(uint8_t * mutexLock);
 void mutexUnlock(uint8_t * mutex);
 void destroyMutexK(int key);
+int getUsedMutexes(char * names, int * values, int from);
 #endif

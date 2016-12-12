@@ -10,6 +10,18 @@
 mutex_t mutexes[10];
 int mutexes_counter = 0;
 
+int getUsedMutexes(char * names, int * values, int from){
+	char * mutexName = "Mutex";
+  for (int i = 0; i < 10; ++i){
+  	if(mutexes[i].key != 0){
+  	 	memcpy(&(names[from*11]), mutexName, 6);
+  	 	values[from] = mutexes[i].taken;
+  		from++;
+		}
+  }
+  return from;
+}
+
 void initializeMutexes() {
 	for(int id = 0 ; id < 10 ; id++) {
 		mutexes[id].key = 0;

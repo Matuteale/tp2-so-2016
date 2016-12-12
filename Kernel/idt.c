@@ -197,6 +197,7 @@ void listIPCs(char ** ipcs, char * names, int * values)
     values[j] = val;
     j++;
   }
+  i = getUsedMutexes(name, values, i);
   ipcs[i] = 0;
 }
 
