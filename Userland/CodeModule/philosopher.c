@@ -158,10 +158,8 @@ int removePhilosopher() {
 	}
 
 	while (1) {
-		//mutexLock(mutex);
+		mutexLock(mutex);
 		if (philosopherState[philosopherCount - 1] != EATING && philosopherState[0] != EATING) {
-			mutexLock(mutex);
-
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
@@ -169,7 +167,7 @@ int removePhilosopher() {
 			mutexUnlock(mutex);
 			return 0;
 		}
-		//mutexUnlock(mutex);
+		mutexUnlock(mutex);
 	}
 	return 0;
 }
@@ -191,10 +189,10 @@ int addPhilosopher() {
 			if(pid == -1) {
 				return -1;
 			}
+			mutexUnlock(mutex);
 			int aux = philosopherCount;
 			while(philosopherCount == aux);
 			addingPhil = 0;
-			mutexUnlock(mutex);
 			return 0;
 		}
 		mutexUnlock(mutex);
