@@ -68,6 +68,7 @@ cond_t * getCV(int key) {
             return &(condVars[id]);   // key already being used
         }
     }
+    return 0;
 }
 
 void waitCondVarK(int condVar, int mutex){
