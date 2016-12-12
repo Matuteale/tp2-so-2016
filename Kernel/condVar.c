@@ -109,15 +109,6 @@ int removeFromCondVarQueue(cond_t * condVar){
     return pid;
 }
 
-void broadcastCondVar(cond_t * condVar){
-    int notPreviouslyLocked = pauseScheduler();
-    int i,prevMax = condVar->size;
-    for (i = 0; i < prevMax;i++){
-        signalCondVarK(condVar);
-    }
-    if(notPreviouslyLocked) unpauseScheduler();
-}
-
 void destroyCVK(int key) {
     for(int id = 0 ; id < 30 ; id++) {
         if(condVars[id].key == key) {
