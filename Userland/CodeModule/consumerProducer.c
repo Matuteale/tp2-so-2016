@@ -67,7 +67,6 @@ void * producer(void *arg) {
 		while(count == BUFFER_SIZE) {
 			waitCondVar(empty, mutexp);
 		}
-		sys_sleep(500);
 		put(i);
 		char msg[15];
 		char strInt[10];
@@ -91,7 +90,6 @@ void * consumer(void * arg) {
 		while(count == 0) {
 			waitCondVar(fill, mutexp);
 		}
-		sys_sleep(500);
 		int tmp = get();
 		printf("Consume ");
 		char msg[15];
