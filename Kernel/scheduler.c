@@ -229,6 +229,13 @@ void initializeScheduler() {
 	scheduleNow();
 }
 
+void minimize(){
+	if(shellProcess != NULL && currentProcess->PID != shellProcess->PID){
+		currentProcess->foreground = 0;
+		shellProcess->foreground = 1;
+	}
+}
+
 
 pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	if(shellProcess != NULL && nullProcess != NULL && currentProcess->PID == shellProcess->PID){

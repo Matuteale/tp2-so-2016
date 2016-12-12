@@ -29,6 +29,7 @@ GLOBAL createMutex
 GLOBAL createCondVars
 GLOBAL destroyCondVars
 GLOBAL destroyMutex
+GLOBAL minimize
 
 %macro pushaq 0
     push rax
@@ -484,6 +485,19 @@ destroyMutex:
   mov rbp, rsp
            ;Se usa la convecion de linux
   mov rax, 0x25 ;Se hace la llamada para crear un proceso
+  mov rdx, rdi
+  mov rcx, rsi
+  int 0x80
+
+  mov rsp, rbp
+  pop rbp
+  ret
+
+minimize:
+  push rbp
+  mov rbp, rsp
+           ;Se usa la convecion de linux
+  mov rax, 0x26 ;Se hace la llamada para crear un proceso
   mov rdx, rdi
   mov rcx, rsi
   int 0x80

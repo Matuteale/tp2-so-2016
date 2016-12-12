@@ -29,5 +29,6 @@ int * getWaitingMilis();
 void fillWaitings();
 
 void wakeOrContinueSleep();
+void minimize();
 
 #endif
