@@ -231,7 +231,7 @@ void initializeScheduler() {
 
 
 pid_t addProcess(void * entry_point, char * name, int isBackground) {
-	if(shellProcess != NULL && nullProcess ¡= NULL && currentProcess->PID == shellProcess->PID){
+	if(shellProcess != NULL && nullProcess != NULL && currentProcess->PID == shellProcess->PID){
 		Process * auxProcess = currentProcess;
 		do{auxProcess = auxProcess->next;}
 		while(!strcmp(auxProcess->name, name) && currentProcess->PID != auxProcess->PID);
