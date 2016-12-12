@@ -184,8 +184,6 @@ int addPhilosopher() {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
 			pid = sys_addProcess("Philo", philosopher, 1);
-			printString("PID ");
-			printDec(pid);
 			while(philosopherPID[i] != 0) {i++;}
 			philosopherPID[i] = pid;
 			if(pid == -1) {
