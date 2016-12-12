@@ -116,4 +116,5 @@ void * consumer(void * arg) {
 		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); destroyMutex(mutexp); destroyCondVars(empty); destroyCondVars(fill); sys_killProcess(currentPID); break;
 		default: commandControl = 0; break;
  	}
+ 	commandControl = 0;
 }
