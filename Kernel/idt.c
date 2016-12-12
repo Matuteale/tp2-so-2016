@@ -222,9 +222,9 @@ int syscall_handler(uint64_t arg_3, uint64_t arg_2, uint64_t arg_1, uint64_t sys
     case 0x11: initalizeCVs();break;
     case 0x12: waitCondVarK((int) arg_1, (int) arg_2);break;
     case 0x13: signalCondVarK((int) arg_1);break;
-    case 0x14: openMessageQ(arg_1);ncPrint(((MessageQ *)arg_2)->name);break;
-    case 0x15: openMessageQ(arg_1);break;
-    case 0x16: closeMessageQ(arg_1);break;
+    case 0x14: openMessageQ((char *) arg_1);break;
+    case 0x15: openMessageQ((char *) arg_1);break;
+    case 0x16: closeMessageQ((char *) arg_1);break;
     case 0x17: sendMessageQ((char *) arg_1, (char *) arg_2);break;
     case 0x18: receiveMessageQ((char *) arg_1, (char *) arg_2);break;
     case 0x19: getOpenedMessageQs((char *) arg_1, (char *) arg_2, 0);break;
