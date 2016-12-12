@@ -41,10 +41,8 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	//sys_sleep(600);
 	 	render();
 	 	philControl = getChar();
-	 	//get_input(&philControl);
 	 	printString(&philControl);
 	 	switch(philControl) {
 	 		case 'q': killPhilosophers(); return; break;
@@ -53,7 +51,6 @@ void diningPhilosophers() {
 	 		case 'p': printPIDs(); break;
 	 	}
 	 	philControl = 0;
-	 	// clearscreen();
 	 }
 }
 
@@ -70,55 +67,74 @@ void philosopher() {
 	int id = philosopherCount++;
 	int aux = 0;
 	while(1) {
-		// if(id == 3 + aux || id == 3 - aux) {
 		if(philosopherCount > 1 && !addingPhil){
-		//sys_sleep(400);
 			takeForks(id);
-		//sys_sleep(400);
+			while(addingPhil);
 			putForks(id);
 		}
 	}
 }
 
 void takeForks(int id) {
+	while(addingPhil);
 	if(id == 8) printString("Se bugeo");
+	while(addingPhil);
 	mutexLock(mutex);
+	while(addingPhil);
 	philosopherState[id] = HUNGRY;
+	while(addingPhil);
 	try(id);
+	while(addingPhil);
 	if(philosopherState[id] == EATING) {
+		while(addingPhil);
 		mutexUnlock(mutex);
+		while(addingPhil);
 	} else {
+		while(addingPhil);
 		while(philosopherState[id] != EATING) {
-			// printString("Va a esperar ");
-			// printDec(id);
+			while(addingPhil);
 			waitCondVar(canEat[id], mutex);
+			while(addingPhil);
 			try(id);
+			while(addingPhil);
 			if(philosopherState[id] == EATING) {
+				while(addingPhil);
 				mutexUnlock(mutex);
+				while(addingPhil);
 			}
 		}
 	}
 }
 
 void putForks(int id) {
+	while(addingPhil);
 	mutexLock(mutex);
+	while(addingPhil);
 	philosopherState[id] = THINKING;
+	while(addingPhil);
 	forks[left(id)] = -1;
+	while(addingPhil);
 	forks[id] = -1;
+	while(addingPhil);
 	try(left(id));
+	while(addingPhil);
 	try(right(id));
+	while(addingPhil);
 	mutexUnlock(mutex);
+	while(addingPhil);
 }
 
 void try(int id) {
 	if (philosopherState[id] == HUNGRY && philosopherState[left(id)] != EATING && philosopherState[right(id)] != EATING) {
+		while(addingPhil);
 		philosopherState[id] = EATING;
-		// render();
+		while(addingPhil);
 		forks[left(id)] = id;
+		while(addingPhil);
 		forks[id] = id;
-		// printString("Va a signalear   ");
-		// printDec(id);
+		while(addingPhil);
 		signalCondVar(canEat[id]);
+		while(addingPhil);
 	}
 
 }
@@ -190,7 +206,7 @@ int addPhilosopher() {
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
-			pid = sys_addProcess("philo", philosopher, 1);
+			pid = sys_addProcess("Philo", philosopher, 1);
 			printString("PID ");
 			printDec(pid);
 			while(philosopherPID[i] != 0) {i++;}
