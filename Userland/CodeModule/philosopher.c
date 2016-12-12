@@ -203,7 +203,6 @@ int addPhilosopher() {
 int philosopherInit() {
 
 	int i;
-	int pid;
 	initCondVar();
 	philosopherCount = 0;
 	mutex = 0;

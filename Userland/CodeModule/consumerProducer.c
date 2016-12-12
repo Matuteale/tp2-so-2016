@@ -84,7 +84,6 @@ void * producer(void *arg) {
 }
 
 void * consumer(void * arg) {
-	int i;
 	while(1) {
 		mutexLock(mutexp);
 		while(count == 0) {
