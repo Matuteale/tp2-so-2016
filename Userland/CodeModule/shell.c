@@ -131,7 +131,12 @@ void philosophers()
 
 void prodCons()
 {
-	sys_addProcess("mainPC", mainProdCons, 0);
+	int background;
+
+	printString("Ingrese 1 si lo desea correr en background y 0 de lo contrario: ");
+	if(getInt(&background, 1) == INPUTERROR)
+		INPUT_ERROR_EXIT;
+	sys_addProcess("mainPC", mainProdCons, background);
 	in_special_command = 1;
 }
 
