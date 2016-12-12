@@ -41,10 +41,8 @@ void diningPhilosophers() {
  	}
  	char philControl = 0;
 	 while(1) {
-	 	sys_sleep(500);
 	 	render();
-	 	get_input(&philControl);
-	 	//philControl = getChar();
+	 	philControl = getChar();
 	 	printString(&philControl);
 	 	switch(philControl) {
 	 		case 'q': killPhilosophers(); return; break;
@@ -131,6 +129,7 @@ void render() {
 	clearscreen();
 	printString("Press q to quit or m to minimize\n");
 	printString("Press s to add a philosopher or w to remove one\n");
+	printString("Press space to refresh view\n");
 	for(int i = 0; i < philosopherCount; i++) {
 		printString("Philosopher ");
 		printDec(i);
