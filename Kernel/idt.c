@@ -192,7 +192,7 @@ void listIPCs(char ** ipcs, char * names, char * values)
 {
   int i = getOpenedMessageQs(names, values, 0);
   i = getUsedMutexes(names, values, i);
-  i = getUsedCondVars(names, values, i);
+  //i = getUsedCondVars(names, values, i);
   ipcs[i] = 0;
 }
 
