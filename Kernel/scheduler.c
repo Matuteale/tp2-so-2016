@@ -16,8 +16,6 @@ Process process[16];
 
 Process * currentProcess = NULL;
 
-// Process * freeProcess = NULL;
-
 Process * nilProcess = NULL;
 
 Process * shellProcess = NULL;
@@ -124,7 +122,6 @@ void setNextProcess(){
 		do {
 			auxProcess = current;
 			current = current->next;
-			//ncPrintDec(current->state);
 			if(current->state == DYING){
 				Process * aux = current;
 				current = current->next;
@@ -234,23 +231,14 @@ void initializeScheduler() {
 
 
 pid_t addProcess(void * entry_point, char * name, int isBackground) {
-	//ncPrint("EntryPoint: ");
-	//ncPrintHex(entry_point);
-	//ncNewline();
-
 	Process * new_process = alloc();
 
-	//new_process->stack = stackkkk;
   new_process->stack = mem_alloc();
 	new_process->stack = fillStackFrame(entry_point, (void *) new_process->stack + STACKKKK);
 
 	if(freeProcesses == 0) {
 		return -1;
 	}
-
-	//new_process = freeProcess;
-
-	//freeProcess = freeProcess->next_freeProcess;
 
 	new_process->PID = getNewPid();
 	new_process->entryPoint = entry_point;
@@ -270,8 +258,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	} else {
 
-		// ncPrint("Agrego el nuevo process");
-		// ncNewline();
 		if(currentProcess->PID == nilProcess->PID){
 			new_process->next = currentProcess;
 			currentProcess->next = new_process;
@@ -282,8 +268,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 		}
 
 		if(!isBackground){
-			// ncPrint("nobackground");
-			// ncNewline();
 			currentProcess->foreground = 0;
 			if(currentProcess->PID == shellProcess->PID){
 				currentProcess->state = BLOCKED;
@@ -291,8 +275,6 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 			new_process->state = READY;
 			new_process->foreground = 1;
 		}else{
-			// ncPrint("isbackground");
-			// ncNewline();
 			new_process->state = READY;
 			new_process->foreground = 0;
 		}
@@ -301,42 +283,15 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 
 	--freeProcesses;
 
-	// ncNewline();
-	// ncPrint("EntryPoint: ");
-	// ncPrintHex(new_process->entryPoint);
-	// ncNewline();
-	// ncPrint("stack: ");
-	// ncPrintHex(new_process->stack);
-	// ncNewline();
-	// ncPrint("next: ");
-	// ncPrintDec(new_process->next->PID);
-	// ncNewline();
-	 ncPrint("Agrego en sched PID: ");
-	 ncPrintDec(new_process->PID);
-	 ncNewline();
-
-	//clearscreen();
-
 	return new_process->PID;
 
 }
 
 void freeProcess(pid_t pid) {
-	ncPrint("saco el: ");
-	ncPrintDec(pid);
-	ncPrint("El current es: ");
-	ncPrint(currentProcess->name);
-	ncPrintDec(currentProcess->state);
-	ncPrintDec(currentProcess->PID);
 	Process * prevProcess = currentProcess;
 	Process * processToRemove;
 	while(prevProcess->next->PID != pid) {
-		ncPrint("Paso por: ");
-	ncPrintDec(prevProcess->next->PID);
-	ncNewline();
-
 		prevProcess = prevProcess->next;
-		ncPrint("AYA");
 	}
 	processToRemove = prevProcess->next;
 	prevProcess->next = processToRemove->next;
@@ -350,9 +305,6 @@ Process * getCurrentProcess()
 }
 
 int removeProcess(pid_t pid) {
-	// resetTarget();
-	ncPrint("Process to remove ");
-	ncPrintDec(pid);
 	if(pid == nilProcess->PID || pid == shellProcess->PID) return -1;
 	Process * process = currentProcess;
 	Process * processAux = NULL;
@@ -365,8 +317,6 @@ int removeProcess(pid_t pid) {
 	}
 	process->state = DYING;
 	process->foreground = 0;
-
-	//clearscreen();
 	return processAux->PID;
 }
 

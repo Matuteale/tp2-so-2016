@@ -112,16 +112,9 @@ int create_process(void * entryPoint, char * name, int isBackground)
   }
   Process * process = getCurrentProcess();
   Process * processAux = process;
-  // ncPrintDec(process->foreground);
-  // ncPrint(" - ");
   while(process->next->PID != processAux->PID){
-    // ncPrintDec(process->next->foreground);
-    // ncPrint(" - ");
     process = process->next;
   }
-  // ncPrint("PID PLS: ");
-  // ncPrintDec(pid);
-  // ncNewline();
   return pid;
 }
 
@@ -174,19 +167,6 @@ void getActivePID(int * PID)
   Process * process = getCurrentProcess();
   PID[0] = process->PID;
 }
-
-
-// void initCondVarU(cond_t * condVar, int pid) {
-
-// }
-
-// void waitCondVarU(cond_t * condVar, int mutex) {
-
-// }
-
-// void signalCondVarU(cond_t * condVar) {
-
-// }
 
 void sleepProcess(long milis){
   Process * process = getCurrentProcess();

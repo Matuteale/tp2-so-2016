@@ -12,8 +12,6 @@ static char * msgQNames[MAX_QUEUES];
 void destroyMessageQ(MessageQ * msgQ);
 
 int getOpenedMessageQs(char * names){
-  openMessageQ("hola");
-  openMessageQ("chau");
   int j = 0;
   for (int i = 0; i < MAX_QUEUES; ++i)
   {
@@ -48,7 +46,6 @@ void openMessageQ(char * name){
       auxQueue->last = 0;
       msgQNames[i] = name;
       queue[i] = auxQueue;
-      // ncPrint("Opened: ");
       ncPrint(auxQueue->name);
       return;
     }
@@ -73,7 +70,6 @@ void receiveMessageQ(char * name, char * ret){
     int size = 0;
     while((node->msg)[size++] != 0);
     memcpy(ret, node->msg, size);
-    // ncPrint("received");
     return;
   }
   return;
@@ -89,8 +85,6 @@ MessageQ * findMessageQ(char * name){
 }
 
 void sendMessageQ(char * name, char * msg){
-  // ncPrint(" MQ: ");
-  // ncPrint(name);
   MessageQ * msgQ = findMessageQ(name);
   if(msgQ == 0) return;
 
@@ -102,8 +96,6 @@ void sendMessageQ(char * name, char * msg){
   if(msgQ->first == 0){
     msgQ->first = newMsg;
     msgQ->last = newMsg;
-    // ncPrint("sended");
-    // ncPrintDec(newMsg->next);
   }
   else{
     msgQ->last->next = newMsg;
