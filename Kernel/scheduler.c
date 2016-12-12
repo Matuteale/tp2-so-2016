@@ -242,7 +242,7 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 	if(shellProcess != NULL && nullProcess != NULL && currentProcess->PID == shellProcess->PID){
 		Process * auxProcess = currentProcess;
 		do{auxProcess = auxProcess->next;}
-		while(!strcmp(&(auxProcess->name), name) && currentProcess->PID != auxProcess->PID);
+		while(!strcmp(auxProcess->name, name) && currentProcess->PID != auxProcess->PID);
 		if(currentProcess->PID != auxProcess->PID && auxProcess->state == READY){
 			if(isBackground){
 				return;
