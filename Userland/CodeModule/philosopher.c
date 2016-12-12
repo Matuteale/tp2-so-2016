@@ -69,7 +69,7 @@ void philosopher() {
 		if(philosopherCount > 1 && !addingPhil){
 			sys_sleep(200);
 			takeForks(id);
-			sys_sleep(400*(id+1));
+			sys_sleep(4000*(id+1));
 			putForks(id);
 		}
 	}
