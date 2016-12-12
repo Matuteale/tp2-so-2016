@@ -34,4 +34,6 @@ void minimize();
 void pauseScheduler();
 void unpauseScheduler();
 
+void initializeScheduler();
+
 #endif

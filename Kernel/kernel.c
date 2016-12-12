@@ -9,6 +9,8 @@
 #include <idt.h>
 #include <video.h>
 #include <unistd.h>
+#include <scheduler.h>
+#include <memManager.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
