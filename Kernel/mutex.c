@@ -11,7 +11,7 @@
 mutex_t mutexes[10];
 int mutexes_counter = 0;
 
-int getUsedMutexes(char * names, int * values, int from){
+int getUsedMutexes(char * names, char * values, int from){
 	char * valAux;
 	const char * mutexName = "Mutex";
 	int size = 0;
@@ -20,10 +20,8 @@ int getUsedMutexes(char * names, int * values, int from){
   	 	memcpy(&(names[from*11]), mutexName, 6);
   	 	char val[11];
   	 	itoa(mutexes[i].taken, &(val[0]));
-  	 	while(valAux[size] != '\0'){size++;}
-  	 	ncPrintDec(from);
-  	 	memcpy(&(values[from*11]), val, size);
-  	 	ncPrintDec(values[from*11]);
+  	 	while(valAux[size] != 0){size++;}
+  	 	memcpy(&(values[from*11]), valAux, size);
   		from++;
   		size = 0;
 		}

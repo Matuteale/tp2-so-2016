@@ -12,7 +12,7 @@
 cond_t condVars[30];
 int condVars_counter;
 
-int getUsedCondVars(char * names, int * values, int from){
+int getUsedCondVars(char * names, char * values, int from){
     char * condVarName = "CondVar";
     const char * valAux;
     int size = 0;
