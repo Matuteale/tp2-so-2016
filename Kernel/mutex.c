@@ -14,17 +14,15 @@ int mutexes_counter = 0;
 int getUsedMutexes(char * names, int * values, int from){
 	char * valAux;
 	const char * mutexName = "Mutex";
-	char c = '\0';
 	int size = 0;
   for (int i = 0; i < 10; ++i){
   	if(mutexes[i].key != 0){
   	 	memcpy(&(names[from*11]), mutexName, 6);
   	 	char val[11];
-  	 	valAux = itoa(mutexes[i].taken, &val);
+  	 	valAux = itoa(mutexes[i].taken, &(val[0]));
   	 	while(valAux[size] != '\0'){size++;}
   	 	ncPrintDec(size);
   	 	memcpy(&(values[from*11]), valAux, size);
-  	 	memcpy(&(values[from*11 + size]), &c, 1);
   	 	ncPrint(&(values[from*11]));
   		from++;
   		size = 0;
