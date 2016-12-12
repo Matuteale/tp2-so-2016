@@ -15,7 +15,7 @@ int getUsedMutexes(char * names, int * values, int from){
   for (int i = 0; i < 10; ++i){
   	if(mutexes[i].key != 0){
   	 	memcpy(&(names[from*11]), mutexName, 6);
-  	 	values[from] = 1;
+  	 	values[from] = mutexes[i].taken;
   		from++;
 		}
   }
