@@ -74,12 +74,10 @@ void killProcess(){
 
 void run_ps(){
 	sys_addProcess("PS", ps, 0);
-	in_special_command = 1;
 }
 
 void run_ipcs(){
 	sys_addProcess("IPCS", ipcs, 0);
-	in_special_command = 1;
 }
 
 /* interpreta el comando ingresado */
