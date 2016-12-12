@@ -312,10 +312,12 @@ pid_t addProcess(void * entry_point, char * name, int isBackground) {
 }
 
 void freeProcess(Process * process, Process * prevProcess) {
-	prevProcess->next = process->next;
-	freeMem(process);
-	ncPrint("freeing");
-	freeProcesses++;
+	if(process->state == DYING){
+		prevProcess->next = process->next;
+		freeMem(process);
+		ncPrint("freeing");
+		freeProcesses++;
+	}
 }
 
 Process * getCurrentProcess()
