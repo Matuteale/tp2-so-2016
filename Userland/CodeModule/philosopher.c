@@ -131,7 +131,7 @@ void render() {
 	clearscreen();
 	printString("Press q to quit or m to minimize\n");
 	printString("Press s to add a philosopher or w to remove one\n");
-	printString("Press space to refresh view\n");
+	printString("Press space to refresh view, hold it to refresh it faster\n");
 	for(int i = 0; i < philosopherCount; i++) {
 		printString("Philosopher ");
 		printDec(i);
