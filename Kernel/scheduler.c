@@ -186,6 +186,7 @@ int * getWaitingMilis(){
 
 
 void changeProcessState(pid_t pid, ProcessState state) {
+	Process * auxProcess = currentProcess->next;
 	while(auxProcess->PID != pid && currentProcess->PID != auxProcess->PID) {
 		auxProcess = auxProcess->next;
 	}
