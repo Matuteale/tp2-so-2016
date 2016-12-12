@@ -50,8 +50,8 @@ void diningPhilosophers() {
 	 		case 's': removePhilosopher(); break;
 	 		case 'p': printPIDs(); break;
 	 		case 'm': minimize(); break;
+	 		default: philControl = 0; break;
 	 	}
-	 	philControl = 0;
 	 }
 }
 

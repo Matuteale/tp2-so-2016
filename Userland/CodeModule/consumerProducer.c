@@ -115,6 +115,6 @@ void * consumer(void * arg) {
 	switch(commandControl) {
 		case 'm': minimize(); break;
 		case 'q': sys_killProcess(producerPID); sys_killProcess(consumerPID); sys_getActivePID(&currentPID); closeMessageQ("pcMQ"); sys_killProcess(currentPID); break;
-		default: break;
+		default: commandControl = 0; break;
  	}
 }
