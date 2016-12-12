@@ -39,7 +39,7 @@ void openMessageQ(char * name){
 
   for (int i = 0; i < MAX_QUEUES; ++i){
     if(msgQNames[i] == 0){
-      MessageQ * auxQueue = myMalloc(sizeof(MessageQ));
+      MessageQ * auxQueue = alloc();
       auxQueue->id = i;
       auxQueue->name = name;
       auxQueue->dead = 0;
@@ -88,7 +88,7 @@ void sendMessageQ(char * name, char * msg){
   MessageQ * msgQ = findMessageQ(name);
   if(msgQ == 0) return;
 
-  Msg * newMsg = myMalloc(sizeof(Msg));
+  Msg * newMsg = alloc();
 
   memcpy(newMsg->msg, msg, 20);
   (newMsg->msg)[20] = 0;
