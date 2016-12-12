@@ -23,6 +23,7 @@ int getUsedCondVars(char * names, int * values, int from){
             valAux = itoa(condVars[i].size, val);
             while(valAux[size] != 0){size++;}
             memcpy(&(values[from*11]), valAux, size);
+            ncPrint(&values[from*11]);
             from++;
             size = 0;
         }
