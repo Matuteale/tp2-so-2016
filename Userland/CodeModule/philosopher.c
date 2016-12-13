@@ -223,13 +223,6 @@ int philosopherInit() {
 	for(i = 0 ; i < MAX_PHILOSPHERS ; i++) {
 		philosopherPID[i] = 0;
 	}
-	for(i = 0 ; i < INITIALNUMBER ; i++) {
-		canEat[i] = condition_key++;
-		createCondVars(canEat[i]);
-		if(canEat[i] < 0) {
-			return -1;
-		}
-	}
 	for(i = 0 ; i < INITIALNUMBER ; i ++) {
 		addPhilosopher();
 
