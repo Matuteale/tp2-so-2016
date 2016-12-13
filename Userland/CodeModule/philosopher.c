@@ -243,6 +243,7 @@ void killPhilosophers() {
 		sys_killProcess(philosopherPID[i]);
 		destroyCondVars(canEat[i]);
 	}
+	destroyMutex(mutex);
 	sys_getActivePID(&i);
 	sys_killProcess(i);
 	while(1);
