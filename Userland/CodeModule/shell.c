@@ -119,7 +119,6 @@ void help()
 void philosophers()
 {
 	int background;
-
 	printString("Ingrese 1 si lo desea correr en background o 0 de lo contrario \nluego toque space para mostrar la vista: ");
 	if(getInt(&background, 1) == INPUTERROR)
 		INPUT_ERROR_EXIT;
