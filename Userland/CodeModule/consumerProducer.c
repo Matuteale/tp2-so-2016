@@ -33,7 +33,7 @@ int get() {
 	return tmp;
 }
 
-int empty = 1, fill = 2;
+int empty = 20, fill = 21;
 int mutexp;
 
 void mainProdCons() {

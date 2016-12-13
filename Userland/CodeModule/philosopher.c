@@ -165,6 +165,7 @@ int removePhilosopher() {
 			forks[philosopherCount - 1] = -1;
 			sys_killProcess(philosopherPID[philosopherCount - 1]);
 			philosopherPID[philosopherCount - 1] = 0;
+			destroyCondVars(canEat[philosopherCount - 1]);
 			philosopherCount--;
 			mutexUnlock(mutex);
 			return 0;
@@ -183,6 +184,8 @@ int addPhilosopher() {
 	while(1) {
 		mutexLock(mutex);
 		if (philosopherState[0] != EATING) {
+			canEat[philosopherCount] = condition_key++;
+			createCondVars(canEat[philosopherCount]);
 			pid = sys_addProcess("Philo", philosopher, 1);
 			while(philosopherPID[i] != 0) {i++;}
 			philosopherPID[i] = pid;
@@ -238,6 +241,7 @@ void killPhilosophers() {
 	int i = 0;
 	for(int i = 0; i < philosopherCount; i++) {
 		sys_killProcess(philosopherPID[i]);
+		destroyCondVars(canEat[i]);
 	}
 	sys_getActivePID(&i);
 	sys_killProcess(i);
