@@ -56,7 +56,6 @@ void mainProdCons() {
 		if(msgBuffer[0] != 0){
 			printString("\n");
 		}
-		printString("hohoohohoh");
 		msgBuffer[0] = 0;
 	}
 }
